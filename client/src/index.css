@@ -1,0 +1,8 @@
+.ordered-items-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    overflow: auto;
+    width: 90vw;
+    height: 70vh;
+}
