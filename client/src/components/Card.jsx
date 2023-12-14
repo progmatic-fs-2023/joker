@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './Card.css';
+import { PropTypes } from 'prop-types';
 import QuantitySelector from './QuantitySelector';
 
-const Card = ({ stockItem, addToCart }) => {
+function Card({ stockItem, addToCart }) {
   const { id, image, name, latin, quantity, packing, unitPrice } = stockItem;
 
   const [qty, setQuantity] = useState(0);
@@ -23,12 +24,25 @@ const Card = ({ stockItem, addToCart }) => {
         <p className="card-price">{`${unitPrice} Ft`}</p>
         <QuantitySelector onQuantityChange={handleQuantityChange} />
         <p>{packing}</p>
-        <button className="card-button" onClick={() => addToCart(id, qty)}>
+        <button type="button" className="card-button" onClick={() => addToCart(id, qty)}>
           Kosárba
         </button>
       </div>
     </div>
   );
+}
+
+Card.propTypes = {
+  stockItem: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    latin: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    packing: PropTypes.string.isRequired,
+    unitPrice: PropTypes.number.isRequired,
+  }).isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 export default Card;

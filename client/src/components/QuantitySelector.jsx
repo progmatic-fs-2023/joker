@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const QuantitySelector = ({ onQuantityChange }) => {
+function QuantitySelector({ onQuantityChange }) {
   const [qty, setQuantity] = useState(0);
 
   const handleInputChange = (e) => {
@@ -27,7 +28,9 @@ const QuantitySelector = ({ onQuantityChange }) => {
 
   return (
     <div className="quantity-selector">
-      <button onClick={decreaseQuantity}>-</button>
+      <button type="button" onClick={decreaseQuantity}>
+        -
+      </button>
       <input
         className="quantity-input"
         type="text"
@@ -35,9 +38,15 @@ const QuantitySelector = ({ onQuantityChange }) => {
         onFocus={handleInputFocus}
         onChange={handleInputChange}
       />
-      <button onClick={increaseQuantity}>+</button>
+      <button type="button" onClick={increaseQuantity}>
+        +
+      </button>
     </div>
   );
+}
+
+QuantitySelector.propTypes = {
+  onQuantityChange: PropTypes.func.isRequired,
 };
 
 export default QuantitySelector;
