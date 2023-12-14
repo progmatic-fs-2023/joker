@@ -1,98 +1,98 @@
 // const userOrder = []
 const userOrder = [
   {
-    "orderID": "234343-643svsd",
-    "orderedItems": [
+    orderID: '234343-643svsd',
+    orderedItems: [
       {
-        "image": "https://picsum.photos/100/150?random=1",
-        "name": "Szurokfű",
-        "quantity": 4,
-        "packing": "g",
-        "unitPrice": 470
+        image: 'https://picsum.photos/100/150?random=1',
+        name: 'Szurokfű',
+        quantity: 4,
+        packing: 'g',
+        unitPrice: 470,
       },
       {
-        "image": "https://picsum.photos/100/150?random=2",
-        "name": "Kakukkfű",
-        "quantity": 2,
-        "packing": "g",
-        "unitPrice": 562
+        image: 'https://picsum.photos/100/150?random=2',
+        name: 'Kakukkfű',
+        quantity: 2,
+        packing: 'g',
+        unitPrice: 562,
       },
       {
-        "image": "https://picsum.photos/100/150?random=3",
-        "name": "Szegfűszeg",
-        "quantity": 12,
-        "packing": "g",
-        "unitPrice": 190
+        image: 'https://picsum.photos/100/150?random=3',
+        name: 'Szegfűszeg',
+        quantity: 12,
+        packing: 'g',
+        unitPrice: 190,
       },
       {
-        "image": "https://picsum.photos/100/150?random=4",
-        "name": "Citromfű",
-        "quantity": 7,
-        "packing": "g",
-        "unitPrice": 497
+        image: 'https://picsum.photos/100/150?random=4',
+        name: 'Citromfű',
+        quantity: 7,
+        packing: 'g',
+        unitPrice: 497,
       },
       {
-        "image": "https://picsum.photos/100/150?random=5",
-        "name": "Ánizs",
-        "quantity": 5,
-        "packing": "g",
-        "unitPrice": 533
+        image: 'https://picsum.photos/100/150?random=5',
+        name: 'Ánizs',
+        quantity: 5,
+        packing: 'g',
+        unitPrice: 533,
       },
       {
-        "image": "https://picsum.photos/100/150?random=1",
-        "name": "Bíbor kasvirág",
-        "quantity": 4,
-        "packing": "g",
-        "unitPrice": 470
+        image: 'https://picsum.photos/100/150?random=1',
+        name: 'Bíbor kasvirág',
+        quantity: 4,
+        packing: 'g',
+        unitPrice: 470,
       },
       {
-        "image": "https://picsum.photos/100/150?random=2",
-        "name": "Fekete bodza",
-        "quantity": 2,
-        "packing": "g",
-        "unitPrice": 562
+        image: 'https://picsum.photos/100/150?random=2',
+        name: 'Fekete bodza',
+        quantity: 2,
+        packing: 'g',
+        unitPrice: 562,
       },
       {
-        "image": "https://picsum.photos/100/150?random=3",
-        "name": "Közönséges cickafark",
-        "quantity": 12,
-        "packing": "g",
-        "unitPrice": 190
+        image: 'https://picsum.photos/100/150?random=3',
+        name: 'Közönséges cickafark',
+        quantity: 12,
+        packing: 'g',
+        unitPrice: 190,
       },
       {
-        "image": "https://picsum.photos/100/150?random=4",
-        "name": "Nagy csalán",
-        "quantity": 7,
-        "packing": "g",
-        "unitPrice": 497
+        image: 'https://picsum.photos/100/150?random=4',
+        name: 'Nagy csalán',
+        quantity: 7,
+        packing: 'g',
+        unitPrice: 497,
       },
       {
-        "image": "https://picsum.photos/100/150?random=5",
-        "name": "Édeskömény",
-        "quantity": 5,
-        "packing": "g",
-        "unitPrice": 533
+        image: 'https://picsum.photos/100/150?random=5',
+        name: 'Édeskömény',
+        quantity: 5,
+        packing: 'g',
+        unitPrice: 533,
       },
       {
-        "image": "https://picsum.photos/100/150?random=1",
-        "name": "Fehér fagyöngy",
-        "quantity": 4,
-        "packing": "g",
-        "unitPrice": 470
+        image: 'https://picsum.photos/100/150?random=1',
+        name: 'Fehér fagyöngy',
+        quantity: 4,
+        packing: 'g',
+        unitPrice: 470,
       },
       {
-        "image": "https://picsum.photos/100/150?random=2",
-        "name": "Fekete nadálytő",
-        "quantity": 2,
-        "packing": "g",
-        "unitPrice": 562
-      }
+        image: 'https://picsum.photos/100/150?random=2',
+        name: 'Fekete nadálytő',
+        quantity: 2,
+        packing: 'g',
+        unitPrice: 562,
+      },
     ],
-    "paid": "true",
-    "delivered": "false",
-    "currencyCode": 1
-  }
-]
+    paid: 'true',
+    delivered: 'false',
+    currencyCode: 1,
+  },
+];
 
 // INSERT INTO herbs_demo (name, image, stock_quantity, packing, unit_price) VALUES
 // ('Szurokfű', 'https://picsum.photos/100/150?random=1', 250, 'g', 470),
@@ -108,4 +108,4 @@ const userOrder = [
 // ('Fehér fagyöngy', 'https://picsum.photos/100/150?random=11', 480, 'g', 90),
 // ('Fekete nadálytő', 'https://picsum.photos/100/150?random=12', 360, 'g', 760);
 
-export default userOrder
+export default userOrder;
