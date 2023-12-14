@@ -1,11 +1,8 @@
 import './App.css';
-import { useEffect, useState } from 'react';
-import { API_URL } from './constants';
+
 import ProductList from './components/ProductList';
 
 function App() {
-  const [isConnect, setIsConnect] = useState(false);
-
   // Sample Array with products
 
   const stockList = [
@@ -67,25 +64,10 @@ function App() {
     },
   ];
 
-  useEffect(() => {
-    fetch(`${API_URL}`).then((response) => {
-      if (response.ok) setIsConnect(true);
-    });
-  }, []);
-
-  useEffect(() => {
-    console.log(isConnect);
-  }, []);
-
   return (
     <div>
       WEBSHOP
-      {/* <ul>
-        <li> */}
       <ProductList stockList={stockList} />
-      {/* {isConnect ? '✅' : '️❗️'} Connect to backend {!isConnect && 'failed'}
-        </li>
-      </ul> */}
     </div>
   );
 }
