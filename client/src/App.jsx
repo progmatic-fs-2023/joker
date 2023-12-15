@@ -2,6 +2,7 @@ import './App.css';
 import SuccessfulOrder from './pages/SuccessfulOrder';
 import userOrder from '../order';
 import ProductList from './components/ProductList';
+import UserForm from './pages/UserForm';
 
 function App() {
   // Sample Array with products
@@ -72,6 +73,7 @@ function App() {
       <ProductList stockList={stockList} />
       <hr />
       <SuccessfulOrder orderID={order.orderID} orderList={order.orderedItems} currencyCode={order.currencyCode} />
+      <UserForm />
     </div>
   );
 }
