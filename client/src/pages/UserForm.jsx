@@ -1,6 +1,6 @@
 import ShippingForm from "../components/ShippingForm";
 
-const UserForm = () =>{
+function UserForm() {
     return <ShippingForm/>;
 }
 
