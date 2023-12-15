@@ -1,6 +1,7 @@
 import './App.css';
 
 import ProductList from './components/ProductList';
+import UserForm from './pages/UserForm';
 
 function App() {
   // Sample Array with products
@@ -68,6 +69,7 @@ function App() {
     <div>
       WEBSHOP
       <ProductList stockList={stockList} />
+      <UserForm />
     </div>
   );
 }
