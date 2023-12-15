@@ -1,7 +1,7 @@
-import ShippingForm from "../components/ShippingForm";
+import ShippingForm from '../components/ShippingForm';
 
 function UserForm() {
-    return <ShippingForm/>;
+  return <ShippingForm />;
 }
 
-export default ShippingForm
+export default ShippingForm;
