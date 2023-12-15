@@ -1,0 +1,96 @@
+const userOrder = [
+  {
+    orderID: '234343-643svsd',
+    orderedItems: [
+      {
+        image: 'https://picsum.photos/300/200?random=1',
+        name: 'Szurokfű',
+        quantity: 4,
+        packing: 'g',
+        unitPrice: 470,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=2',
+        name: 'Kakukkfű',
+        quantity: 2,
+        packing: 'g',
+        unitPrice: 562,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=3',
+        name: 'Szegfűszeg',
+        quantity: 12,
+        packing: 'g',
+        unitPrice: 190,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=4',
+        name: 'Citromfű',
+        quantity: 7,
+        packing: 'g',
+        unitPrice: 497,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=5',
+        name: 'Ánizs',
+        quantity: 5,
+        packing: 'g',
+        unitPrice: 533,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=6',
+        name: 'Bíbor kasvirág',
+        quantity: 4,
+        packing: 'g',
+        unitPrice: 470,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=7',
+        name: 'Fekete bodza',
+        quantity: 2,
+        packing: 'g',
+        unitPrice: 562,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=8',
+        name: 'Közönséges cickafark',
+        quantity: 12,
+        packing: 'g',
+        unitPrice: 190,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=9',
+        name: 'Nagy csalán',
+        quantity: 7,
+        packing: 'g',
+        unitPrice: 497,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=10',
+        name: 'Édeskömény',
+        quantity: 5,
+        packing: 'g',
+        unitPrice: 533,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=11',
+        name: 'Fehér fagyöngy',
+        quantity: 4,
+        packing: 'g',
+        unitPrice: 470,
+      },
+      {
+        image: 'https://picsum.photos/300/200?random=12',
+        name: 'Fekete nadálytő',
+        quantity: 2,
+        packing: 'g',
+        unitPrice: 562,
+      },
+    ],
+    paid: 'true',
+    delivered: 'false',
+    currencyCode: 1,
+  },
+];
+
+export default userOrder;

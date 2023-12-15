@@ -6,7 +6,7 @@
   overflow: hidden;
   margin: 16px;
   width: 250px;
-
+  background-color: rgba(232, 238, 239, 0.872);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   flex-direction: column;
   justify-content: space-between;
@@ -27,7 +27,7 @@
 }
 
 .card-price {
-  font-size: 1.1em;
+  font-size: 1.4em;
   color: #007bff;
 }
 
