@@ -22,11 +22,10 @@ export default function ShippingForm() {
 
   return (
     <div className="form-container">
-
       <form className="shipping-form">
-      <h3>Kapcsolattartási adatok</h3>
+        <h3>Kapcsolattartási adatok</h3>
 
-        <label for="first-name">Keresztnév</label>
+        <label htmlFor="first-name">Keresztnév</label>
         <input
           type="text"
           id="first-name"
@@ -36,7 +35,7 @@ export default function ShippingForm() {
           placeholder="Keresztnév"
           required
         />
-        <label for="last-name">Vezetéknév</label>
+        <label htmlFor="last-name">Vezetéknév</label>
         <input
           type="text"
           id="last-name"
@@ -46,7 +45,7 @@ export default function ShippingForm() {
           placeholder="Vezetéknév"
           required
         />
-        <label for="email">Email</label>
+        <label htmlFor="email">Email</label>
         <input
           type="email"
           id="email"
@@ -56,7 +55,7 @@ export default function ShippingForm() {
           placeholder="pl.:felhasznalo@joker.com"
           required
         />
-        <label for="phone-number">Telefonszám</label>
+        <label htmlFor="phone-number">Telefonszám</label>
         <input
           type="tel"
           id="phone-number"
@@ -67,7 +66,7 @@ export default function ShippingForm() {
           required
         />
         <h3>Szállítási cím</h3>
-        <label for="adress">Cím</label>
+        <label htmlFor="adress">Cím</label>
         <input
           type="text"
           id="adress"
@@ -77,7 +76,7 @@ export default function ShippingForm() {
           placeholder="utca, házszám, emelet, ajtó"
           required
         />
-        <label for="zip-code">Irányítószám</label>
+        <label htmlFor="zip-code">Irányítószám</label>
         <input
           type="text"
           id="zip-code"
@@ -86,7 +85,7 @@ export default function ShippingForm() {
           name="zipCode"
           required
         />
-        <label for="city">Város</label>
+        <label htmlFor="city">Város</label>
         <input
           type="text"
           id="city"
@@ -95,7 +94,7 @@ export default function ShippingForm() {
           name="city"
           required
         />
-        <label for="country">Ország</label>
+        <label htmlFor="country">Ország</label>
         <input
           type="text"
           id="country"
@@ -106,11 +105,18 @@ export default function ShippingForm() {
         />
         <div className="customer-checkbox">
           <input type="checkbox" name="aszf" id="terms_id" required />
-          <label htmlFor="terms_id">Elfogadom az <a href="https://www.pirex.hu/vasarloi-informaciok/altalanos-szerzodesi-feltetelek?gad_source=1&gclid=Cj0KCQiAj_CrBhD-ARIsAIiMxT8ZsTGLKcxaORLwHmrTAcUrmSukmUj_yWUI1eL-d5gPV6wcHkjvbEMaArW-EALw_wcB">általános szerződési feltételeket</a>.</label>
+          <label htmlFor="terms_id">
+            Elfogadom az{' '}
+            <a href="https://www.pirex.hu/vasarloi-informaciok/altalanos-szerzodesi-feltetelek?gad_source=1&gclid=Cj0KCQiAj_CrBhD-ARIsAIiMxT8ZsTGLKcxaORLwHmrTAcUrmSukmUj_yWUI1eL-d5gPV6wcHkjvbEMaArW-EALw_wcB">
+              {/* ide majd generálunk egy sajátot  */}
+              általános szerződési feltételeket
+            </a>
+            .
+          </label>
         </div>
         <button className="pay-button fullwidth">Fizetés és megrendelés</button>
       </form>
-    {/* <div>Ide jöhetne a jelenleg kosárban lévő termékek megjelenítése.</div> */}
+      {/* <div>Ide jöhetne a jelenleg kosárban lévő termékek megjelenítése.</div> */}
     </div>
   );
 }
