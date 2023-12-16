@@ -1,5 +1,6 @@
 import './App.css';
-
+import SuccessfulOrder from './pages/SuccessfulOrder';
+import userOrder from '../order';
 import ProductList from './components/ProductList';
 
 function App() {
@@ -64,10 +65,13 @@ function App() {
     },
   ];
 
+  const order = userOrder[0]
   return (
     <div>
       WEBSHOP
       <ProductList stockList={stockList} />
+      <hr />
+      <SuccessfulOrder orderID={order.orderID} orderList={order.orderedItems} currencyCode={order.currencyCode} />
     </div>
   );
 }
