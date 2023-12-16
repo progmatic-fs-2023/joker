@@ -1,4 +1,4 @@
-export function fetchProductData() {
+function fetchProductData() {
     return [
       {
         emoji: "\uD83E\uDD16",
@@ -17,3 +17,5 @@ export function fetchProductData() {
       },
     ]
   }
+
+  export default fetchProductData;

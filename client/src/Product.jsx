@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect, useState } from 'react';
-import { fetchProductData } from    '../src/Productservice'
+import fetchProductData from    './fetchProductData'
 
 
 function getAmountPerProduct(cart, productName) {
@@ -15,13 +15,15 @@ function cartReducer(state, action) {
     case 'add':
       return [...state, action.product];
     case 'remove':
-      const productIndex = state.findIndex(item => item.name === action.product.name);
+
+
+      {const productIndex = state.findIndex(item => item.name === action.product.name);
       if(productIndex < 0) {
         return state;
       }
       const update = [...state];
       update.splice(productIndex, 1)
-      return update
+      return update}
     default:
       return state;
   }
@@ -29,12 +31,13 @@ function cartReducer(state, action) {
 
 export default function Product() {
   const [cart, setCart] = useReducer(cartReducer, []);
+  const [products, setProducts] = useState([]);
   
   useEffect(() => {
      setProducts(fetchProductData())
   }, []);
   
-  const [products, setProducts] = useState([]);
+  
   
   function add(product) {
     const action = { product, type: 'add' };
@@ -62,15 +65,15 @@ export default function Product() {
                 <span role="img" aria-label={product.name}>{product.emoji}</span>
             </div>
             <div className="selectproduct">
-              <button onClick={() => add(product)}>+</button><b>{getAmountPerProduct(cart, product.name)}</b>
-              <button onClick={() => remove(product)}>-</button>
+              <button type='button' onClick={() => add(product)}>+</button><b>{getAmountPerProduct(cart, product.name)}</b>
+              <button type='button' onClick={() => remove(product)}>-</button>
             </div>
           </div>
         ))}
       </div>
-      <br></br>
-      <div className="checkout"><button>Checkout</button></div>
-      <br></br>
+      <br/>
+      <div className="checkout"><button type='button'>Checkout</button></div>
+      <br/>
     </div>
   )
 }
