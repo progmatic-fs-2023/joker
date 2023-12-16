@@ -2,6 +2,7 @@
 import './ProductList.css';
 import PropTypes from 'prop-types';
 import Card from './Card';
+import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator';
 
 // Fetch API sample for loading the products
 
@@ -40,7 +41,7 @@ function ProductList({ stockList }) {
   return (
     <div className="product-list">
       {stockList.map((stockItem) => (
-        <Card key={stockItem.id} stockItem={stockItem} />
+        <Card key={uniqueKeyGenerator()} stockItem={stockItem} />
       ))}
     </div>
   );
