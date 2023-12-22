@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-function QuantitySelector({ onQuantityChange }) {
-  const [qty, setQuantity] = useState(0);
+function QuantitySelector({ onQuantityChange, initialQuantity }) {
+  const [qty, setQuantity] = useState(initialQuantity || 0);
+
+  useEffect(() => {
+    // If the starting state changes, update the counter
+    setQuantity(initialQuantity || 0);
+  }, [initialQuantity]);
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
@@ -22,23 +27,32 @@ function QuantitySelector({ onQuantityChange }) {
       onQuantityChange(qty - 1);
     }
   };
+
   const handleInputFocus = (e) => {
     e.target.select();
   };
 
   return (
-    <div className="quantity-selector">
-      <button type="button" onClick={decreaseQuantity}>
+    <div className="quantity-selector flex justify-center items-center m-10">
+      <button
+        type="button"
+        className="bg-blue-500 text-white border-none p-2 cursor-pointer rounded-md mr-2 transition duration-300 ease-in-out hover:bg-blue-700 text-sm"
+        onClick={decreaseQuantity}
+      >
         -
       </button>
       <input
-        className="quantity-input"
+        className="w-12 text-center border border-gray-300 rounded-md p-2"
         type="text"
         value={qty}
         onFocus={handleInputFocus}
         onChange={handleInputChange}
       />
-      <button type="button" onClick={increaseQuantity}>
+      <button
+        type="button"
+        className="bg-blue-500 text-white border-none p-2 cursor-pointer rounded-md ml-2 transition duration-300 ease-in-out hover:bg-blue-700 text-sm"
+        onClick={increaseQuantity}
+      >
         +
       </button>
     </div>
@@ -47,6 +61,12 @@ function QuantitySelector({ onQuantityChange }) {
 
 QuantitySelector.propTypes = {
   onQuantityChange: PropTypes.func.isRequired,
+  initialQuantity: PropTypes.number,
+};
+
+// Add defaultProps for initialQuantity
+QuantitySelector.defaultProps = {
+  initialQuantity: 0,
 };
 
 export default QuantitySelector;
