@@ -1,9 +1,10 @@
 import React from 'react';
 import ProductList from '../components/ProductList';
-import Product from '../components/Product';
+import Cart from '../components/Cart';
 
 const stockList = [
   {
+    id: 1111,
     image: 'https://picsum.photos/250/200?random=3',
     latin: 'Vaccinium myrtillus',
     name: 'Áfonya, fekete',
@@ -12,6 +13,7 @@ const stockList = [
     unitPrice: 4700,
   },
   {
+    id: 1122,
     image: 'https://picsum.photos/250/200?random=2',
     latin: 'Angelica archangelica',
     name: 'Angelika fű',
@@ -20,6 +22,7 @@ const stockList = [
     unitPrice: 5620,
   },
   {
+    id: 1133,
     image: 'https://picsum.photos/250/200?random=1',
     latin: 'Galipea officinalis',
     name: 'Angosztúra kéreg',
@@ -28,6 +31,7 @@ const stockList = [
     unitPrice: 1780,
   },
   {
+    id: 1144,
     image: 'https://picsum.photos/250/200?random=4',
     latin: 'Artemisia Absinthium',
     name: 'Fehér üröm',
@@ -36,6 +40,7 @@ const stockList = [
     unitPrice: 1780,
   },
   {
+    id: 1155,
     image: 'https://picsum.photos/250/200?random=5',
     latin: 'Sinapis nigra',
     name: 'Fekete mustár',
@@ -44,6 +49,7 @@ const stockList = [
     unitPrice: 1780,
   },
   {
+    id: 1166,
     image: 'https://picsum.photos/250/200?random=6',
     latin: 'Galanga maioris',
     name: 'Galanga (kínai gyömbér) ',
@@ -52,6 +58,7 @@ const stockList = [
     unitPrice: 1780,
   },
   {
+    id: 1177,
     image: 'https://picsum.photos/250/200?random=7',
     latin: 'Pasztinaca sativa',
     name: 'Vad pasztinák (Paszternák)',
@@ -63,9 +70,9 @@ const stockList = [
 
 function Home() {
   return (
-    <div>
+    <div className="home-container">
       <ProductList stockList={stockList} />
-      <Product />
+      <Cart />
     </div>
   );
 }
