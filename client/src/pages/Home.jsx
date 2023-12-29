@@ -5,6 +5,7 @@ import Cart from '../components/Cart';
 const stockList = [
   {
     id: 1111,
+    category: 'Gyümölcsök',
     image: 'https://picsum.photos/250/200?random=3',
     latin: 'Vaccinium myrtillus',
     name: 'Áfonya, fekete',
@@ -16,6 +17,7 @@ const stockList = [
   },
   {
     id: 1122,
+    category: 'Fűszernövények',
     image: 'https://picsum.photos/250/200?random=2',
     latin: 'Angelica archangelica',
     name: 'Angelika fű',
@@ -27,6 +29,7 @@ const stockList = [
   },
   {
     id: 1133,
+    category: 'Fűszernövények',
     image: 'https://picsum.photos/250/200?random=1',
     latin: 'Galipea officinalis',
     name: 'Angosztúra kéreg',
@@ -38,6 +41,7 @@ const stockList = [
   },
   {
     id: 1144,
+    category: 'Fűszernövények',
     image: 'https://picsum.photos/250/200?random=4',
     latin: 'Artemisia Absinthium',
     name: 'Fehér üröm',
@@ -49,6 +53,7 @@ const stockList = [
   },
   {
     id: 1155,
+    category: 'Fűszernövények',
     image: 'https://picsum.photos/250/200?random=5',
     latin: 'Sinapis nigra',
     name: 'Fekete mustár',
@@ -60,6 +65,7 @@ const stockList = [
   },
   {
     id: 1166,
+    category: 'Fűszernövények',
     image: 'https://picsum.photos/250/200?random=6',
     latin: 'Galanga maioris',
     name: 'Galanga (kínai gyömbér) ',
@@ -71,6 +77,7 @@ const stockList = [
   },
   {
     id: 1177,
+    category: 'Zöldségek',
     image: 'https://picsum.photos/250/200?random=7',
     latin: 'Pasztinaca sativa',
     name: 'Vad pasztinák (Paszternák)',
