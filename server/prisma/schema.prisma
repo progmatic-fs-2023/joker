@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String     @id @default(uuid())
+  email            String     @unique
+  password         String
+  verified         Boolean    @default(false)
+  firstName        String?    @db.VarChar(32)
+  lastName         String?    @db.VarChar(32)
+  country          String?    @db.VarChar(64)
+  city             String?    @db.VarChar(64)
+  postalCode       String?    @db.VarChar(32)
+  streetAddress    String?    @db.VarChar(128)
+  phone            String?    @unique @db.VarChar(24)
+  avatar           String?    @db.VarChar(512)
+  role             Role       @default(BASIC)
+  cardPayments     Json?      @unique
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime?  @updatedAt
+  writtenPosts     Post[]     @relation("writtenPosts")
+  likedPosts       Post[]     @relation("likedPosts")
+  writtenFeedbacks Feedback[] @relation("writtenFeedbacks")
+  likedFeedbacks   Feedback[] @relation("likedFeedbacks")
+  order            Order[]
+  herbs            Herb[]
+
+  @@index([email])
+}
+
+model Post {
+  id          String    @id @default(uuid())
+  title       String    @db.VarChar(256)
+  body        String
+  authorID    String    @db.Char(36)
+  authorUser  User      @relation("writtenPosts", fields: [authorID], references: [id])
+  likedByID   String?   @db.Char(36)
+  likedByUser User?     @relation("likedPosts", fields: [likedByID], references: [id])
+  status      Boolean   @default(false)
+  rating      Float     @default(1)
+  pictures    String[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  @@index([title])
+}
+
+model Feedback {
+  id          String    @id @default(uuid())
+  title       String    @db.VarChar(256)
+  body        String
+  authorID    String    @db.Char(36)
+  authorUser  User      @relation("writtenFeedbacks", fields: [authorID], references: [id])
+  likedByID   String?   @db.Char(36)
+  likedByUser User?     @relation("likedFeedbacks", fields: [likedByID], references: [id])
+  herbID      String    @db.Char(36)
+  targetHerb  Herb      @relation(fields: [herbID], references: [id])
+  status      Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  @@index([title])
+}
+
+model Herb {
+  id            String        @id @default(uuid())
+  herbName      String        @unique @db.VarChar(256)
+  rating        Float         @default(1)
+  image         String[]
+  tags          String[]
+  kingdom       String?
+  order         String?
+  family        String?
+  genus         String?
+  species       String?
+  details       String?
+  stockQuantity Int           @default(0)
+  nextDelivery  String?       @db.Char(10)
+  price         Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime?     @updatedAt
+  categories    Category[]
+  feedbacks     Feedback[]
+  orders        Order[]
+  users         User[]
+  quantity      HerbOnOrder[]
+
+  @@index([herbName, kingdom, order, family, genus, species])
+}
+
+model Order {
+  id           String        @id @default(uuid())
+  userID       String        @db.Char(36)
+  targetUser   User          @relation(fields: [userID], references: [id])
+  status       Boolean       @default(false)
+  delivered    Boolean       @default(false)
+  customerNote String        @db.VarChar(256)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?     @updatedAt
+  herbs        Herb[]
+  quantity     HerbOnOrder[]
+}
+
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique @db.VarChar(256)
+  herbs Herb[]
+
+  @@index([name])
+}
+
+model HerbOnOrder {
+  herbID      String @db.Char(36)
+  targetHerb  Herb   @relation(fields: [herbID], references: [id])
+  orderID     String @db.Char(36)
+  targetOrder Order  @relation(fields: [orderID], references: [id])
+  quantity    Int
+
+  @@id([herbID, orderID])
+}
+
+enum Role {
+  BASIC
+  ADMIN
+  SUPERADMIN
+}

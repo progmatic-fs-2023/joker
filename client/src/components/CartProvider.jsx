@@ -7,10 +7,10 @@ export default function CartProvider({ children }) {
   const [totalPrice, setTotalPrice] = useState(0);
 
   const addToCart = (product) => {
-    const { name, quantity, unitPrice } = product;
+    const { herbName, quantity, unitPrice } = product;
 
     if (quantity > 0) {
-      const existingProductIndex = cart.findIndex((item) => item.name === name);
+      const existingProductIndex = cart.findIndex((item) => item.name === herbName);
 
       if (existingProductIndex !== -1) {
         const updatedCart = [...cart];
@@ -28,7 +28,7 @@ export default function CartProvider({ children }) {
     }
   };
   const removeFromCart = (productName) => {
-    const updatedCart = cart.filter((item) => item.name !== productName);
+    const updatedCart = cart.filter((item) => item.herbName !== productName);
     setCart(updatedCart);
   };
 

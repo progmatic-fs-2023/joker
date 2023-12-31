@@ -5,6 +5,7 @@ import { useCart } from '../hooks/useCart';
 
 function Card({ stockItem }) {
   const { addToCart: addToCartContext } = useCart();
+  const { herbName, price, image, species } = stockItem;
   const [qty, setQuantity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,11 +25,11 @@ function Card({ stockItem }) {
   return (
     <div className="card h-[580px] border-1 border-solid border-gray-300 rounded-md overflow-hidden m-16 w-80 bg-blue-300 flex-col justify-between shadow-md ">
       <div>
-        <img src={stockItem.image} alt={stockItem.name} className="w-full h-48 object-cover " />
+        <img src={image[0]} alt={herbName} className="w-full h-48 object-cover " />
       </div>
       <div className="text-center p-1">
-        <h2 className="text-xl font-semibold mb-1">{stockItem.name}</h2>
-        <p className="text-gray-600 mb-1">{stockItem.latin}</p>
+        <h2 className="text-xl font-semibold mb-1">{herbName}</h2>
+        <p className="text-gray-600 mb-1">{species}</p>
         <p>
           <button
             type="button"
@@ -39,9 +40,9 @@ function Card({ stockItem }) {
           </button>
         </p>
         <p className="text-green-600 mb-1">
-          Készleten: {stockItem.quantity} {stockItem.packing}
+          Készleten: {stockItem.stockQuantity} gr
         </p>
-        <p className="text-lg font-bold mb-1">{stockItem.unitPrice} Ft</p>
+        <p className="text-lg font-bold mb-1">{price} Ft</p>
         <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={qty} />
         <button
           type="button"
@@ -50,12 +51,12 @@ function Card({ stockItem }) {
         >
           Kosárba
         </button>
-        <p className="text-gray-600 mb-1">{stockItem.packing}</p>
+        <p className="text-gray-600 mb-1">gr</p>
       </div>
 
       {isModalOpen && (
-        <div className="modal-overlay fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
-          <div className="modal-content w-[50%] bg-white p-4 rounded-md text-center relative z-50">
+        <div className="modal-overlay max-h-80 fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
+          <div className="modal-content w-[75%] bg-white p-4 rounded-md text-center relative z-50">
             <button
               type="button"
               onClick={closeModal}
@@ -65,19 +66,19 @@ function Card({ stockItem }) {
             </button>
             <div className="flex justify-center mb-4">
               <img
-                src={stockItem.image}
-                alt={stockItem.name}
+                src={image[0]}
+                alt={herbName}
                 className="w-64 h-64 object-cover mb-4 rounded-md"
               />
             </div>
-            <h2 className="text-2xl font-semibold mb-4">{stockItem.name}</h2>
-            <p className="text-gray-600 mb-4">{stockItem.latin}</p>
+            <h2 className="text-2xl font-semibold mb-4">{herbName}</h2>
+            <p className="text-gray-600 mb-4">{species}</p>
             <p className="text-green-600 mb-1">
-              Készleten: {stockItem.quantity} {stockItem.packing}
+              Készleten: {stockItem.stockQuantity} gr
             </p>
-            <p className="text-lg font-bold mb-1">{stockItem.unitPrice} Ft</p>
-            <p className="text-gray-600 mb-4">{stockItem.packing}</p>
-            <p className=" overflow-y-auto overflow-wrap break-word">{stockItem.description}</p>
+            <p className="text-lg font-bold mb-1">{price} Ft</p>
+            <p className="text-gray-600 mb-4">gr</p>
+            <p className="text-sky-400 overflow-y-auto break-word">{stockItem.details}</p>
             <QuantitySelector
               onQuantityChange={handleQuantityChange}
               initialQuantity={qty}
@@ -101,13 +102,12 @@ function Card({ stockItem }) {
 
 Card.propTypes = {
   stockItem: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    latin: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    quantity: PropTypes.number.isRequired,
-    packing: PropTypes.string.isRequired,
-    unitPrice: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
+    herbName: PropTypes.string.isRequired,
+    species: PropTypes.string.isRequired,
+    image: PropTypes.arrayOf(PropTypes.string).isRequired,
+    stockQuantity: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    details: PropTypes.string.isRequired,
   }).isRequired,
 };
 

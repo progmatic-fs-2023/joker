@@ -1,7 +1,10 @@
 import { useState } from 'react';
+import { useCart } from '../hooks/useCart';
 import './UserForm.css';
+import Cart from '../components/Cart';
 
 function UserForm() {
+  const { cart } = useCart();
   const [form, setForm] = useState({
     firsName: '',
     lastName: '',
@@ -141,16 +144,17 @@ function UserForm() {
             Elfogadom az{' '}
             <a href="https://www.pirex.hu/vasarloi-informaciok/altalanos-szerzodesi-feltetelek?gad_source=1&gclid=Cj0KCQiAj_CrBhD-ARIsAIiMxT8ZsTGLKcxaORLwHmrTAcUrmSukmUj_yWUI1eL-d5gPV6wcHkjvbEMaArW-EALw_wcB">
               {/* ide majd generálunk egy sajátot  */}
-              általános szerződési feltételeket
+              általános szerződési feltételeket.
             </a>
-            .
           </label>
         </div>
         <button type="button" className="pay-button fullwidth">
           Fizetés és megrendelés
         </button>
       </form>
-      {/* <div>Ide jöhetne a jelenleg kosárban lévő termékek megjelenítése.</div> */}
+      {
+        cart[0] && <Cart />
+      }
     </div>
   );
 }
