@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from 'react';
 import { useCart } from '../hooks/useCart';
 import QuantitySelector from './QuantitySelector';
-import sumPriceCalc from '../helpers/sumPriceCalc';
+import { sumPriceCalc } from '../helpers/summaryCalc';
 
 function Cart() {
   const { cart, setCart, removeFromCart, clearCart } = useCart();
-  const [totalQuantityInCart, setTotalQuantityInCart] = useState(0);
-  const totalPrice = sumPriceCalc(cart);
-
-  useEffect(() => {
-    const totalQuantity = cart.reduce((total, product) => total + product.quantity, 0);
-    setTotalQuantityInCart(totalQuantity);
-  }, [cart]);
 
   const handleQuantityChange = (productName, newQuantity, productImage) => {
     const updatedCartItems = cart.map((item) =>
-      item.name === productName ? { ...item, quantity: newQuantity, image: productImage } : item,
+      item.herbName === productName ? { ...item, quantity: newQuantity, image: productImage } : item,
     );
 
     setCart(updatedCartItems);
@@ -34,25 +26,25 @@ function Cart() {
     <div className="wrapper">
       <div className="products-container">
         {cart.map((product) => (
-          <div key={product.name} className="product flex around items-center p-4 mb-2">
+          <div key={product.herbName} className="product flex around items-center p-4 mb-2">
             <div className="product-details flex items-center">
-              <img src={product.image} alt={product.name} className="w-16 h-16 object-cover mr-4" />
+              <img src={product.image[0]} alt={product.herbName} className="w-16 h-16 object-cover mr-4" />
               <span>
-                {product.name} - Mennyiség: {product.quantity} {product.packing} - Ár:{' '}
-                {product.unitPrice * product.quantity} Ft
+                {product.herbName} - Mennyiség: {product.quantity}gr - Ár:{' '}
+                {product.price * product.quantity} Ft
               </span>
             </div>
             <div className="selectproduct flex items-center">
               <QuantitySelector
                 onQuantityChange={(newQuantity) =>
-                  handleQuantityChange(product.name, newQuantity, product.image)
+                  handleQuantityChange(product.herbName, newQuantity, product.image[0])
                 }
                 initialQuantity={product.quantity}
               />
               <button
                 type="button"
                 className="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer transition duration-300 ease-in-out hover:bg-red-700 ml-2"
-                onClick={() => removeItem(product.name)}
+                onClick={() => removeItem(product.herbName)}
               >
                 Törlés
               </button>
@@ -62,8 +54,8 @@ function Cart() {
       </div>
       <div className="shoppingcart p-4">
         <strong>Kosár tartalma:</strong>
-        <div>Termékek összesen: {totalQuantityInCart}</div>
-        <div>Ára összesen: {totalPrice}</div>
+        <div>Termékek: {cart.length} tétel</div>
+        <div>Fizetendő: {sumPriceCalc(cart)} Ft</div>
         <button
           type="button"
           className="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer transition duration-300 ease-in-out hover:bg-red-700 mt-2"

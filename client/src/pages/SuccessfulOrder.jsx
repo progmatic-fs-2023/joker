@@ -1,18 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import OrderListItem from '../components/OrderListItem'
-import sumPriceCalc from '../helpers/sumPriceCalc'
+import { useCart } from '../hooks/useCart';
+import OrderedItem from '../components/OrderedItem'
+import { sumPriceCalc } from '../helpers/summaryCalc'
 import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator'
 
-function SuccessfulOrder({ orderID, orderList, currencyCode }) {
-
-    const currency = currencyCode === 1 ? 'Ft' : '€'
-    const orderListLength = orderList.length === 0 ? false : orderList.length
+function SuccessfulOrder({ currencyCode }) {
+    const { cart } = useCart();
+    const userOrder = {
+          orderID: '234343-643svsd',
+          orderedItems: [...cart],
+          paid: 'true',
+          delivered: 'false',
+          currencyCode: 1,
+        }
+    const currency = userOrder.currencyCode === 1 ? 'Ft' : '€'
 
     return (
         <div className="order-summarized">
             {
-                !orderList || !orderListLength
+                !userOrder.orderID
                     ? <div>
                         <h2>A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
                         <p>Próbáld meg újra vagy vedd fel velünk a kapcsolatot az <a href="mailto:ugyfelszolgalat@herbals.hu">ugyfelszolgalat@herbals.hu</a> email címen.
@@ -21,12 +28,12 @@ function SuccessfulOrder({ orderID, orderList, currencyCode }) {
                     : <div className='successful-order-container'>
                         <div className='successful-order-info'>
                             <h2>Köszönjük megrendelésed!</h2>
-                            <h4>Rendelés azonosító: {orderID}</h4>
-                            <h4>Fizetendő: {sumPriceCalc(orderList)} {currency}</h4>
+                            <h4>Rendelés azonosító: {userOrder.orderID}</h4>
+                            <h4>Fizetendő: {sumPriceCalc(cart)} {currency}</h4>
                             <p>Megrendelt tételek:</p>
                         </div>
                         <div className='ordered-items-list-container'>
-                            {orderList.map(orderedItem => <OrderListItem key={uniqueKeyGenerator()} orderedItem={orderedItem} currency={currency} />)}
+                            {cart.map(orderedItem => <OrderedItem key={uniqueKeyGenerator()} orderedItem={orderedItem} currency={currency} />)}
                         </div>
                     </div>
             }
