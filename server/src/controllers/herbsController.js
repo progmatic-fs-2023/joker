@@ -1,16 +1,16 @@
-import { getAllHerbs, getHerbByID } from '../services/herbsServices.js'
+import { getAllHerbs, getHerbByID } from '../services/herbsServices';
 
 const herbsList = async (req, res) => {
-    const herbs = await getAllHerbs();
+  const response = await getAllHerbs();
 
-    res.status(200).json(herbs);
+  res.status(200).json(response);
 };
 
 const herb = async (req, res) => {
-    const herbID = req.params.id;
-    const herb = await getHerbByID(herbID);
+  const herbID = req.params.id;
+  const response = await getHerbByID(herbID);
 
-    res.status(200).json(herb);
+  res.status(200).json(response);
 };
 
-export default { herbsList, herb }
+export default { herbsList, herb };

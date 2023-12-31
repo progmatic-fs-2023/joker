@@ -1,10 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import logger from './middlewares/logger.middleware.js';
-import errorHandler from './middlewares/errorHandler.middleware.js';
-import apiRouter from './routes/api.route.js';
-import herbsRouter from './routes/herbsRouter.js';
-import usersRouter from './routes/usersRouter.js';
+import logger from './middlewares/logger.middleware';
+import errorHandler from './middlewares/errorHandler.middleware';
+import apiRouter from './routes/api.route';
+import herbsRouter from './routes/herbsRouter';
+import usersRouter from './routes/usersRouter';
 
 const app = express();
 
@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(logger);
 
 app.use('/api', apiRouter);
-app.use("/api/herbs", herbsRouter);
-app.use("/api/users", usersRouter);
+app.use('/api/herbs', herbsRouter);
+app.use('/api/users', usersRouter);
 
 app.use(errorHandler);
 export default app;

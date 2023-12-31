@@ -19,7 +19,6 @@ function Cart() {
 
   const emptyCart = () => {
     clearCart();
-    setTotalQuantityInCart(0);
   };
 
   return (

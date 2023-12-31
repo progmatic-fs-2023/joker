@@ -4,9 +4,9 @@ import { PropTypes } from 'prop-types';
 function OrderedItem({ orderedItem, currency }) {
   return (
     <div className="ordered-item">
-      <img className="ordered-item-img" src={orderedItem.image[0]} alt={orderedItem.name} />
+      <img className="ordered-item-img" src={orderedItem.image[0]} alt={orderedItem.herbName} />
       <h4 className="ordered-item">
-        {orderedItem.name} |{' '}
+        {orderedItem.herbName} |{' '}
         <small>
           {orderedItem.quantity}
           gr

@@ -17,9 +17,7 @@ function App() {
           <Route
             path="successfulorder"
             element={
-              <SuccessfulOrder
-                currencyCode={1}
-              />
+              <SuccessfulOrder />
             }
           />
         </Route>

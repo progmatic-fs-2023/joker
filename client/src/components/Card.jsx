@@ -5,7 +5,7 @@ import { useCart } from '../hooks/useCart';
 
 function Card({ stockItem }) {
   const { addToCart: addToCartContext } = useCart();
-  const { herbName, price, packing, image, species } = stockItem;
+  const { herbName, price, image, species } = stockItem;
   const [qty, setQuantity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -40,7 +40,7 @@ function Card({ stockItem }) {
           </button>
         </p>
         <p className="text-green-600 mb-1">
-          Készleten: {stockItem.stockQuantity} {packing}
+          Készleten: {stockItem.stockQuantity} gr
         </p>
         <p className="text-lg font-bold mb-1">{price} Ft</p>
         <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={qty} />
@@ -51,7 +51,7 @@ function Card({ stockItem }) {
         >
           Kosárba
         </button>
-        <p className="text-gray-600 mb-1">{packing}</p>
+        <p className="text-gray-600 mb-1">gr</p>
       </div>
 
       {isModalOpen && (

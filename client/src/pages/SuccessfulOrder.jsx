@@ -5,7 +5,7 @@ import OrderedItem from '../components/OrderedItem'
 import { sumPriceCalc } from '../helpers/summaryCalc'
 import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator'
 
-function SuccessfulOrder({ currencyCode }) {
+function SuccessfulOrder() {
     const { cart } = useCart();
     const userOrder = {
           orderID: '234343-643svsd',
@@ -51,8 +51,6 @@ SuccessfulOrder.propTypes = {
         map: PropTypes.func,
         length: PropTypes.func
     }).isRequired,
-    currencyCode: PropTypes.number.isRequired,
-    orderID: PropTypes.string.isRequired
 };
 
 export default SuccessfulOrder
