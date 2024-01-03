@@ -8,6 +8,11 @@ function Card({ stockItem }) {
   const { herbName, price, image, species } = stockItem;
   const [qty, setQuantity] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFullDetailsShown, setIsFullDetailsShown] = useState(false);
+
+  const toggleDetails = () => {
+    setIsFullDetailsShown(!isFullDetailsShown);
+  };
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -39,9 +44,7 @@ function Card({ stockItem }) {
             Részletek
           </button>
         </p>
-        <p className="text-green-600 mb-1">
-          Készleten: {stockItem.stockQuantity} gr
-        </p>
+        <p className="text-green-600 mb-1">Készleten: {stockItem.stockQuantity} gr</p>
         <p className="text-lg font-bold mb-1">{price} Ft</p>
         <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={qty} />
         <button
@@ -55,8 +58,8 @@ function Card({ stockItem }) {
       </div>
 
       {isModalOpen && (
-        <div className="modal-overlay max-h-80 fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
-          <div className="modal-content w-[75%] bg-white p-4 rounded-md text-center relative z-50">
+        <div className="modal-overlay fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-75 flex items-center justify-center">
+          <div className="modal-content w-[60%] h-auto bg-white p-4 rounded-md text-center relative z-50">
             <button
               type="button"
               onClick={closeModal}
@@ -73,12 +76,19 @@ function Card({ stockItem }) {
             </div>
             <h2 className="text-2xl font-semibold mb-4">{herbName}</h2>
             <p className="text-gray-600 mb-4">{species}</p>
-            <p className="text-green-600 mb-1">
-              Készleten: {stockItem.stockQuantity} gr
-            </p>
+            <p className="text-green-600 mb-1">Készleten: {stockItem.stockQuantity} gr</p>
             <p className="text-lg font-bold mb-1">{price} Ft</p>
             <p className="text-gray-600 mb-4">gr</p>
-            <p className="text-sky-400 overflow-y-auto break-word">{stockItem.details}</p>
+            <p className="text-sky-400 overflow-y-auto break-word mx-[4rem]">
+              {isFullDetailsShown ? stockItem.details : `${stockItem.details.substring(0, 150)}...`}
+            </p>
+            <button
+              type="button"
+              onClick={toggleDetails}
+              className="mx-4 mt-2 bg-gray-300 hover:bg-gray-400  font-medium py-1.5 px-2.5 rounded transition duration-300 ease-in-out"
+            >
+              {isFullDetailsShown ? 'Kevesebb...' : 'További...'}
+            </button>
             <QuantitySelector
               onQuantityChange={handleQuantityChange}
               initialQuantity={qty}

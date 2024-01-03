@@ -1,13 +1,16 @@
+import PropTypes from 'prop-types';
 import { useCart } from '../hooks/useCart';
 import QuantitySelector from './QuantitySelector';
 import { sumPriceCalc } from '../helpers/summaryCalc';
 
-function Cart() {
+function Cart({ onCheckout }) {
   const { cart, setCart, removeFromCart, clearCart } = useCart();
 
   const handleQuantityChange = (productName, newQuantity, productImage) => {
     const updatedCartItems = cart.map((item) =>
-      item.herbName === productName ? { ...item, quantity: newQuantity, image: productImage } : item,
+      item.herbName === productName
+        ? { ...item, quantity: newQuantity, image: [productImage] }
+        : item,
     );
 
     setCart(updatedCartItems);
@@ -27,7 +30,11 @@ function Cart() {
         {cart.map((product) => (
           <div key={product.herbName} className="product flex around items-center p-4 mb-2">
             <div className="product-details flex items-center">
-              <img src={product.image[0]} alt={product.herbName} className="w-16 h-16 object-cover mr-4" />
+              <img
+                src={product.image[0]}
+                alt={product.herbName}
+                className="w-16 h-16 object-cover mr-4"
+              />
               <span>
                 {product.herbName} - Mennyiség: {product.quantity}gr - Ár:{' '}
                 {product.price * product.quantity} Ft
@@ -67,6 +74,7 @@ function Cart() {
         <button
           type="button"
           className="bg-green-500 text-white px-4 py-2 rounded-md cursor-pointer transition duration-300 ease-in-out hover:bg-green-700"
+          onClick={onCheckout}
         >
           Fizetés és tovább megrendeléshez
         </button>
@@ -74,5 +82,9 @@ function Cart() {
     </div>
   );
 }
+
+Cart.propTypes = {
+  onCheckout: PropTypes.func.isRequired,
+};
 
 export default Cart;
