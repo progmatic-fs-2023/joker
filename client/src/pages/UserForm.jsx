@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import './UserForm.css';
 import Cart from '../components/Cart';
 
 function UserForm() {
+  const navigate = useNavigate();
   const { cart } = useCart();
   const [form, setForm] = useState({
     firsName: '',
@@ -21,6 +23,11 @@ function UserForm() {
       ...form,
       [e.target.name]: e.target.value,
     });
+  };
+  const handleSubmit = () => {
+    // Validation of form can be here
+    // if everything is okay you can navigate to successfulorder page
+    navigate('/successfulorder');
   };
 
   return (
@@ -148,13 +155,9 @@ function UserForm() {
             </a>
           </label>
         </div>
-        <button type="button" className="pay-button fullwidth">
-          Fizetés és megrendelés
-        </button>
       </form>
-      {
-        cart[0] && <Cart />
-      }
+      {/* Cart and its content display */}
+      {cart[0] && <Cart onCheckout={handleSubmit} />}
     </div>
   );
 }

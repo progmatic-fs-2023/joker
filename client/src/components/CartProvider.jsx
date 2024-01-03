@@ -10,7 +10,7 @@ export default function CartProvider({ children }) {
     const { herbName, quantity, unitPrice } = product;
 
     if (quantity > 0) {
-      const existingProductIndex = cart.findIndex((item) => item.name === herbName);
+      const existingProductIndex = cart.findIndex((item) => item.herbName === herbName);
 
       if (existingProductIndex !== -1) {
         const updatedCart = [...cart];
