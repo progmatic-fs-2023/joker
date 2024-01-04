@@ -6,12 +6,6 @@
 body {
   background-color: white;
 }
-.form-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 5px;
-}
 form {
   background-color: #c9d8e270;
   padding: 5px 5px 5px 55px;
@@ -42,7 +36,7 @@ input {
   font-size: 15px;
   border-radius: 5px;
   width: 20vw;
-  border: solid 0.3px rgb(182, 179, 179);
+  border: solid 0.3px rgb(161, 161, 170);
 }
 button {
   margin: 8px;
