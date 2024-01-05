@@ -6,13 +6,15 @@ import CategoryFilter from './CategoryFilter';
 import SortDropdown from './SortDropdown';
 
 function ProductList({ stockList }) {
-  
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortBy, setSortBy] = useState('name');
   const [sortOrder, setSortOrder] = useState('asc');
 
-  const handleCategoryClick = (category) => {
-    setSelectedCategory(category);
+  // categories called as family in the database
+  const categories = Array.from(new Set(stockList.map((item) => item.family)));
+
+  const handleCategoryClick = (family) => {
+    setSelectedCategory(family);
   };
 
   const handleSortChange = (selectedSortBy, selectedSortOrder) => {
@@ -21,7 +23,7 @@ function ProductList({ stockList }) {
   };
 
   const filteredList = stockList
-    .filter((item) => (selectedCategory ? item.category === selectedCategory : true))
+    .filter((item) => (selectedCategory ? item.family === selectedCategory : true))
     .sort((a, b) => {
       let compareValue;
 
@@ -37,7 +39,7 @@ function ProductList({ stockList }) {
   return (
     <div className="product-list-container">
       <div className="flex justify-between items-center mb-4">
-        <CategoryFilter handleCategoryClick={handleCategoryClick} />
+        <CategoryFilter categories={categories} handleCategoryClick={handleCategoryClick} />
         <SortDropdown sortBy={sortBy} sortOrder={sortOrder} handleSortChange={handleSortChange} />
       </div>
       <div className="product-list flex flex-wrap">
@@ -53,7 +55,7 @@ ProductList.propTypes = {
   stockList: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      category: PropTypes.string,
+      family: PropTypes.string,
       image: PropTypes.arrayOf(PropTypes.string).isRequired,
       herbName: PropTypes.string.isRequired,
       species: PropTypes.string.isRequired,
