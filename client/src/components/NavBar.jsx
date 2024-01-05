@@ -12,6 +12,9 @@ function NavBar() {
                     <NavLink to="/userform">UserForm</NavLink>
                 </span>
                 <span className="nav-link p-2">
+                    <NavLink to="/registration">Registration</NavLink>
+                </span>
+                <span className="nav-link p-2">
                     <NavLink to="/successfulorder">SuccessfulOrder</NavLink>
                 </span>
             </nav>
