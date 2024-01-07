@@ -1,4 +1,3 @@
-import React from 'react';
 import { PropTypes } from 'prop-types';
 
 function OrderedItem({ orderedItem, currency }) {
@@ -9,11 +8,11 @@ function OrderedItem({ orderedItem, currency }) {
         {orderedItem.herbName} |{' '}
         <small>
           {orderedItem.quantity}
-          gr
+          g
         </small>
       </h4>
       <p className="ordered-item-price">
-        Egységár: {orderedItem.price} {currency}/gr
+        Egységár: {orderedItem.price} {currency}/g
       </p>
       <p className="ordered-item-sum">
         Össz.: {orderedItem.price * orderedItem.quantity} {currency}

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec ./node_modules/.bin/babel-node -r dotenv/config src/server.js",
+    "update": "nodemon --exec ./node_modules/.bin/babel-node -r dotenv/config src/db/dataUpdate.js",
     "build": "babel src -d dist",
     "serve": "node -r dotenv/config dist/server.js",
     "lint": "eslint src --ext .js",

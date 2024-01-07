@@ -1,10 +1,17 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import QuantitySelector from './QuantitySelector';
 import { sumPriceCalc } from '../helpers/summaryCalc';
 
-function Cart({ onCheckout }) {
+function Cart({handleClose}) {
   const { cart, setCart, removeFromCart, clearCart } = useCart();
+
+  const navigate = useNavigate();
+  const handleCheckout = () => {
+      navigate('/userform');
+      handleClose();
+  };
 
   const handleQuantityChange = (productName, newQuantity, productImage) => {
     const updatedCartItems = cart.map((item) =>
@@ -12,7 +19,6 @@ function Cart({ onCheckout }) {
         ? { ...item, quantity: newQuantity, image: [productImage] }
         : item,
     );
-
     setCart(updatedCartItems);
   };
 
@@ -25,22 +31,22 @@ function Cart({ onCheckout }) {
   };
 
   return (
-    <div className="wrapper">
+    <div className="wrapper col-3">
       <div className="products-container">
         {cart.map((product) => (
-          <div key={product.herbName} className="product flex around items-center p-4 mb-2">
-            <div className="product-details flex items-center">
+          <div key={product.herbName} className="product">
+            <div className="product-details">
               <img
                 src={product.image[0]}
                 alt={product.herbName}
-                className="w-16 h-16 object-cover mr-4"
+                className="img-fluid img-thumbnail"
               />
               <span>
                 {product.herbName} - Mennyiség: {product.quantity}gr - Ár:{' '}
                 {product.price * product.quantity} Ft
               </span>
             </div>
-            <div className="selectproduct flex items-center">
+            <div className="selectproduct">
               <QuantitySelector
                 onQuantityChange={(newQuantity) =>
                   handleQuantityChange(product.herbName, newQuantity, product.image[0])
@@ -49,7 +55,7 @@ function Cart({ onCheckout }) {
               />
               <button
                 type="button"
-                className="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer transition duration-300 ease-in-out hover:bg-red-700 ml-2"
+                className=""
                 onClick={() => removeItem(product.herbName)}
               >
                 Törlés
@@ -58,23 +64,23 @@ function Cart({ onCheckout }) {
           </div>
         ))}
       </div>
-      <div className="shoppingcart p-4">
+      <div className="shoppingcart">
         <strong>Kosár tartalma:</strong>
         <div>Termékek: {cart.length} tétel</div>
         <div>Fizetendő: {sumPriceCalc(cart)} Ft</div>
         <button
           type="button"
-          className="bg-red-500 text-white px-4 py-2 rounded-md cursor-pointer transition duration-300 ease-in-out hover:bg-red-700 mt-2"
+          className=""
           onClick={emptyCart}
         >
           Kosár ürítése
         </button>
       </div>
-      <div className="checkout p-4">
+      <div className="checkout">
         <button
           type="button"
-          className="bg-green-500 text-white px-4 py-2 rounded-md cursor-pointer transition duration-300 ease-in-out hover:bg-green-700"
-          onClick={onCheckout}
+          className=""
+          onClick={handleCheckout}
         >
           Fizetés és tovább megrendeléshez
         </button>
@@ -84,7 +90,7 @@ function Cart({ onCheckout }) {
 }
 
 Cart.propTypes = {
-  onCheckout: PropTypes.func.isRequired,
+  handleClose: PropTypes.func.isRequired
 };
 
 export default Cart;

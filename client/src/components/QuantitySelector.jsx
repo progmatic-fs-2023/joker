@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 
 function QuantitySelector({ onQuantityChange, initialQuantity }) {
   const [qty, setQuantity] = useState(initialQuantity || 0);
@@ -33,28 +34,20 @@ function QuantitySelector({ onQuantityChange, initialQuantity }) {
   };
 
   return (
-    <div className="quantity-selector flex justify-center items-center m-10">
-      <button
-        type="button"
-        className="bg-blue-500 text-white border-none p-2 cursor-pointer rounded-md mr-2 transition duration-300 ease-in-out hover:bg-blue-700 text-sm"
-        onClick={decreaseQuantity}
-      >
+    <div className="quantity-selector p-2">
+      <Button className='m-1' variant='outline-info' type='button' onClick={decreaseQuantity}>
         -
-      </button>
+      </Button>
       <input
-        className="w-12 text-center border border-gray-300 rounded-md p-2"
+        className="m-1 rounded text-center"
         type="text"
         value={qty}
         onFocus={handleInputFocus}
         onChange={handleInputChange}
       />
-      <button
-        type="button"
-        className="bg-blue-500 text-white border-none p-2 cursor-pointer rounded-md ml-2 transition duration-300 ease-in-out hover:bg-blue-700 text-sm"
-        onClick={increaseQuantity}
-      >
+      <Button className='m-1' variant='outline-info' type='button' onClick={increaseQuantity}>
         +
-      </button>
+      </Button>
     </div>
   );
 }

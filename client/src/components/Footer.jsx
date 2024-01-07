@@ -1,9 +1,8 @@
-import React from 'react'
 
 function Footer() {
   return (
-    <div>
-      Herbalism.hu&copy; gyógynövényshop. Minden jog fenntartva!
+    <div className="d-flex justify-content-center">
+      Herbalism.hu&copy; gyógynövény webshop. Minden jog fenntartva!
     </div>
   )
 }

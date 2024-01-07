@@ -8,7 +8,7 @@ export const getAllUsers = async () => {
 };
 
 export const getUserByID = async id => {
-  const result = await prisma.user.find({
+  const result = await prisma.user.findFirst({
     where: {
       id,
     },
