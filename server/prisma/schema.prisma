@@ -15,6 +15,8 @@ model User {
   email            String     @unique
   password         String
   verified         Boolean    @default(false)
+  verifyString     String?    @db.VarChar(128)
+  refreshToken     String?    @db.VarChar(1024)
   firstName        String?    @db.VarChar(32)
   lastName         String?    @db.VarChar(32)
   country          String?    @db.VarChar(64)
@@ -72,27 +74,28 @@ model Feedback {
 }
 
 model Herb {
-  id            String        @id @default(uuid())
-  herbName      String        @unique @db.VarChar(256)
-  rating        Float         @default(1)
-  image         String[]
-  tags          String[]
-  kingdom       String?
-  order         String?
-  family        String?
-  genus         String?
-  species       String?
-  details       String?
-  stockQuantity Int           @default(0)
-  nextDelivery  String?       @db.Char(10)
-  price         Int           @default(0)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime?     @updatedAt
-  categories    Category[]
-  feedbacks     Feedback[]
-  orders        Order[]
-  users         User[]
-  quantity      HerbOnOrder[]
+  id               String        @id @default(uuid())
+  herbName         String        @unique @db.VarChar(256)
+  rating           Float         @default(1)
+  image            String[]
+  tags             String[]
+  kingdom          String?
+  order            String?
+  family           String?
+  genus            String?
+  species          String?
+  details          String?
+  stockQuantity    Int           @default(0)
+  reservedQuantity Int[]
+  nextDelivery     String?       @db.Char(10)
+  price            Int           @default(0)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime?     @updatedAt
+  categories       Category[]
+  feedbacks        Feedback[]
+  orders           Order[]
+  users            User[]
+  quantity         HerbOnOrder[]
 
   @@index([herbName, kingdom, order, family, genus, species])
 }
@@ -102,6 +105,7 @@ model Order {
   userID       String        @db.Char(36)
   targetUser   User          @relation(fields: [userID], references: [id])
   status       Boolean       @default(false)
+  type         Type          @default(CART)
   delivered    Boolean       @default(false)
   customerNote String        @db.VarChar(256)
   createdAt    DateTime      @default(now())
@@ -132,4 +136,9 @@ enum Role {
   BASIC
   ADMIN
   SUPERADMIN
+}
+
+enum Type {
+  CART
+  VERIFIED
 }

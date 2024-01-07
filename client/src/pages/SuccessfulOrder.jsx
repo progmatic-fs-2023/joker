@@ -1,4 +1,3 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { useCart } from '../hooks/useCart';
 import OrderedItem from '../components/OrderedItem'
@@ -50,7 +49,10 @@ SuccessfulOrder.propTypes = {
         unitPrice: PropTypes.number,
         map: PropTypes.func,
         length: PropTypes.func
-    }).isRequired,
+    })
 };
+SuccessfulOrder.defaultProps = {
+    orderList: undefined,
+  };
 
 export default SuccessfulOrder
