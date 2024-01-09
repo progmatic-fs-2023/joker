@@ -29,7 +29,6 @@ import Logout from './pages/Logout';
 import UsersPage from './pages/UsersPage'
 
 function App() {
-
   return (
     <AuthProvider>
       <CartProvider>
