@@ -12,24 +12,26 @@ import Questionare from './pages/Questionare';
 import Sitemap from './pages/Sitemap';
 import NotFound from './pages/NotFound';
 import './App.css';
+import Cart from './components/Cart';
 
 function App() {
-
   return (
     <CartProvider>
       <Routes>
         {/* public routes */}
         <Route element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path='shop' element={<Shop />} />
-          <Route path='blog' element={<Blog />} />
+          <Route path="shop" element={<Shop />} />
+          <Route path="blog" element={<Blog />} />
           <Route path="userform" element={<UserForm />} />
           <Route path="successfulorder" element={<SuccessfulOrder />} />
-          <Route path='contact' element={<Contact />} />
-          <Route path='howtobuy' element={<HowToBuy />} />
-          <Route path='questionare' element={<Questionare />} />
-          <Route path='sitemap' element={<Sitemap />} />
-          <Route path='notfound' element={<NotFound />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="howtobuy" element={<HowToBuy />} />
+          <Route path="questionare" element={<Questionare />} />
+          <Route path="sitemap" element={<Sitemap />} />
+          <Route path="notfound" element={<NotFound />} />
+          <Route path="successfulorder" element={<SuccessfulOrder />} />
+          <Route path="cart" element={<Cart />} />
         </Route>
       </Routes>
     </CartProvider>
