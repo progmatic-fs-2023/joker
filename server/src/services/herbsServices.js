@@ -8,7 +8,7 @@ export const getAllHerbs = async () => {
 };
 
 export const getHerbByID = async id => {
-  const result = await prisma.herb.find({
+  const result = await prisma.herb.findFirst({
     where: {
       id,
     },
