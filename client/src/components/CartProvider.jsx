@@ -1,11 +1,15 @@
-import { useState, useMemo } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import CartContext from '../contexts/CartContext';
 
 export default function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const orderId = useRef(null);
 
+  const setOrderId = (id) => {
+    orderId.current = id;
+  };
   const addToCart = (product) => {
     const { herbName, quantity, unitPrice } = product;
 
@@ -38,8 +42,16 @@ export default function CartProvider({ children }) {
   };
 
   const contextValue = useMemo(
-    () => ({ cart, addToCart, setCart, removeFromCart, clearCart }),
-    [cart, addToCart, setCart, removeFromCart, clearCart],
+    () => ({
+      cart,
+      addToCart,
+      setCart,
+      removeFromCart,
+      clearCart,
+      setOrderId,
+      orderId: orderId.current,
+    }),
+    [cart, addToCart, setCart, removeFromCart, clearCart, setOrderId, orderId],
   );
 
   return <CartContext.Provider value={contextValue}>{children}</CartContext.Provider>;
