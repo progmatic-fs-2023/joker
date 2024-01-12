@@ -11,7 +11,13 @@ import HowToBuy from './pages/HowToBuy';
 import Questionare from './pages/Questionare';
 import Sitemap from './pages/Sitemap';
 import NotFound from './pages/NotFound';
+import UsersPage from './pages/UsersPage';
 import './App.css';
+import Basket from './pages/Basket';
+import Payment from './pages/Payment';
+import PurchaseHistory from './pages/PurchaseHistory';
+import Logout from './pages/Logout';
+
 
 function App() {
 
@@ -30,6 +36,11 @@ function App() {
           <Route path='questionare' element={<Questionare />} />
           <Route path='sitemap' element={<Sitemap />} />
           <Route path='notfound' element={<NotFound />} />
+          <Route path='userspage' element={<UsersPage />} />
+          <Route path='basket' element={<Basket />} />
+          <Route path='payment' element={<Payment />} />
+          <Route path='purchasehistory' element={<PurchaseHistory />} />
+          <Route path='logout' element={<Logout />} />
         </Route>
       </Routes>
     </CartProvider>
