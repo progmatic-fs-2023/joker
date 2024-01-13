@@ -5,6 +5,7 @@ import errorHandler from './middlewares/errorHandler.middleware';
 import apiRouter from './routes/api.route';
 import herbsRouter from './routes/herbsRouter';
 import usersRouter from './routes/usersRouter';
+import orderRouter from './routes/orderRouter';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(logger);
 app.use('/api', apiRouter);
 app.use('/api/herbs', herbsRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/orders', orderRouter);
 
 app.use(errorHandler);
 export default app;
