@@ -4,20 +4,41 @@ import { useCart } from '../hooks/useCart';
 import QuantitySelector from './QuantitySelector';
 import { sumPriceCalc } from '../helpers/summaryCalc';
 
-function Cart({handleClose}) {
-  const { cart, setCart, removeFromCart, clearCart } = useCart();
+function Cart({ handleClose }) {
+  const { cart, setCart, removeFromCart, clearCart, orderId } = useCart();
 
   const navigate = useNavigate();
+
   const handleCheckout = () => {
-      navigate('/userform');
-      handleClose();
+    navigate('/userform');
+    handleClose();
   };
 
-  const handleQuantityChange = (productName, newQuantity, productImage) => {
+  const handleQuantityChange = async (productName, newQuantity) => {
+    const product = cart.find((item) => item.herbName === productName);
+    if (!product) {
+      throw new Error('A termék nem található a kosárban.');
+    }
+    const herbID = product.id;
+    const response = await fetch('http://localhost:3000/api/orders/updateCartItem', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        orderID: orderId,
+        herbID,
+        newQuantity,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text();
+      throw new Error(`Hiba a frissítéskor: ${errorDetails}`);
+    }
+
     const updatedCartItems = cart.map((item) =>
-      item.herbName === productName
-        ? { ...item, quantity: newQuantity, image: [productImage] }
-        : item,
+      item.herbName === productName ? { ...item, quantity: newQuantity } : item,
     );
     setCart(updatedCartItems);
   };
@@ -42,7 +63,7 @@ function Cart({handleClose}) {
                 className="img-fluid img-thumbnail"
               />
               <span>
-                {product.herbName} - Mennyiség: {product.quantity}gr - Ár:{' '}
+                {product.herbName} - Mennyiség: {product.quantity}gr - Ár:
                 {product.price * product.quantity} Ft
               </span>
             </div>
@@ -53,11 +74,7 @@ function Cart({handleClose}) {
                 }
                 initialQuantity={product.quantity}
               />
-              <button
-                type="button"
-                className=""
-                onClick={() => removeItem(product.herbName)}
-              >
+              <button type="button" className="" onClick={() => removeItem(product.herbName)}>
                 Törlés
               </button>
             </div>
@@ -68,20 +85,12 @@ function Cart({handleClose}) {
         <strong>Kosár tartalma:</strong>
         <div>Termékek: {cart.length} tétel</div>
         <div>Fizetendő: {sumPriceCalc(cart)} Ft</div>
-        <button
-          type="button"
-          className=""
-          onClick={emptyCart}
-        >
+        <button type="button" className="" onClick={emptyCart}>
           Kosár ürítése
         </button>
       </div>
       <div className="checkout">
-        <button
-          type="button"
-          className=""
-          onClick={handleCheckout}
-        >
+        <button type="button" className="" onClick={handleCheckout}>
           Fizetés és tovább megrendeléshez
         </button>
       </div>
@@ -90,7 +99,7 @@ function Cart({handleClose}) {
 }
 
 Cart.propTypes = {
-  handleClose: PropTypes.func.isRequired
+  handleClose: PropTypes.func.isRequired,
 };
 
 export default Cart;
