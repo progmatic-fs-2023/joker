@@ -22,6 +22,15 @@ function CollapsibleNav() {
                         <Nav.Link as={NavLink} to="/blog">Blog</Nav.Link>
                         <Nav.Link as={NavLink} to="/userform">UserForm</Nav.Link>
                         <Nav.Link as={NavLink} to="/successfulorder">SuccessfulOrder</Nav.Link>
+                        <NavDropdown title="Profilom" id="collapsible-nav-dropdown">
+                        <NavDropdown.Item as={NavLink} to="/UsersPage">Profilom</NavDropdown.Item>
+                        <NavDropdown.Item as={NavLink} to="/Basket">Kosaram</NavDropdown.Item>
+                        <NavDropdown.Item as={NavLink} to="/Payment">Fizetési mód</NavDropdown.Item>
+                        <NavDropdown.Item as={NavLink} to="/PurchaseHistory">Vásárlási előzmények</NavDropdown.Item>
+                        <NavDropdown.Item as={NavLink} to="/Logout">Kijelentkezés</NavDropdown.Item>
+                       
+                        </NavDropdown>
+
                         <NavDropdown title="Információk" id="collapsible-nav-dropdown">
                             <NavDropdown.Item as={NavLink} to="/contact">Kapcsolat</NavDropdown.Item>
                             <NavDropdown.Item as={NavLink} to="/howtobuy">
