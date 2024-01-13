@@ -24,9 +24,10 @@ function UsersPage() {
         <div>
             <h1>User Profile</h1>
             <form onSubmit={handleSubmit}>
-                <label>
+                <label htmlFor='firstname'>
                     First Name:
                     <input
+                        id="firstname"
                         type="text"
                         name="firstName"
                         value={currentUser.firstName}
@@ -34,9 +35,10 @@ function UsersPage() {
                     />
                 </label>
                 <br />
-                <label>
+                <label htmlFor='lastname'>
                     Last Name:
                     <input
+                        id="lastname"
                         type="text"
                         name="lastName"
                         value={currentUser.lastName}
@@ -44,9 +46,10 @@ function UsersPage() {
                     />
                 </label>
                 <br />
-                <label>
+                <label htmlFor='address'>
                     Address:
                     <input
+                        id="address"
                         type="text"
                         name="address"
                         value={currentUser.address}
