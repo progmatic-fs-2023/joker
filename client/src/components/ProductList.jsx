@@ -36,11 +36,11 @@ function ProductList({ stockList }) {
     });
 
   return (
-    <div className="product-list-container p-5">
-      <div className="filter-area d-flex justify-content-center">
+    <div className="product-list-container px-5">
+      <div className="filter-area d-flex justify-content-center  m-3">
         <FilterArea handleSortChange={handleSortChange} categories={categories} handleCategoryClick={handleCategoryClick} />
       </div>
-      <div className="product-list row gap-5 d-flex justify-content-around">
+      <div className="product-list row gap-2 d-flex justify-content-around">
         {filteredList.map((stockItem) => (
           <CardKitchenSink key={uniqueKeyGenerator()} stockItem={stockItem} />
         ))}

@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import BlockButton from './micro/BlockButton';
 import { useCart } from '../hooks/useCart';
 import QuantitySelector from './QuantitySelector';
 import { sumPriceCalc } from '../helpers/summaryCalc';
+import {API_URL} from '../constants'
 
 function Cart({ handleClose }) {
   const { cart, setCart, removeFromCart, clearCart, orderId } = useCart();
@@ -20,7 +23,7 @@ function Cart({ handleClose }) {
       throw new Error('A termék nem található a kosárban.');
     }
     const herbID = product.id;
-    const response = await fetch('http://localhost:3000/api/orders/updateCartItem', {
+    const response = await fetch(`${API_URL}/orders/updateCartItem`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -52,15 +55,15 @@ function Cart({ handleClose }) {
   };
 
   return (
-    <div className="wrapper col-3">
-      <div className="products-container">
+    <div className="wrapper">
+      <div className="products-container p-5 text-center">
         {cart.map((product) => (
-          <div key={product.herbName} className="product">
+          <div key={product.herbName} className="product p-2 m-2" style={{border: '1px lightgreen solid', borderRadius: '5px'}}>
             <div className="product-details">
               <img
                 src={product.image[0]}
                 alt={product.herbName}
-                className="img-fluid img-thumbnail"
+                className="img-fluid img-thumbnail w-25"
               />
               <span>
                 {product.herbName} - Mennyiség: {product.quantity}gr - Ár:
@@ -74,9 +77,9 @@ function Cart({ handleClose }) {
                 }
                 initialQuantity={product.quantity}
               />
-              <button type="button" className="" onClick={() => removeItem(product.herbName)}>
+              <Button variant='outline-danger' type="button" className="btn-sm" onClick={() => removeItem(product.herbName)}>
                 Törlés
-              </button>
+              </Button>
             </div>
           </div>
         ))}
@@ -85,14 +88,28 @@ function Cart({ handleClose }) {
         <strong>Kosár tartalma:</strong>
         <div>Termékek: {cart.length} tétel</div>
         <div>Fizetendő: {sumPriceCalc(cart)} Ft</div>
-        <button type="button" className="" onClick={emptyCart}>
+        <BlockButton variant="warning"
+          type="button"
+          btnName="Kosár ürítése"
+          size='sm'
+          onClick={emptyCart}
+          classNames="m-2"
+        />
+        {/* <Button variant='danger' type="button" className="" onClick={emptyCart}>
           Kosár ürítése
-        </button>
+        </Button> */}
       </div>
       <div className="checkout">
-        <button type="button" className="" onClick={handleCheckout}>
+      <BlockButton variant="success"
+          type="button"
+          btnName="Fizetés és megrendelés"
+          size='md'
+          onClick={handleCheckout}
+          classNames="m-2"
+        />
+        {/* <Button variant='success' type="button" className="" onClick={handleCheckout}>
           Fizetés és tovább megrendeléshez
-        </button>
+        </Button> */}
       </div>
     </div>
   );

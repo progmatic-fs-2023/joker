@@ -4,8 +4,9 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import Button from 'react-bootstrap/Button';
 import { useCart } from '../hooks/useCart';
+import {API_URL} from '../constants';
 
 function UserForm() {
   const { cart, orderId } = useCart();
@@ -33,9 +34,8 @@ function UserForm() {
     event.preventDefault();
 
     const currentOrderID = orderId;
-
     // Send data to the backend
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/orders/finalizeOrder`, {
+    const response = await fetch(`${API_URL}/orders/finalizeOrder`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -180,9 +180,9 @@ function UserForm() {
                 </label>
               </div>
             </form>
-            <button type="submit" onClick={handleSubmit}>
+            <Button type="submit" onClick={handleSubmit}>
               Rendelés megerősítése
-            </button>
+            </Button>
           </div>
         </Col>
         <Col md={6}>
