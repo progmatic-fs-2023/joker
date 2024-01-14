@@ -1,19 +1,21 @@
+import React from 'react';
 import CollapsibleNav from './CollapsibleNav';
+import NavbarSearch from './NavbarSearch';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Header() {
   return (
     <div>
-      <header>
-        <h1 className=''>Herbalism.hu</h1>
+      <header className="text-center text-success">
+        <h1>Herbalism.hu</h1>
         <pre>
-          <h3 className=''>
-            {`"Herbalism is the tradition of studying and using herbs for their healing properties.\nGrowing freely in the natural world, the term ‘herb’ refers to every part of the plant, from the roots to the flowers."`}
-          </h3>
+          <h3>{}</h3>
         </pre>
       </header>
       <CollapsibleNav />
+      <NavbarSearch />
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
