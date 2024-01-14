@@ -110,7 +110,6 @@ model Order {
   userID       String        @db.Char(36)
   targetUser   User          @relation(fields: [userID], references: [id])
   status       Status        @default(CART)
-  delivered    Boolean       @default(false)
   customerNote String        @db.VarChar(256)
   createdAt    DateTime      @default(now())
   updatedAt    DateTime?     @updatedAt

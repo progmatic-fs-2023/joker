@@ -6,11 +6,14 @@ import { Link } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import BlockButton from './micro/BlockButton';
 import { useCart } from '../hooks/useCart';
+import useAuth from "../hooks/useAuth";
 import QuantitySelector from './QuantitySelector';
 import DetailsModal from './DeatilsModal';
 import NotificationRequestModal from './NotificationRequestModal'; // Importáljuk az értesítési modal-t
+import {API_URL} from '../constants'
 
 function CardKitchenSink({ stockItem }) {
+  const { auth } = useAuth()
   const { addToCart: addToCartContext, setOrderId } = useCart();
   const { herbName, price, image, species, id, stockQuantity } = stockItem;
   const [qty, setQuantity] = useState(0);
@@ -38,15 +41,17 @@ function CardKitchenSink({ stockItem }) {
     }
 
     // Test id for testing, in real use logged in user
-    const testUserId = 'c2285270-9dff-42f6-a9dc-848d45b1c072';
+    // const testUserId = "b18c15d2-97f5-42a2-bc12-1fd94a2f97e9";
+    const loggedInUser = auth.userId;
+    // console.log('testUserId:', loggedInUser)
 
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/orders/addToCart`, {
+    const response = await fetch(`${API_URL}/orders/addToCart`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        userID: testUserId,
+        userID: loggedInUser,
         herbID: id,
         quantity: qty,
       }),

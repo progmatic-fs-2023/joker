@@ -20,6 +20,7 @@ function OffCanvasCart({ placement }) {
 
   const navigateToShop = () => {
     navigate('/shop');
+    handleClose()
   };
   const location = useLocation();
 
@@ -34,13 +35,13 @@ function OffCanvasCart({ placement }) {
   };
 
   return (
-    <>
+    <div className='offcanvas w-25 d-flex align-items-end'>
       <Button
         variant="secondary"
         onClick={handleShow}
-        className="w-25 d-flex justify-content-between"
+        className="w-25 d-flex justify-content-around"
       >
-        <Image src={CartIcon} rounded className="img-fluid img-thumbnail" />
+        <Image src={CartIcon} rounded className="img-fluid img-thumbnail w-25" />
         <Badge bg="info">{cart.length}</Badge>
         <span className="visually-hidden">termék a kosárban</span>
       </Button>
@@ -52,19 +53,23 @@ function OffCanvasCart({ placement }) {
           {cart.length > 0 ? (
             <Cart handleClose={handleClose} onCheckout={handleCheckout} />
           ) : (
-            <h6 className="h6">
-              <h5>A kosár üres.</h5>
+            <h5 className="h5">
+              <p>A kosár üres.</p>
               <BlockButton variant="primary" btnName="Vissza a boltba" onClick={navigateToShop} />
-            </h6>
+            </h5>
           )}
         </Offcanvas.Body>
       </Offcanvas>
-    </>
+      </div>
   );
 }
 
 OffCanvasCart.propTypes = {
-  placement: PropTypes.string.isRequired,
+  placement: PropTypes.string,
+};
+
+OffCanvasCart.defaultProps = {
+  placement: undefined,
 };
 
 export default OffCanvasCart;

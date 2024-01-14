@@ -35,9 +35,14 @@ function QuantitySelector({ onQuantityChange, initialQuantity }) {
 
   return (
     <div className="quantity-selector p-2">
-      <Button className='m-1' variant='outline-info' type='button' onClick={decreaseQuantity}>
-        -
-      </Button>
+      <div className='d-flex justify-content-center'>
+        <Button className='m-1' variant='outline-info' type='button' onClick={decreaseQuantity}>
+          -
+        </Button>
+        <Button className='m-1' variant='outline-info' type='button' onClick={increaseQuantity}>
+          +
+        </Button>
+      </div>
       <input
         className="m-1 rounded text-center"
         type="text"
@@ -45,9 +50,6 @@ function QuantitySelector({ onQuantityChange, initialQuantity }) {
         onFocus={handleInputFocus}
         onChange={handleInputChange}
       />
-      <Button className='m-1' variant='outline-info' type='button' onClick={increaseQuantity}>
-        +
-      </Button>
     </div>
   );
 }

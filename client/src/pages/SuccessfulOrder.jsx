@@ -41,7 +41,7 @@ function SuccessfulOrder() {
         <h2>A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
         <p>
           Próbáld meg újra vagy vedd fel velünk a kapcsolatot az{' '}
-          <a href="mailto:ugyfelszolgalat@herbals.hu">ugyfelszolgalat@herbals.hu</a> email címen.
+          <a href="mailto:ugyfelszolgalat@herbalism.hu">ugyfelszolgalat@herbalism.hu</a> email címen.
           <br /> Örömmel segítünk! 😊
         </p>
       </div>
@@ -51,7 +51,7 @@ function SuccessfulOrder() {
   return (
     <div className="order-summarized">
       <h2>Rendelés azonosító: {orderDetails.id}</h2>
-      <ul>
+      <ul className='w-75'>
         {orderDetails.quantity.map((item, index) => (
           <OrderedItem
             key={uniqueKeyGenerator(index)}
