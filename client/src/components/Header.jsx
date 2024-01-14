@@ -1,19 +1,20 @@
-import React from 'react';
-import CollapsibleNav from './CollapsibleNav';
-import NavbarSearch from './NavbarSearch';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import NavSearch from './NavSearch';
 
 function Header() {
   return (
     <div>
-      <header className="text-center text-success">
-        <h1>Herbalism.hu</h1>
-        <pre>
-          <h3>{}</h3>
-        </pre>
+      <header className="d-flex justify-content-around flex-wrap">
+        <h1 className="">Herbalism.hu</h1>
+        <small className="w-50 text-center">
+          <p className="m-0">
+            Herbalism is the tradition of studying and using herbs for their healing properties.
+            <br />
+            Growing freely in the natural world, the term ‘herb’ refers to every part of the plant,
+            from the roots to the flowers.
+          </p>
+        </small>
       </header>
-      <CollapsibleNav />
-      <NavbarSearch />
+      <NavSearch />
     </div>
   );
 }

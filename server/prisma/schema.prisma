@@ -39,6 +39,12 @@ model User {
   @@index([email])
 }
 
+enum Role {
+  BASIC
+  ADMIN
+  SUPERADMIN
+}
+
 model Post {
   id          String    @id @default(uuid())
   title       String    @db.VarChar(256)
@@ -74,28 +80,27 @@ model Feedback {
 }
 
 model Herb {
-  id               String        @id @default(uuid())
-  herbName         String        @unique @db.VarChar(256)
-  rating           Float         @default(1)
-  image            String[]
-  tags             String[]
-  kingdom          String?
-  order            String?
-  family           String?
-  genus            String?
-  species          String?
-  details          String?
-  stockQuantity    Int           @default(0)
-  reservedQuantity Int[]
-  nextDelivery     String?       @db.Char(10)
-  price            Int           @default(0)
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime?     @updatedAt
-  categories       Category[]
-  feedbacks        Feedback[]
-  orders           Order[]
-  users            User[]
-  quantity         HerbOnOrder[]
+  id            String        @id @default(uuid())
+  herbName      String        @unique @db.VarChar(256)
+  rating        Float         @default(1)
+  image         String[]
+  tags          String[]
+  kingdom       String?
+  order         String?
+  family        String?
+  genus         String?
+  species       String?
+  details       String?
+  stockQuantity Int           @default(0)
+  nextDelivery  String?       @db.Char(10)
+  price         Int           @default(0)
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime?     @updatedAt
+  categories    Category[]
+  feedbacks     Feedback[]
+  orders        Order[]
+  users         User[]
+  quantity      HerbOnOrder[]
 
   @@index([herbName, kingdom, order, family, genus, species])
 }
@@ -104,14 +109,18 @@ model Order {
   id           String        @id @default(uuid())
   userID       String        @db.Char(36)
   targetUser   User          @relation(fields: [userID], references: [id])
-  status       Boolean       @default(false)
-  type         Type          @default(CART)
-  delivered    Boolean       @default(false)
+  status       Status        @default(CART)
   customerNote String        @db.VarChar(256)
   createdAt    DateTime      @default(now())
   updatedAt    DateTime?     @updatedAt
   herbs        Herb[]
   quantity     HerbOnOrder[]
+}
+
+enum Status {
+  CART
+  VERIFIED
+  DELIVERED
 }
 
 model Category {
@@ -130,15 +139,4 @@ model HerbOnOrder {
   quantity    Int
 
   @@id([herbID, orderID])
-}
-
-enum Role {
-  BASIC
-  ADMIN
-  SUPERADMIN
-}
-
-enum Type {
-  CART
-  VERIFIED
 }

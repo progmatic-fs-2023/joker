@@ -1,58 +1,88 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../hooks/useCart';
-import OrderedItem from '../components/OrderedItem'
-import { sumPriceCalc } from '../helpers/summaryCalc'
-import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator'
+import OrderedItem from '../components/OrderedItem';
+import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator';
 
 function SuccessfulOrder() {
-    const { cart } = useCart();
-    const userOrder = {
-          orderID: '234343-643svsd',
-          orderedItems: [...cart],
-          paid: 'true',
-          delivered: 'false',
-          currencyCode: 1,
-        }
-    const currency = userOrder.currencyCode === 1 ? 'Ft' : '€'
+  const { orderId, clearCart } = useCart();
+  const [orderDetails, setOrderDetails] = useState(null);
+  useEffect(() => {
+    clearCart(); // Clear Cart here
+  }, []);
+  // Get order details here
+  useEffect(() => {
+    if (!orderId) {
+      return;
+    }
 
+    async function fetchOrderDetails() {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/orders/${orderId}`);
+      if (!response.ok) {
+        throw new Error(`Network response was not ok, status: ${response.status}`);
+      }
+      const data = await response.json();
+      setOrderDetails(data);
+    }
+
+    fetchOrderDetails();
+  }, [orderId]);
+
+  const totalPrice = orderDetails
+    ? orderDetails.quantity.reduce(
+        (total, item) => total + item.quantity * item.targetHerb.price,
+        0,
+      )
+    : 0;
+
+  if (!orderDetails) {
     return (
-        <div className="order-summarized">
-            {
-                !userOrder.orderID
-                    ? <div>
-                        <h2>A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
-                        <p>Próbáld meg újra vagy vedd fel velünk a kapcsolatot az <a href="mailto:ugyfelszolgalat@herbals.hu">ugyfelszolgalat@herbals.hu</a> email címen.
-                            <br /> Örömmel segítünk! 😊</p>
-                    </div>
-                    : <div className='successful-order-container'>
-                        <div className='successful-order-info'>
-                            <h2>Köszönjük megrendelésed!</h2>
-                            <h4>Rendelés azonosító: {userOrder.orderID}</h4>
-                            <h4>Fizetendő: {sumPriceCalc(cart)} {currency}</h4>
-                            <p>Megrendelt tételek:</p>
-                        </div>
-                        <div className='ordered-items-list-container'>
-                            {cart.map(orderedItem => <OrderedItem key={uniqueKeyGenerator()} orderedItem={orderedItem} currency={currency} />)}
-                        </div>
-                    </div>
-            }
-        </div>
-    )
+      <div>
+        <h2>A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
+        <p>
+          Próbáld meg újra vagy vedd fel velünk a kapcsolatot az{' '}
+          <a href="mailto:ugyfelszolgalat@herbalism.hu">ugyfelszolgalat@herbalism.hu</a> email címen.
+          <br /> Örömmel segítünk! 😊
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="order-summarized">
+      <h2>Rendelés azonosító: {orderDetails.id}</h2>
+      <ul className='w-75'>
+        {orderDetails.quantity.map((item, index) => (
+          <OrderedItem
+            key={uniqueKeyGenerator(index)}
+            orderedItem={{
+              image: item.targetHerb.image,
+              herbName: item.targetHerb.herbName,
+              quantity: item.quantity,
+              price: item.targetHerb.price,
+            }}
+            currency="Ft"
+          />
+        ))}
+      </ul>
+      <h3>Összesen fizetendő: {totalPrice} Ft</h3>
+    </div>
+  );
 }
 
 SuccessfulOrder.propTypes = {
-    orderList: PropTypes.shape({
-        image: PropTypes.string,
-        name: PropTypes.string,
-        quantity: PropTypes.number,
-        packing: PropTypes.string,
-        unitPrice: PropTypes.number,
-        map: PropTypes.func,
-        length: PropTypes.func
-    })
+  orderList: PropTypes.shape({
+    image: PropTypes.string,
+    name: PropTypes.string,
+    quantity: PropTypes.number,
+    packing: PropTypes.string,
+    unitPrice: PropTypes.number,
+    map: PropTypes.func,
+    length: PropTypes.func,
+  }),
 };
 SuccessfulOrder.defaultProps = {
-    orderList: undefined,
-  };
+  orderList: undefined,
+};
 
-export default SuccessfulOrder
+export default SuccessfulOrder;
