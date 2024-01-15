@@ -27,6 +27,7 @@ import Payment from './pages/Payment';
 import PurchaseHistory from './pages/PurchaseHistory';
 import Logout from './pages/Logout';
 import UsersPage from './pages/UsersPage';
+import ASZF from './pages/Aszf';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             <Route path="payment" element={<Payment />} />
             <Route path="purchasehistory" element={<PurchaseHistory />} />
             <Route path="logout" element={<Logout />} />
+            <Route path="aszf" element={<ASZF />} />
             {/* public auth routes */}
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
