@@ -5,7 +5,7 @@ import BlockButton from './micro/BlockButton';
 import { useCart } from '../hooks/useCart';
 import QuantitySelector from './QuantitySelector';
 import { sumPriceCalc } from '../helpers/summaryCalc';
-import {API_URL} from '../constants'
+import { API_URL } from '../constants';
 
 function Cart({ handleClose }) {
   const { cart, setCart, removeFromCart, clearCart, orderId } = useCart();
@@ -46,19 +46,53 @@ function Cart({ handleClose }) {
     setCart(updatedCartItems);
   };
 
-  const removeItem = (productName) => {
+  const removeItem = async (productName) => {
+    const product = cart.find((item) => item.herbName === productName);
+    if (!product) {
+      return;
+    }
+
+    const response = await fetch(`${API_URL}/orders/removeItem`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        orderID: orderId,
+        herbID: product.id,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Nem sikerült eltávolítani a terméket.');
+    }
+
     removeFromCart(productName);
   };
 
-  const emptyCart = () => {
+  const emptyCart = async () => {
+    const response = await fetch(`${API_URL}/orders/clearCart/${orderId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Nem sikerült kiüríteni a kosarat.');
+    }
+
     clearCart();
   };
-
   return (
     <div className="wrapper">
       <div className="products-container p-5 text-center">
         {cart.map((product) => (
-          <div key={product.herbName} className="product p-2 m-2" style={{border: '1px lightgreen solid', borderRadius: '5px'}}>
+          <div
+            key={product.herbName}
+            className="product p-2 m-2"
+            style={{ border: '1px lightgreen solid', borderRadius: '5px' }}
+          >
             <div className="product-details">
               <img
                 src={product.image[0]}
@@ -77,7 +111,12 @@ function Cart({ handleClose }) {
                 }
                 initialQuantity={product.quantity}
               />
-              <Button variant='outline-danger' type="button" className="btn-sm" onClick={() => removeItem(product.herbName)}>
+              <Button
+                variant="outline-danger"
+                type="button"
+                className="btn-sm"
+                onClick={() => removeItem(product.herbName)}
+              >
                 Törlés
               </Button>
             </div>
@@ -88,10 +127,11 @@ function Cart({ handleClose }) {
         <strong>Kosár tartalma:</strong>
         <div>Termékek: {cart.length} tétel</div>
         <div>Fizetendő: {sumPriceCalc(cart)} Ft</div>
-        <BlockButton variant="warning"
+        <BlockButton
+          variant="warning"
           type="button"
           btnName="Kosár ürítése"
-          size='sm'
+          size="sm"
           onClick={emptyCart}
           classNames="m-2"
         />
@@ -100,10 +140,11 @@ function Cart({ handleClose }) {
         </Button> */}
       </div>
       <div className="checkout">
-      <BlockButton variant="success"
+        <BlockButton
+          variant="success"
           type="button"
           btnName="Fizetés és megrendelés"
-          size='md'
+          size="md"
           onClick={handleCheckout}
           classNames="m-2"
         />
@@ -114,7 +155,6 @@ function Cart({ handleClose }) {
     </div>
   );
 }
-
 Cart.propTypes = {
   handleClose: PropTypes.func.isRequired,
 };

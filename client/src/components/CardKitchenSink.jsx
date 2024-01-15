@@ -2,22 +2,26 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import BlockButton from './micro/BlockButton';
 import { useCart } from '../hooks/useCart';
-import useAuth from "../hooks/useAuth";
+import useAuth from '../hooks/useAuth';
 import QuantitySelector from './QuantitySelector';
 import DetailsModal from './DeatilsModal';
-import NotificationRequestModal from './NotificationRequestModal'; // Importáljuk az értesítési modal-t
-import {API_URL} from '../constants'
+import NotificationRequestModal from './NotificationRequestModal';
+import { API_URL } from '../constants';
 
 function CardKitchenSink({ stockItem }) {
-  const { auth } = useAuth()
+  const { auth } = useAuth();
   const { addToCart: addToCartContext, setOrderId } = useCart();
   const { herbName, price, image, species, id, stockQuantity } = stockItem;
   const [qty, setQuantity] = useState(0);
   const [outOfStockNotification, setOutOfStockNotification] = useState(false);
+  const navigate = useNavigate();
+  const navigateToProduct = () => {
+    navigate(`/product/${stockItem.id}`, { state: { stockItem } });
+  };
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -69,32 +73,42 @@ function CardKitchenSink({ stockItem }) {
   };
 
   return (
-    <Card style={{ width: '17rem' }}>
-      <Card.Img as={Image} variant="top" src={image[0]} alt={herbName} />
+    <Card style={{ width: '18rem' }}>
+      <div
+        className="card-img-top"
+        style={{ height: '150px', overflow: 'hidden', textAlign: 'center' }}
+      >
+        <Image src={image[0]} alt={herbName} fluid style={{ maxWidth: '100%', height: 'auto' }} />
+      </div>
       <Card.Body>
         <Card.Title>{herbName}</Card.Title>
         <Card.Text>{`${stockItem.details.substring(0, 150)}...`}</Card.Text>
       </Card.Body>
-      <ListGroup className="list-group-flush">
+      <ListGroup variant="flush">
         <ListGroup.Item>
           <DetailsModal stockItem={stockItem} centered />
         </ListGroup.Item>
         <ListGroup.Item>{species}</ListGroup.Item>
         <ListGroup.Item>Készlet: {stockQuantity} g</ListGroup.Item>
-        <ListGroup.Item>Ár: {price} Ft/g</ListGroup.Item>
+        <ListGroup.Item>Ár: {price} Ft/g</ListGroup.Item>{' '}
+        <BlockButton
+          size="m"
+          variant="success"
+          type="button"
+          btnName="Adatlap"
+          onClick={navigateToProduct}
+        />
         <ListGroup.Item>
           <Card.Link as={Link} to="#">
-            Card Link
-          </Card.Link>
-          <Card.Link as={Link} to="#">
-            Another Link
+            További részletek
           </Card.Link>
         </ListGroup.Item>
       </ListGroup>
-      <Card.Body>
+      <Card.Body style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={qty} />
         {stockQuantity <= 0 ? (
           <BlockButton
+            size="m"
             variant="warning"
             type="button"
             btnName="Értesítést kérek"
@@ -102,7 +116,8 @@ function CardKitchenSink({ stockItem }) {
           />
         ) : (
           <BlockButton
-            variant="outline-success"
+            size="m"
+            variant="success"
             type="button"
             btnName="Kosárba"
             onClick={addToCart}

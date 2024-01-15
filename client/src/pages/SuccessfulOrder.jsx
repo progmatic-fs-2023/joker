@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useCart } from '../hooks/useCart';
 import OrderedItem from '../components/OrderedItem';
 import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator';
+import { API_URL } from '../constants';
 
 function SuccessfulOrder() {
   const { orderId, clearCart } = useCart();
@@ -17,7 +18,7 @@ function SuccessfulOrder() {
     }
 
     async function fetchOrderDetails() {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/orders/${orderId}`);
+      const response = await fetch(`${API_URL}/orders/${orderId}`);
       if (!response.ok) {
         throw new Error(`Network response was not ok, status: ${response.status}`);
       }
@@ -41,7 +42,8 @@ function SuccessfulOrder() {
         <h2>A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
         <p>
           Próbáld meg újra vagy vedd fel velünk a kapcsolatot az{' '}
-          <a href="mailto:ugyfelszolgalat@herbalism.hu">ugyfelszolgalat@herbalism.hu</a> email címen.
+          <a href="mailto:ugyfelszolgalat@herbalism.hu">ugyfelszolgalat@herbalism.hu</a> email
+          címen.
           <br /> Örömmel segítünk! 😊
         </p>
       </div>
@@ -51,7 +53,7 @@ function SuccessfulOrder() {
   return (
     <div className="order-summarized">
       <h2>Rendelés azonosító: {orderDetails.id}</h2>
-      <ul className='w-75'>
+      <ul className="w-75">
         {orderDetails.quantity.map((item, index) => (
           <OrderedItem
             key={uniqueKeyGenerator(index)}

@@ -120,6 +120,27 @@ const orderList = async (req, res) => {
   }
 };
 
+const removeItem = async (req, res) => {
+  const { orderID, herbID } = req.body;
+
+  try {
+    const updatedOrder = await ordersServices.removeItemFromOrder(orderID, herbID);
+    res.status(200).json(updatedOrder);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Hiba történt a termék eltávolítása közben.', error: error.message });
+  }
+};
+const clearCart = async (req, res) => {
+  try {
+    await ordersServices.clearCartAndCheckOrder(req.params.orderId);
+    res.status(200).json({ message: 'Cart cleared, order deleted if needed' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 export default {
   getOrder,
   create,
@@ -129,4 +150,6 @@ export default {
   userOrderList,
   singleOrderOfUser,
   orderList,
+  removeItem,
+  clearCart,
 };
