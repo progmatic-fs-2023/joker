@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import RequireAuth from './components/secure/RequireAuth';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
+import Product from './pages/Product';
 import Blog from './pages/Blog';
 import UserForm from './pages/UserForm';
 import SuccessfulOrder from './pages/SuccessfulOrder';
@@ -27,7 +28,6 @@ import Payment from './pages/Payment';
 import PurchaseHistory from './pages/PurchaseHistory';
 import Logout from './pages/Logout';
 import UsersPage from './pages/UsersPage';
-import ASZF from './pages/Aszf';
 
 function App() {
   return (
@@ -38,6 +38,7 @@ function App() {
             {/* public routes */}
             <Route index element={<Home />} />
             <Route path="shop" element={<Shop />} />
+            <Route path="product/:id" element={<Product />} />
             <Route path="blog" element={<Blog />} />
             <Route path="userform" element={<UserForm />} />
             <Route path="successfulorder" element={<SuccessfulOrder />} />
@@ -50,7 +51,6 @@ function App() {
             <Route path="payment" element={<Payment />} />
             <Route path="purchasehistory" element={<PurchaseHistory />} />
             <Route path="logout" element={<Logout />} />
-            <Route path="aszf" element={<ASZF />} />
             {/* public auth routes */}
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />

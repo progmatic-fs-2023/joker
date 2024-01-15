@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function QuantitySelector({ onQuantityChange, initialQuantity }) {
   const [qty, setQuantity] = useState(initialQuantity || 0);
@@ -34,22 +35,21 @@ function QuantitySelector({ onQuantityChange, initialQuantity }) {
   };
 
   return (
-    <div className="quantity-selector p-2">
-      <div className='d-flex justify-content-center'>
-        <Button className='m-1' variant='outline-info' type='button' onClick={decreaseQuantity}>
-          -
-        </Button>
-        <Button className='m-1' variant='outline-info' type='button' onClick={increaseQuantity}>
-          +
-        </Button>
-      </div>
-      <input
+    <div className="quantity-selector p-2 d-flex align-items-center">
+      <Button className="m-1" variant="outline-info" type="button" onClick={decreaseQuantity}>
+        -
+      </Button>
+      <Form.Control
         className="m-1 rounded text-center"
         type="text"
         value={qty}
         onFocus={handleInputFocus}
         onChange={handleInputChange}
+        style={{ width: '50px' }}
       />
+      <Button className="m-1" variant="outline-info" type="button" onClick={increaseQuantity}>
+        +
+      </Button>
     </div>
   );
 }
