@@ -197,6 +197,92 @@ const deleteOrderById = async orderID => {
   return null;
 };
 
+const removeItemFromOrder = async (orderID, herbID) => {
+  let item;
+  try {
+    await prisma.$transaction(async () => {
+      item = await prisma.herbOnOrder.findUnique({
+        where: {
+          herbID_orderID: {
+            herbID,
+            orderID,
+          },
+        },
+      });
+
+      if (!item) {
+        throw new Error('A termék nem található a rendelésben.');
+      }
+
+      await prisma.herb.update({
+        where: { id: herbID },
+        data: { stockQuantity: { increment: item.quantity } },
+      });
+
+      await prisma.herbOnOrder.delete({
+        where: {
+          herbID_orderID: {
+            herbID,
+            orderID,
+          },
+        },
+      });
+
+      const remainingItems = await prisma.herbOnOrder.findMany({
+        where: { orderID },
+      });
+
+      if (remainingItems.length === 0) {
+        await prisma.order.delete({
+          where: { id: orderID },
+        });
+      }
+    });
+    return item;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+    console.log('Prisma RemoveItemFromOrder finished');
+  }
+  return null;
+};
+
+const clearCartAndCheckOrder = async orderID => {
+  try {
+    return await prisma.$transaction(async () => {
+      const order = await prisma.order.findUnique({
+        where: { id: orderID },
+      });
+
+      if (!order) {
+        throw new Error('Rendelés nem található.');
+      }
+
+      if (order.status === 'CART') {
+        await prisma.herbOnOrder.deleteMany({
+          where: { orderID },
+        });
+
+        await prisma.order.delete({
+          where: { id: orderID },
+        });
+        return { message: 'Cart cleared and order deleted.' };
+      }
+
+      return order;
+    });
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+    console.log('Prisma clearCartAndCheckOrder  finished');
+  }
+  return null;
+};
+
 export default {
   getOrderById,
   getAllOrders,
@@ -205,4 +291,6 @@ export default {
   finalizeOrder,
   deleteOrderById,
   getAllOrdersOfUser,
+  removeItemFromOrder,
+  clearCartAndCheckOrder,
 };
