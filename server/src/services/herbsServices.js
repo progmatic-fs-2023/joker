@@ -35,6 +35,7 @@ const getHerbByID = async id => {
   }
   return null;
 };
+
 const updateHerbRating = async herbID => {
   try {
     const feedbacks = await prisma.feedback.findMany({
@@ -61,6 +62,7 @@ const updateHerbRating = async herbID => {
   } finally {
     await prisma.$disconnect();
   }
+  return null;
 };
 
 const createFeedback = async (title, body, authorID, herbID, rating) => {
@@ -84,6 +86,7 @@ const createFeedback = async (title, body, authorID, herbID, rating) => {
   } finally {
     await prisma.$disconnect();
   }
+  return null;
 };
 
 const getFeedbackByHerbID = async herbID => {
@@ -108,6 +111,7 @@ const getFeedbackByHerbID = async herbID => {
   } finally {
     await prisma.$disconnect();
   }
+  return null;
 };
 
 const deleteFeedback = async (feedbackId, userId) => {
@@ -133,6 +137,7 @@ const deleteFeedback = async (feedbackId, userId) => {
   } finally {
     await prisma.$disconnect();
   }
+  return null;
 };
 
 const editFeedback = async (feedbackId, userId, updatedData) => {
@@ -161,6 +166,7 @@ const editFeedback = async (feedbackId, userId, updatedData) => {
   } finally {
     await prisma.$disconnect();
   }
+  return null;
 };
 
 export default {
