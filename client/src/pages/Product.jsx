@@ -1,25 +1,59 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 import QuantitySelector from '../components/QuantitySelector';
 import ProductReview from '../components/ProductReview';
+import FeedbackList from '../components/FeedbackList';
 import { useCart } from '../hooks/useCart';
 import useAuth from '../hooks/useAuth';
 import { API_URL } from '../constants';
+import StarRating from '../components/micro/StarRating';
 import NotificationRequestModal from '../components/NotificationRequestModal';
 
 function Product() {
+  const { id } = useParams();
   const { auth } = useAuth();
-  const location = useLocation();
-  const stockItem = location.state?.stockItem;
+  const [stockItem, setStockItem] = useState(null);
   const { addToCart: addToCartContext, setOrderId } = useCart();
-  const { herbName, price, image, species, id, stockQuantity, details } = stockItem || {};
   const [qty, setQuantity] = useState(0);
   const [outOfStockNotification, setOutOfStockNotification] = useState(false);
+  const [showReview, setShowReview] = useState(false);
+  const [feedback, setFeedback] = useState([]);
+
+  const fetchFeedback = async () => {
+    const response = await fetch(`${API_URL}/herbs/feedback/${id}`);
+    if (response.ok) {
+      const data = await response.json();
+      setFeedback(data);
+      setShowReview(false);
+    } else {
+      throw new Error('Hiba a visszajelzések lekérdezésekor.');
+    }
+  };
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const response = await fetch(`${API_URL}/herbs/${id}`);
+      if (response.ok) {
+        const data = await response.json();
+        setStockItem(data);
+      }
+    };
+    fetchProduct();
+  }, [id]);
+
+  useEffect(() => {
+    fetchFeedback();
+  }, [id]);
+
+  if (!stockItem) {
+    return <div>Betöltés folyamatban...</div>;
+  }
+
+  const { herbName, price, image, species, stockQuantity, details, rating } = stockItem;
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -67,6 +101,21 @@ function Product() {
     setQuantity(0);
   };
 
+  // It is not neccessary function
+
+  // const addFeedback = (newFeedback) => {
+  //   setFeedback([...feedback, newFeedback]);
+  // };
+  const onFeedbackUpdate = (feedbackId, updatedFeedback = null) => {
+    if (updatedFeedback) {
+      setFeedback((prevFeedback) =>
+        prevFeedback.map((fb) => (fb.id === feedbackId ? { ...fb, ...updatedFeedback } : fb)),
+      );
+    } else {
+      setFeedback((prevFeedback) => prevFeedback.filter((fb) => fb.id !== feedbackId));
+    }
+  };
+
   return (
     <Card className="mb-3 text-center">
       <Card.Header>{herbName}</Card.Header>
@@ -82,6 +131,14 @@ function Product() {
           <p>{details}</p>
           <ListGroup variant="flush">
             <ListGroup.Item>Faj: {species}</ListGroup.Item>
+            <ListGroup.Item>
+              <StarRating rating={rating} />
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button variant="primary" onClick={() => setShowReview(!showReview)}>
+                Értékelés
+              </Button>
+            </ListGroup.Item>
             <ListGroup.Item>Készlet: {stockQuantity} g</ListGroup.Item>
             <ListGroup.Item>Ár: {price} Ft/g</ListGroup.Item>
           </ListGroup>
@@ -100,26 +157,21 @@ function Product() {
             Kosárba
           </Button>
         )}
-        <ProductReview />
+        {showReview && (
+          <ProductReview herbID={id} userId={auth.userId} onFeedbackPosted={fetchFeedback} />
+        )}
+        <FeedbackList
+          feedback={feedback}
+          userId={auth.userId}
+          onFeedbackUpdate={onFeedbackUpdate}
+        />
       </Card.Footer>
-      <NotificationRequestModal // Itt megjelenítjük az értesítés kérése modált
+      <NotificationRequestModal
         show={outOfStockNotification}
         onClose={handleCloseNotificationModal}
       />
     </Card>
   );
 }
-
-Product.propTypes = {
-  stockItem: PropTypes.shape({
-    herbName: PropTypes.string.isRequired,
-    species: PropTypes.string.isRequired,
-    image: PropTypes.arrayOf(PropTypes.string).isRequired,
-    stockQuantity: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    details: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export default Product;

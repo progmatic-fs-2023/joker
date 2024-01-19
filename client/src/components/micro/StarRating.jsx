@@ -17,14 +17,13 @@ function StarRating({ rating, setRating }) {
               name="rating"
               value={ratingValue}
               style={{ display: 'none' }}
-              onChange={() => setRating(ratingValue)}
+              onChange={() => setRating && setRating(ratingValue)}
             />
             <Form.Check.Label htmlFor={uniqueId}>
               <FaStar
                 size={30}
                 color={ratingValue <= rating ? '#ffc107' : '#e4e5e9'}
-                onMouseEnter={() => setRating(ratingValue)}
-                onMouseLeave={() => setRating(0)}
+                onClick={() => setRating && setRating(ratingValue)}
               />
             </Form.Check.Label>
           </div>

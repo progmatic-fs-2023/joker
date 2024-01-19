@@ -75,6 +75,7 @@ model Feedback {
   status      Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime? @updatedAt
+   rating      Float     @default(1)
 
   @@index([title])
 }
