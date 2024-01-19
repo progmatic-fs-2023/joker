@@ -75,7 +75,7 @@ function FeedbackList({ feedback, userId, onFeedbackUpdate }) {
   return (
     <div>
       {feedback.map((item) => (
-        <Card key={item.id} className="mb-3">
+        <Card key={item.id} className="mb-3 mx-auto w-75 ">
           <Card.Body>
             {editingId === item.id ? (
               <div>
@@ -97,12 +97,12 @@ function FeedbackList({ feedback, userId, onFeedbackUpdate }) {
               </div>
             ) : (
               <>
-                <div className="d-flex justify-content-between">
-                  <h6>{item.title}</h6>
-                  <small>{new Date(item.createdAt).toLocaleDateString()}</small>
-                  <small>{item.authorUser.name || item.authorUser.email}</small>
+                <h6 className="text-center">{item.title}</h6>
+                <div className="d-flex justify-content-end flex-column align-items-end">
+                  <small className="mb-0">{new Date(item.createdAt).toLocaleDateString()}</small>
+                  <small className="mb-0">{item.authorUser.name || item.authorUser.email}</small>
                 </div>
-                <p>{item.body}</p>
+                <p className="d-flex justify-content-start">{item.body}</p>
                 <StarRating rating={item.rating} />
                 {userId === item.authorID && (
                   <div className="d-flex justify-content-end">

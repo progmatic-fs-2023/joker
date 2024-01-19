@@ -4,10 +4,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import Image from 'react-bootstrap/Image';
+
+import { BiCart } from 'react-icons/bi';
 import { useCart } from '../hooks/useCart';
 import Cart from './Cart';
-import CartIcon from '../assets/shopping_cart.svg';
 import BlockButton from './micro/BlockButton';
 
 function OffCanvasCart({ placement }) {
@@ -20,7 +20,7 @@ function OffCanvasCart({ placement }) {
 
   const navigateToShop = () => {
     navigate('/shop');
-    handleClose()
+    handleClose();
   };
   const location = useLocation();
 
@@ -35,13 +35,13 @@ function OffCanvasCart({ placement }) {
   };
 
   return (
-    <div className='offcanvas w-25 d-flex align-items-end'>
+    <div className="offcanvas w-25 d-flex align-items-end">
       <Button
         variant="secondary"
         onClick={handleShow}
-        className="w-25 d-flex justify-content-around"
+        className="w-3 d-flex justify-content-around"
       >
-        <Image src={CartIcon} rounded className="img-fluid img-thumbnail w-25" />
+        <BiCart className style={{ width: '24px', height: '24px' }} />
         <Badge bg="info">{cart.length}</Badge>
         <span className="visually-hidden">termék a kosárban</span>
       </Button>
@@ -60,7 +60,7 @@ function OffCanvasCart({ placement }) {
           )}
         </Offcanvas.Body>
       </Offcanvas>
-      </div>
+    </div>
   );
 }
 
