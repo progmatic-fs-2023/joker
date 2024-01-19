@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import BlockButton from './micro/BlockButton';
 import { useCart } from '../hooks/useCart';
@@ -74,12 +74,17 @@ function CardKitchenSink({ stockItem }) {
   };
 
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card className="p-0 text-center" style={{ width: '20rem' }}>
       <div
         className="card-img-top"
-        style={{ height: '150px', overflow: 'hidden', textAlign: 'center' }}
+        style={{ height: '200px', overflow: 'hidden', textAlign: 'center' }}
       >
-        <Image src={image[0]} alt={herbName} fluid style={{ maxWidth: '100%', height: 'auto' }} />
+        <Image
+          src={image[0]}
+          alt={herbName}
+          fluid
+          style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+        />
       </div>
       <Card.Body>
         <Card.Title>{herbName}</Card.Title>
@@ -96,17 +101,13 @@ function CardKitchenSink({ stockItem }) {
         <ListGroup.Item>Készlet: {stockQuantity} g</ListGroup.Item>
         <ListGroup.Item>Ár: {price} Ft/g</ListGroup.Item>
         <BlockButton
+          classNames="p-4"
           size="m"
           variant="success"
           type="button"
           btnName="Adatlap"
           onClick={navigateToProduct}
         />
-        <ListGroup.Item>
-          <Card.Link as={Link} to="#">
-            További részletek
-          </Card.Link>
-        </ListGroup.Item>
       </ListGroup>
       <Card.Body style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={qty} />
