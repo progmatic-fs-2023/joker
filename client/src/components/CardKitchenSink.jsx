@@ -10,12 +10,13 @@ import useAuth from '../hooks/useAuth';
 import QuantitySelector from './QuantitySelector';
 import DetailsModal from './DeatilsModal';
 import NotificationRequestModal from './NotificationRequestModal';
+import StarRating from './micro/StarRating';
 import { API_URL } from '../constants';
 
 function CardKitchenSink({ stockItem }) {
   const { auth } = useAuth();
   const { addToCart: addToCartContext, setOrderId } = useCart();
-  const { herbName, price, image, species, id, stockQuantity } = stockItem;
+  const { herbName, price, image, species, id, stockQuantity, rating } = stockItem;
   const [qty, setQuantity] = useState(0);
   const [outOfStockNotification, setOutOfStockNotification] = useState(false);
   const navigate = useNavigate();
@@ -89,8 +90,11 @@ function CardKitchenSink({ stockItem }) {
           <DetailsModal stockItem={stockItem} centered />
         </ListGroup.Item>
         <ListGroup.Item>{species}</ListGroup.Item>
+        <ListGroup.Item>
+          <StarRating rating={rating} />
+        </ListGroup.Item>
         <ListGroup.Item>Készlet: {stockQuantity} g</ListGroup.Item>
-        <ListGroup.Item>Ár: {price} Ft/g</ListGroup.Item>{' '}
+        <ListGroup.Item>Ár: {price} Ft/g</ListGroup.Item>
         <BlockButton
           size="m"
           variant="success"
@@ -141,6 +145,7 @@ CardKitchenSink.propTypes = {
     price: PropTypes.number.isRequired,
     details: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
   }).isRequired,
 };
 
