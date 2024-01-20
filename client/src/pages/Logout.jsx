@@ -9,10 +9,10 @@ function Logout() {
   };
 
   return (
-    <button type='button' onClick={handleLogout}>
+    <button type="button" onClick={handleLogout}>
       Logout
     </button>
   );
-};
+}
 
 export default Logout;

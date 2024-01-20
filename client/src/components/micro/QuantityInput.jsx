@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 
-function QuantityInput({value}) {
+function QuantityInput({ value }) {
   return (
     <>
       <Form.Label htmlFor="quantity">Password</Form.Label>
@@ -19,7 +19,7 @@ function QuantityInput({value}) {
 }
 
 QuantityInput.propTypes = {
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
 };
 
 export default QuantityInput;

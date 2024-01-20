@@ -16,15 +16,15 @@ BlockButton.propTypes = {
   btnName: PropTypes.string,
   variant: PropTypes.string,
   size: PropTypes.string,
-  onClick: PropTypes.func
-}
+  onClick: PropTypes.func,
+};
 
 BlockButton.defaultProps = {
   classNames: undefined,
   btnName: undefined,
   variant: undefined,
   size: undefined,
-  onClick: PropTypes.func
-}
+  onClick: PropTypes.func,
+};
 
 export default BlockButton;
