@@ -15,22 +15,30 @@ function SignedIn() {
         {/* <Navbar.Brand as={NavLink} to='/dashboard'>Dashboard</Navbar.Brand> */}
         <Navbar.Toggle />
         <Navbar.Collapse>
-          <Nav className='mx-3'>
+          <Nav className="mx-3">
             <NavDropdown title="Profilom" id="basic-nav-dropdown">
-              <NavDropdown.Item as={NavLink} to="/dashboard">Dashboard</NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/dashboard">
+                Dashboard
+              </NavDropdown.Item>
               <NavDropdown.Item as={NavLink} to="/lounge">
                 Rendelések
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/lounge">Adataim</NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/lounge">
+                Adataim
+              </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item>
-                <BlockButton btnName='Kilépés' variant='outline-danger' onClick={()=> handleLogout()}>Kilépés</BlockButton>
+                <BlockButton
+                  btnName="Kilépés"
+                  variant="outline-danger"
+                  onClick={() => handleLogout()}
+                >
+                  Kilépés
+                </BlockButton>
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <Navbar.Text>
-            Belépve: {auth.user}
-          </Navbar.Text>
+          <Navbar.Text>Belépve: {auth.user}</Navbar.Text>
         </Navbar.Collapse>
       </Container>
     </Navbar>

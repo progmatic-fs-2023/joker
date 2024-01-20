@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import CardKitchenSink from './CardKitchenSink';
 import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator';
-import FilterArea from './FilterArea'
+import FilterArea from './FilterArea';
 
 function ProductList({ stockList }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -38,7 +38,11 @@ function ProductList({ stockList }) {
   return (
     <div className="product-list-container px-5">
       <div className="filter-area d-flex justify-content-center  m-3">
-        <FilterArea handleSortChange={handleSortChange} categories={categories} handleCategoryClick={handleCategoryClick} />
+        <FilterArea
+          handleSortChange={handleSortChange}
+          categories={categories}
+          handleCategoryClick={handleCategoryClick}
+        />
       </div>
       <div className="product-list row gap-2 d-flex justify-content-around">
         {filteredList.map((stockItem) => (
