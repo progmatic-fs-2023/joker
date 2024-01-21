@@ -44,7 +44,7 @@ function Login() {
       setAuth({ user, role, accessToken, userId });
       setUser('');
       setPwd('');
-      navigate('/dashboard', { replace: true });
+      navigate('/lounge', { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');
@@ -60,11 +60,10 @@ function Login() {
   };
 
   return (
-    <div className="p-5">
+    <div className="p-5 mx-auto w-50">
       <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
         {errMsg}
       </p>
-
       <Card style={{ width: '400px', margin: '0 auto' }}>
         <Card.Body>
           <h5 className="card-title text-center">Bejelentkezés</h5>

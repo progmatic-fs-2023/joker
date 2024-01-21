@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom';
 import CartProvider from './components/CartProvider';
 import { AuthProvider } from './contexts/AuthProvider';
+import { BlogProvider } from './contexts/BlogProvider';
 import Layout from './components/Layout';
 import RequireAuth from './components/secure/RequireAuth';
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import Product from './pages/Product';
-import Blog from './pages/Blog';
 import UserForm from './pages/UserForm';
 import SuccessfulOrder from './pages/SuccessfulOrder';
 import Contact from './pages/Contact';
@@ -16,66 +16,73 @@ import Sitemap from './pages/Sitemap';
 import Login from './components/Login';
 import Register from './components/Register';
 import Lounge from './components/secure/Lounge';
-import Dashboard from './pages/Dashboard';
-import UserEditor from './components/secure/UserEditor';
-import BlogEditor from './components/secure/BlogEditor';
+import UserEditor from './components/user/UserEditor';
+import User from './components/user/User';
+import FeedLayout from './components/blog/FeedLayout';
+import Blog from './pages/Blog';
+import Feed from './components/blog/Feed';
+import NewPost from './components/blog/NewPost';
+import PostPage from './components/blog/PostPage';
 import Unauthorized from './components/secure/Unauthorized';
 import NotFound from './pages/NotFound';
 import ProtectedLayout from './components/secure/ProtectedLayout';
-import './App.css';
-import Basket from './pages/Basket';
 import Payment from './pages/Payment';
-import PurchaseHistory from './pages/PurchaseHistory';
 import Logout from './pages/Logout';
-import UsersPage from './pages/UsersPage';
+import UserOrderList from './components/user/UserOrderList';
+import HerbEditor from './components/user/HerbEditor';
+import OrderEditor from './components/order/OrderEditor';
+import Missing from './components/blog/Missing';
 
 function App() {
   return (
     <AuthProvider>
       <CartProvider>
-        <Routes>
-          <Route element={<Layout />}>
-            {/* public routes */}
-            <Route index element={<Home />} />
-            <Route path="shop" element={<Shop />} />
-            <Route path="product/:id" element={<Product />} />
-            <Route path="blog" element={<Blog />} />
-            <Route path="userform" element={<UserForm />} />
-            <Route path="successfulorder" element={<SuccessfulOrder />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="howtobuy" element={<HowToBuy />} />
-            <Route path="questionare" element={<Questionare />} />
-            <Route path="sitemap" element={<Sitemap />} />
-            <Route path="userspage" element={<UsersPage />} />
-            <Route path="basket" element={<Basket />} />
-            <Route path="payment" element={<Payment />} />
-            <Route path="purchasehistory" element={<PurchaseHistory />} />
-            <Route path="logout" element={<Logout />} />
-            {/* public auth routes */}
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="unauthorized" element={<Unauthorized />} />
-
-            <Route element={<ProtectedLayout />}>
-              {/* protect these routes */}
-              <Route element={<RequireAuth allowedRoles={['BASIC', 'ADMIN', 'SUPERADMIN']} />}>
-                <Route path="dashboard" index element={<Dashboard />} />
-                <Route path="lounge" element={<Lounge />} />
-
-                <Route element={<RequireAuth allowedRoles={['ADMIN', 'SUPERADMIN']} />}>
-                  <Route path="editor" element={<UserEditor />} />
+        <BlogProvider>
+          <Routes>
+            <Route element={<Layout />}>
+              {/* public routes */}
+              <Route index element={<Home />} />
+              <Route path="shop" element={<Shop />} />
+              <Route path="product/:id" element={<Product />} />
+              <Route path="blog" element={<Blog />} />
+              <Route path="userform" element={<UserForm />} />
+              <Route path="successfulorder" element={<SuccessfulOrder />} />
+              <Route path="contact" element={<Contact />} />
+              <Route path="howtobuy" element={<HowToBuy />} />
+              <Route path="questionare" element={<Questionare />} />
+              <Route path="sitemap" element={<Sitemap />} />
+              <Route path="payment" element={<Payment />} />
+              <Route path="logout" element={<Logout />} />
+              {/* public auth routes */}
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+              <Route path="unauthorized" element={<Unauthorized />} />
+              <Route element={<ProtectedLayout />}>
+                {/* protect these routes */}
+                <Route element={<RequireAuth allowedRoles={['BASIC', 'ADMIN', 'SUPERADMIN']} />}>
+                  <Route index path="lounge" element={<Lounge />} />
+                  <Route path="orderlist" element={<UserOrderList />} />
+                  <Route path="user" element={<User />} />
+                  <Route element={<RequireAuth allowedRoles={['ADMIN', 'SUPERADMIN']} />}>
+                    <Route path="herbeditor" index element={<HerbEditor />} />
+                    <Route path="ordereditor" element={<OrderEditor />} />
+                    <Route element={<FeedLayout />}>
+                      <Route index path="feed" element={<Feed />} />
+                      <Route path="newpost" index element={<NewPost />} />
+                      <Route path="post/:id" element={<PostPage />} />
+                      <Route path="*" element={<Missing />} />
+                    </Route>
+                  </Route>
                 </Route>
-
                 <Route element={<RequireAuth allowedRoles={['SUPERADMIN']} />}>
-                  <Route path="blog" element={<BlogEditor />} />
+                  <Route path="usereditor" element={<UserEditor />} />
                 </Route>
               </Route>
             </Route>
-
             {/* catch all route */}
             <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
+          </Routes>
+        </BlogProvider>
       </CartProvider>
     </AuthProvider>
   );

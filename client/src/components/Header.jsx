@@ -2,7 +2,7 @@ import NavSearch from './NavSearch';
 
 function Header() {
   return (
-    <div>
+    <div className="w-100">
       <header className="d-flex justify-content-around flex-wrap">
         <h1 className="">Herbalism.hu</h1>
         <small className="w-50 text-center">

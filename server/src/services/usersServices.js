@@ -97,6 +97,23 @@ const updateUserRefreshToken = async (id, refreshToken) => {
   return null;
 };
 
+const updateUserData = async (id, updateObject) => {
+  try {
+    const result = await prisma.user.update({
+      where: { id },
+      data: { ...updateObject },
+    });
+    console.log('update result:', result);
+    return result;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+  }
+  return null;
+};
+
 const deleteUserRefreshToken = async id => {
   try {
     const result = await prisma.user.update({
@@ -104,6 +121,22 @@ const deleteUserRefreshToken = async id => {
       data: { refreshToken: '' },
     });
     // console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+  }
+  return null;
+};
+
+const deleteUserByID = async id => {
+  try {
+    const result = await prisma.user.delete({
+      where: { id },
+    });
+    console.log('user deleted:', result);
     return result;
   } catch (err) {
     console.error(err);
@@ -122,4 +155,6 @@ export default {
   deleteUserRefreshToken,
   findUserByRefreshToken,
   createNewUser,
+  updateUserData,
+  deleteUserByID,
 };

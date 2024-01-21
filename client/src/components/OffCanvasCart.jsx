@@ -35,11 +35,11 @@ function OffCanvasCart({ placement }) {
   };
 
   return (
-    <div className="offcanvas w-25 d-flex align-items-end">
+    <div className="offcanvas mx-3">
       <Button
-        variant="secondary"
+        variant="outline-success"
         onClick={handleShow}
-        className="w-3 d-flex justify-content-around"
+        className="d-flex justify-content-around"
       >
         <BiCart className style={{ width: '24px', height: '24px' }} />
         <Badge bg="info">{cart.length}</Badge>

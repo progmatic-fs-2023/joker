@@ -29,7 +29,13 @@ const getOrderById = async orderId => {
 const getAllOrders = async () => {
   try {
     const order = await prisma.order.findMany({
-      include: { quantity: true },
+      include: {
+        quantity: {
+          include: {
+            targetHerb: true,
+          },
+        },
+      },
     });
     return order;
   } catch (err) {
@@ -46,7 +52,6 @@ const getAllOrdersOfUser = async userID => {
   // TODO remove this below
   try {
     const order = await prisma.order.findMany({
-      // where: { id: userId },
       where: { userID },
       include: {
         quantity: {

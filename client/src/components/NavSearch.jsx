@@ -13,7 +13,7 @@ function NavSearch() {
   const { auth } = useAuth();
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary d-flex text-center">
+    <Navbar expand="lg" className="bg-body-tertiary d-flex text-center w-100">
       <Container fluid>
         <Navbar.Brand as={NavLink} to="/">
           Kezdőlap
@@ -34,7 +34,6 @@ function NavSearch() {
             {auth?.role ? (
               <SignedIn user={auth.user} />
             ) : (
-              // : <small className='mx-3'>🧑‍🌾</small>
               <NavDropdown title="Felhasználóknak" id="navbarScrollingDropdown">
                 <NavDropdown.Item as={NavLink} to="/login">
                   Belépés
@@ -49,7 +48,6 @@ function NavSearch() {
               </NavDropdown>
             )}
           </Nav>
-          <OffCanvasCart placement="end" name="Kosár" />
           <Form className="d-flex">
             <Form.Control
               type="search"
@@ -58,6 +56,7 @@ function NavSearch() {
               aria-label="Search"
             />
             <Button variant="outline-success">Keresés</Button>
+            <OffCanvasCart placement="end" name="Kosár" />
           </Form>
         </Navbar.Collapse>
       </Container>

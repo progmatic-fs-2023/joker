@@ -3,7 +3,7 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
-
+import Button from 'react-bootstrap/Button';
 import { AUTH_URL } from '../constants';
 
 function Register() {
@@ -80,9 +80,12 @@ function Register() {
   };
 
   return (
-    <div className="p-5">
+    <div
+      className="p-2 my-5 mx-auto text-center"
+      style={{ border: 'solid 1px lightblue', borderRadius: '12px', width: '40%' }}
+    >
       {success ? (
-        <div className="text-center">
+        <div>
           <h1>Sikeres regisztráció</h1>
           <p>
             <Link to="/login">Bejelentkezés</Link>
@@ -93,17 +96,17 @@ function Register() {
           <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
             {errMsg}
           </p>
-          <h1>Regisztráció</h1>
-          <form onSubmit={handleSubmit}>
+          <h5>Regisztráció</h5>
+          <form className="text-center" onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="username" className="form-label">
-                Felh.név:
+                Email cím:
                 <input
                   type="text"
                   id="username"
-                  className={`form-control form-control-sm ${validName ? 'is-valid' : ''} ${
-                    user && !validName ? 'is-invalid' : ''
-                  }`}
+                  className={`d-inline-block form-control form-control-sm ${
+                    validName ? 'is-valid' : ''
+                  } ${user && !validName ? 'is-invalid' : ''}`}
                   ref={userRef}
                   autoComplete="off"
                   onChange={(e) => setUser(e.target.value)}
@@ -112,7 +115,6 @@ function Register() {
                   aria-describedby="uidnote"
                   onFocus={() => setUserFocus(true)}
                   onBlur={() => setUserFocus(false)}
-                  style={{ width: '150%' }}
                 />
               </label>
               <div
@@ -129,16 +131,15 @@ function Register() {
                 <input
                   type="password"
                   id="password"
-                  className={`form-control form-control-sm ${validPwd ? 'is-valid' : ''} ${
-                    pwd && !validPwd ? 'is-invalid' : ''
-                  }`}
+                  className={`d-inline-block form-control form-control-sm ${
+                    validPwd ? 'is-valid' : ''
+                  } ${pwd && !validPwd ? 'is-invalid' : ''}`}
                   onChange={(e) => setPwd(e.target.value)}
                   value={pwd}
                   required
                   aria-describedby="pwdnote"
                   onFocus={() => setPwdFocus(true)}
                   onBlur={() => setPwdFocus(false)}
-                  style={{ width: '150%' }}
                 />
               </label>
               <div id="pwdnote" className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
@@ -153,7 +154,7 @@ function Register() {
                 <input
                   type="password"
                   id="confirm_pwd"
-                  className={`form-control form-control-sm ${
+                  className={`d-inline-block form-control form-control-sm ${
                     matchPwd && !validMatch ? 'is-invalid' : ''
                   }`}
                   onChange={(e) => setMatchPwd(e.target.value)}
@@ -162,7 +163,6 @@ function Register() {
                   aria-describedby="confirmnote"
                   onFocus={() => setMatchFocus(true)}
                   onBlur={() => setMatchFocus(false)}
-                  style={{ width: '150%' }}
                 />
               </label>
               <div
@@ -172,13 +172,13 @@ function Register() {
                 <FontAwesomeIcon icon={faInfoCircle} /> Egyeznie kell az első mezőbe írt jelszóval.
               </div>
             </div>
-            <button
+            <Button
               type="submit"
               className="btn btn-success"
               disabled={!!(!validName || !validPwd || !validMatch)}
             >
               Regisztráció
-            </button>
+            </Button>
           </form>
           <p className="text-left mt-3">
             Már van fiókod?

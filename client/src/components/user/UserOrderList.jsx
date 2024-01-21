@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import useAuth from '../hooks/useAuth';
-import OrderAccordion from '../components/secure/OrderAccordion';
-import { API_URL } from '../constants';
+import { API_URL } from '../../constants';
+import useAuth from '../../hooks/useAuth';
+import OrderAccordion from '../secure/OrderAccordion';
 
-function Dashboard() {
+function UserOrderList() {
   const { auth } = useAuth();
   const [currentUserOrders, setCurrentUserOrders] = useState([]);
 
-  const fetchOrdersOfUser = async () => {
+  const fetchOrders = async () => {
     const fetchOptions = {
       method: 'GET',
       // TODO verify the user trough middleware
@@ -19,24 +19,24 @@ function Dashboard() {
       credentials: 'include',
     };
     const response = await fetch(`${API_URL}/orders`, fetchOptions);
+
     if (!response.ok) {
       throw new Error(`Couldn't fetch user data, status: ${response.status}`);
     }
     const data = await response.json();
+    // console.log('after fetch', data)
     setCurrentUserOrders([...data]);
   };
 
   useEffect(() => {
-    fetchOrdersOfUser();
+    fetchOrders();
   }, [auth]);
 
   return (
-    <div className="dashboard text-center m-5">
-      <h4>Üdv újra itt {auth?.user}!</h4>
-      <p>Dashboard tartalom</p>
-      <OrderAccordion userOrder={currentUserOrders} fetchOrdersOfUser={fetchOrdersOfUser} />
+    <div className="mx-auto w-75">
+      <OrderAccordion allOrders={currentUserOrders} fetchOrders={fetchOrders} />
     </div>
   );
 }
 
-export default Dashboard;
+export default UserOrderList;
