@@ -17,13 +17,13 @@ function SignedIn() {
         <Navbar.Collapse>
           <Nav className="mx-3">
             <NavDropdown title="Profilom" id="basic-nav-dropdown">
-              <NavDropdown.Item as={NavLink} to="/dashboard">
-                Dashboard
-              </NavDropdown.Item>
               <NavDropdown.Item as={NavLink} to="/lounge">
-                Rendelések
+                Lounge
               </NavDropdown.Item>
-              <NavDropdown.Item as={NavLink} to="/lounge">
+              <NavDropdown.Item as={NavLink} to="/orderlist">
+                Rendeléseim
+              </NavDropdown.Item>
+              <NavDropdown.Item as={NavLink} to="/user">
                 Adataim
               </NavDropdown.Item>
               <NavDropdown.Divider />

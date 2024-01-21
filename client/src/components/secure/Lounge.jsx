@@ -1,14 +1,12 @@
-import { Link } from 'react-router-dom';
+import FluidPic from '../micro/FliudPic';
 
 function Lounge() {
   return (
-    <div>
+    <div className="text-center mx-5">
       <h1>The Lounge</h1>
       <br />
       <p>This is the Lounge, Users, Admins and Editors can hang out here.</p>
-      <div className="flexGrow">
-        <Link to="/dashboard">Dashboard</Link>
-      </div>
+      <FluidPic imageSrc="/img/salat.jpg" />
     </div>
   );
 }

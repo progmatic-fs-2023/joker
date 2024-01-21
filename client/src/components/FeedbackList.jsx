@@ -75,7 +75,7 @@ function FeedbackList({ feedback, userId, onFeedbackUpdate }) {
   return (
     <div>
       {feedback.map((item) => (
-        <Card key={item.id} className="mb-3 mx-auto w-75 ">
+        <Card key={item.id} className="mb-3 mx-auto w-75 my-3">
           <Card.Body>
             {editingId === item.id ? (
               <div>

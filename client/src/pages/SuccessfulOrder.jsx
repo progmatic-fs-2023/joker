@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useCart } from '../hooks/useCart';
 import OrderedItem from '../components/OrderedItem';
 import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator';
@@ -51,9 +51,9 @@ function SuccessfulOrder() {
   }
 
   return (
-    <div className="order-summarized">
+    <div className="order-summarized mx-auto w-75">
       <h2>Rendelés azonosító: {orderDetails.id}</h2>
-      <ul className="w-75">
+      <ul className="mx-auto d-flex flex-wrap justify-content-center gap-4">
         {orderDetails.quantity.map((item, index) => (
           <OrderedItem
             key={uniqueKeyGenerator(index)}

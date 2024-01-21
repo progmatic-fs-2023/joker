@@ -7,7 +7,7 @@ function OrderedItem({ orderedItem, currency }) {
   };
   return (
     <div
-      className="ordered-item d-flex p-1 m-3 justify-content-center align-items-center flex-wrap"
+      className="ordered-item p-4 m-3 text-center min-vw-14"
       style={{ border: '1px solid lightblue', borderRadius: '8px' }}
     >
       <img

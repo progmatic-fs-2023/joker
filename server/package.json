@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon --exec ./node_modules/.bin/babel-node -r dotenv/config src/server.js",
     "update": "nodemon --exec ./node_modules/.bin/babel-node -r dotenv/config src/db/dataUpdate.js",
+    "email": "nodemon --exec ./node_modules/.bin/babel-node -r dotenv/config src/mail/orderInfoEmail.js",
     "build": "babel src -d dist",
     "serve": "node -r dotenv/config dist/server.js",
     "lint": "eslint src --ext .js",
@@ -26,6 +27,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.8",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
