@@ -142,7 +142,7 @@ function UserPage({ user }) {
                 placeholder={`${user.postalCode || 'nincs megadva'}`}
               />
             </Form.Group>
-            </Row>
+          </Row>
 
           <Form.Group className="mb-3" id="formGridCheckbox">
             <Form.Check type="checkbox" label="Ellenőriztem az adatokat" />

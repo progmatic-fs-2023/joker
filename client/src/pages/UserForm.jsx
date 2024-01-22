@@ -126,7 +126,7 @@ function UserForm() {
                 <Form.Control type="text" name="country" onChange={handleChange} required />
               </Form.Group>
               <br />
-              <Payment/>
+              <Payment />
               <Form.Group controlId="terms">
                 <Form.Check
                   type="checkbox"
@@ -136,7 +136,7 @@ function UserForm() {
                   required
                 />
               </Form.Group>
-              
+
               <Button type="submit">Rendelés megerősítése</Button>
             </Form>
           </div>
