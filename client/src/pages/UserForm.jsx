@@ -125,6 +125,7 @@ function UserForm() {
                 <Form.Label>Ország</Form.Label>
                 <Form.Control type="text" name="country" onChange={handleChange} required />
               </Form.Group>
+              <br />
               <Payment/>
               <Form.Group controlId="terms">
                 <Form.Check
