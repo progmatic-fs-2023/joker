@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { API_URL } from '../constants';
 import AlertDismissible from '../components/micro/AlertDismissible';
-import Payment from './Payment';
 
 function UserPage({ user }) {
   const [currentUser, setCurrentUser] = useState({});
