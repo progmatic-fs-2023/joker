@@ -8,6 +8,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import { API_URL } from '../constants';
+import Payment from './Payment';
 
 function UserForm() {
   const { cart, orderId } = useCart();
@@ -124,6 +125,7 @@ function UserForm() {
                 <Form.Label>Ország</Form.Label>
                 <Form.Control type="text" name="country" onChange={handleChange} required />
               </Form.Group>
+              <Payment/>
               <Form.Group controlId="terms">
                 <Form.Check
                   type="checkbox"
@@ -133,6 +135,7 @@ function UserForm() {
                   required
                 />
               </Form.Group>
+              
               <Button type="submit">Rendelés megerősítése</Button>
             </Form>
           </div>

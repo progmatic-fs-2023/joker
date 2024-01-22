@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import { API_URL } from '../constants';
 import AlertDismissible from '../components/micro/AlertDismissible';
+import Payment from './Payment';
 
 function UserPage({ user }) {
   const [currentUser, setCurrentUser] = useState({});
@@ -142,7 +143,8 @@ function UserPage({ user }) {
                 placeholder={`${user.postalCode || 'nincs megadva'}`}
               />
             </Form.Group>
-          </Row>
+            </Row>
+
           <Form.Group className="mb-3" id="formGridCheckbox">
             <Form.Check type="checkbox" label="Ellenőriztem az adatokat" />
           </Form.Group>
