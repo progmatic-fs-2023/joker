@@ -2,7 +2,6 @@ import ordersServices from '../services/ordersServices';
 
 const getOrder = async (req, res) => {
   const { id } = req.params;
-  // console.log('orderID ok!', id);
   try {
     const order = await ordersServices.getOrderById(id);
     res.status(200).json(order);
@@ -10,15 +9,6 @@ const getOrder = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-// const listOrders = async (req, res) => {
-//   try {
-
-//     res.status(200).json(orders);
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// };
 
 const create = async (req, res) => {
   try {
@@ -35,6 +25,16 @@ const update = async (req, res) => {
     const { orderID, herbID, newQuantity } = req.body;
     const updatedCart = await ordersServices.updateCartItem(orderID, herbID, newQuantity);
     res.status(200).json(updatedCart);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const updateClosed = async (req, res) => {
+  try {
+    const { id: orderID, herbs } = req.body;
+    const updatedOrder = await ordersServices.updateClosedOrder(orderID, herbs);
+    res.status(200).json(updatedOrder);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -79,7 +79,6 @@ const userOrderList = async (req, res) => {
 
 const singleOrderOfUser = async (req, res) => {
   try {
-    console.log('successful get/:id', req.params.id);
     const userOrder = await ordersServices.getOrderById(req.params.id);
     if (!userOrder) {
       return res.status(400).json({ message: `User order with ID ${req.body.id} not found` });
@@ -99,8 +98,6 @@ const orderList = async (req, res) => {
   try {
     const userId = req.body?.id;
     const customer = req.headers?.user;
-    console.log('Orders userId', userId);
-    console.log('Orders customer', customer);
     if (!userId && !customer) {
       const orders = await ordersServices.getAllOrders();
       res.status(200).json(orders);
@@ -146,6 +143,7 @@ export default {
   create,
   update,
   finalize,
+  updateClosed,
   deleteOrder,
   userOrderList,
   singleOrderOfUser,

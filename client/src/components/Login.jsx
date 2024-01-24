@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
@@ -10,6 +10,8 @@ function Login() {
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const userName = useRef();
   const errRef = useRef();
@@ -44,7 +46,8 @@ function Login() {
       setAuth({ user, role, accessToken, userId });
       setUser('');
       setPwd('');
-      navigate('/lounge', { replace: true });
+      navigate(from, { replace: true });
+      // navigate('/lounge', { replace: true });
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');
