@@ -143,6 +143,7 @@ function UserPage({ user }) {
               />
             </Form.Group>
           </Row>
+
           <Form.Group className="mb-3" id="formGridCheckbox">
             <Form.Check type="checkbox" label="Ellenőriztem az adatokat" />
           </Form.Group>
