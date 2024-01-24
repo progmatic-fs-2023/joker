@@ -37,7 +37,7 @@ function OffCanvasCart({ placement }) {
   return (
     <div className="offcanvas mx-3">
       <Button
-        variant="outline-success"
+        variant="outline-light"
         onClick={handleShow}
         className="d-flex justify-content-around"
       >
