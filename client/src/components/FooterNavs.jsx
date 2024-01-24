@@ -19,7 +19,7 @@ function FooterNavs() {
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link href="/" className='text-white'>
+        <Nav.Link href="/" className="text-white">
           <FaFacebook size={22} className="mb-2 me-1" />
           Facebook
         </Nav.Link>

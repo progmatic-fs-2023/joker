@@ -44,7 +44,7 @@ function SignedIn() {
               </Dropdown.Menu>
             </Dropdown>
           </Nav>
-          <Navbar.Text  className="fs-5 p-0 ms-3">Belépve: {auth.user}</Navbar.Text>
+          <Navbar.Text className="fs-5 p-0 ms-3">Belépve: {auth.user}</Navbar.Text>
         </Navbar.Collapse>
       </Container>
     </Navbar>
