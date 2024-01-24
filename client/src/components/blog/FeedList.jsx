@@ -12,14 +12,19 @@ function FeedList({ posts }) {
 }
 
 FeedList.propTypes = {
-  posts: PropTypes.arrayOf({
-    post: PropTypes.shape({
+  posts: PropTypes.arrayOf(
+    PropTypes.shape({
+      authorID: PropTypes.string,
       id: PropTypes.string,
       body: PropTypes.string,
       title: PropTypes.string,
-      datetime: PropTypes.string,
+      createdAt: PropTypes.string,
+      likedByID: PropTypes.string,
+      pictures: PropTypes.arrayOf(PropTypes.string).isRequired,
+      rating: PropTypes.number,
+      updatedAt: PropTypes.string,
     }),
-  }).isRequired,
+  ).isRequired,
 };
 
 export default FeedList;
