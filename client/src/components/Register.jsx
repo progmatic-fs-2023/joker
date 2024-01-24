@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 import Button from 'react-bootstrap/Button';
-import { AUTH_URL } from '../constants';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import { AUTH_URL } from '../constants';
 
 function Register() {
   const userRef = useRef();
@@ -82,10 +82,7 @@ function Register() {
   };
 
   return (
-    <div
-      className="p-2 my-5 mx-auto text-center"
-      //   style={{ border: 'solid 1px lightblue', borderRadius: '12px', width: '40%' }}
-    >
+    <div className="p-2 my-5 mx-auto text-center">
       {success ? (
         <Card style={{ width: '400px', margin: '0 auto' }}>
           <Card.Body>
@@ -120,14 +117,16 @@ function Register() {
                   onFocus={() => setUserFocus(true)}
                   onBlur={() => setUserFocus(false)}
                 />
-
-                <Form.Text className="text-muted">
-                  {/* id="uidnote"
-                className={userFocus && user && !validName ? 'instructions' : 'offscreen'}
-              > */}
-                  <FontAwesomeIcon icon={faInfoCircle} /> 4 - 24 karakter. Betűvel kezdődjön. <br />
-                  Betűk, számok, alsóvonás, kötőjel elfogadott.
-                </Form.Text>
+                <div
+                  id="uidnote"
+                  className={userFocus && user && !validName ? 'instructions' : 'offscreen'}
+                >
+                  <Form.Text className="text-muted">
+                    <FontAwesomeIcon icon={faInfoCircle} /> 4 - 24 karakter. Betűvel kezdődjön.{' '}
+                    <br />
+                    Betűk, számok, alsóvonás, kötőjel elfogadott.
+                  </Form.Text>
+                </div>
               </Form.Group>
               <Form.Group className="mb-3" controlId="password">
                 <Form.Label>Jelszó:</Form.Label>
@@ -145,14 +144,13 @@ function Register() {
                   onFocus={() => setPwdFocus(true)}
                   onBlur={() => setPwdFocus(false)}
                 />
-
-                {/* <div id="pwdnote" className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}> */}
-                <Form.Text className="text-muted">
-                  <FontAwesomeIcon icon={faInfoCircle} /> 8 - 24 karakter. <br /> Tartalmaznia kell
-                  nagybetűt, kisbetűt, <br /> számot és legalább egy speciális karaktert. <br />{' '}
-                  Elfogadott spec.karakterek: ! @ # $ %
-                </Form.Text>
-                {/* </div> */}
+                <div id="pwdnote" className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
+                  <Form.Text className="text-muted ">
+                    <FontAwesomeIcon icon={faInfoCircle} /> 8 - 24 karakter. <br /> Tartalmaznia
+                    kell nagybetűt, kisbetűt, <br /> számot és legalább egy speciális karaktert.{' '}
+                    <br /> Elfogadott spec.karakterek: ! @ # $ %
+                  </Form.Text>
+                </div>
               </Form.Group>
               <Form.Group className="mb-3" controlId="confirm_pwd">
                 <Form.Label>Jelszó megerősítés:</Form.Label>
@@ -169,7 +167,6 @@ function Register() {
                   onFocus={() => setMatchFocus(true)}
                   onBlur={() => setMatchFocus(false)}
                 />
-
                 <div
                   id="confirmnote"
                   className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}
@@ -181,7 +178,6 @@ function Register() {
               <Button
                 variant="outline-success"
                 type="submit"
-                //   className="btn btn-success"
                 disabled={!!(!validName || !validPwd || !validMatch)}
               >
                 Regisztráció

@@ -10,10 +10,11 @@ function Home() {
       <header className="pt-3 d-flex justify-content-around flex-wrap">
         <small className="w-50 text-center">
           <p className="m-0 text-right fw-bolder fst-italic fs-5">
-            "Herbalism is the tradition of studying and using herbs for their healing properties.
+            &quot;Herbalism is the tradition of studying and using herbs for their healing
+            properties.
             <br />
             Growing freely in the natural world, the term ‘herb’ refers to every part of the plant,
-            from the roots to the flowers."
+            from the roots to the flowers.&quot;
           </p>
         </small>
       </header>

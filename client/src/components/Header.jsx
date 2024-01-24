@@ -1,11 +1,7 @@
 import NavSearch from './NavSearch';
 
-function Header({}) {
-  return (
-    <div className="w-100">
-      <NavSearch />
-    </div>
-  );
+function Header() {
+  return <NavSearch />;
 }
 
 export default Header;

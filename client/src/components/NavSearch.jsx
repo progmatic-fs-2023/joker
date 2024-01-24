@@ -6,15 +6,13 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import NavItem from 'react-bootstrap/NavItem';
+import { GiPlantsAndAnimals } from 'react-icons/gi';
 import OffCanvasCart from './OffCanvasCart';
 import useAuth from '../hooks/useAuth';
 import SignedIn from './secure/SignedIn';
 
-import { GiPlantsAndAnimals } from 'react-icons/gi';
-
 function NavSearch() {
   const { auth } = useAuth();
-
   return (
     <Navbar expand="lg" className="bg-success d-flex text-center w-100 fs-4">
       <Container fluid>

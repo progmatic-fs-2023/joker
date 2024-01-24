@@ -1,12 +1,9 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import YoutubeEmbed from './YoutubeEmbed';
 import Card from 'react-bootstrap/Card';
+import YoutubeEmbed from './YoutubeEmbed';
 
 function TextArea() {
   return (
-    <div className="shadow-lg p-2 mb-5 rounded">  
+    <div className="shadow-lg p-2 mb-5 rounded">
       <Card className="text-center bg-dark text-white">
         <Card.Header className="fw-bold" as="h4">
           Bazi jó cím a kártyának
@@ -40,10 +37,11 @@ function TextArea() {
           <blockquote className="blockquote mb-0 fst-italic">
             <p>
               {' '}
-              "Ez bizony egy roppant találó idézet helye, melytől mindenki zöldet akar venni."{' '}
+              &quot;Semmi áron se mondjatok le arról, hogy legyen időtök gyógynövényt, virágot
+              gyűjteni! Hajoljatok le a földig és emelkedjetek az égbe utánuk!&quot;{' '}
             </p>
             <footer className="blockquote-footer">
-              Vmi miatt baszomhíres <cite title="Source Title"> Mekk Elek</cite>
+              <cite title="Source Title"> Maurice Mességué</cite>
             </footer>
           </blockquote>
         </Card.Footer>

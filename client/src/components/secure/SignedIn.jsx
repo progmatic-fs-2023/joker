@@ -2,10 +2,10 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { NavLink } from 'react-router-dom';
-import BlockButton from '../micro/BlockButton';
-import useAuth from '../../hooks/useAuth';
 import Dropdown from 'react-bootstrap/Dropdown';
 import NavItem from 'react-bootstrap/NavItem';
+import BlockButton from '../micro/BlockButton';
+import useAuth from '../../hooks/useAuth';
 
 function SignedIn() {
   const { auth, handleLogout } = useAuth();
