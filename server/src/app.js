@@ -16,6 +16,7 @@ import herbsRouter from './routes/herbsRouter';
 import usersRouter from './routes/usersRouter';
 import ordersRouter from './routes/ordersRouter';
 import blogRouter from './routes/secure/blogRouter';
+import searchRouter from './routes/searchRouter';
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use('/api/herbs', herbsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/blog', blogRouter);
+app.use('/api/search', searchRouter);
 
 // every route below will require authenticate process first
 app.use(verifyJWT);
