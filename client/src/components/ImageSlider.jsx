@@ -6,7 +6,7 @@ import Slide3 from '../assets/slide_3.jpg';
 
 function ImageSlider() {
   return (
-    <Carousel>
+    <Carousel className="shadow-lg p-2 mb-5 rounded">
       <Carousel.Item>
         <Image src={Slide1} fluid text="First slide" />
         {/* <Slide1 text="First slide" /> */}

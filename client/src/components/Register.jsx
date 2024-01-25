@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router-dom';
 import validator from 'validator';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Card from 'react-bootstrap/Card';
 import { AUTH_URL } from '../constants';
 
 function Register() {
@@ -80,28 +82,27 @@ function Register() {
   };
 
   return (
-    <div
-      className="p-2 my-5 mx-auto text-center"
-      style={{ border: 'solid 1px lightblue', borderRadius: '12px', width: '40%' }}
-    >
+    <div className="p-2 my-5 mx-auto text-center">
       {success ? (
-        <div>
-          <h1>Sikeres regisztráció</h1>
-          <p>
-            <Link to="/login">Bejelentkezés</Link>
-          </p>
-        </div>
+        <Card style={{ width: '400px', margin: '0 auto' }}>
+          <Card.Body>
+            <h1>Sikeres regisztráció</h1>
+            <p>
+              <Link to="/login">Bejelentkezés</Link>
+            </p>
+          </Card.Body>
+        </Card>
       ) : (
-        <div>
-          <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
-            {errMsg}
-          </p>
-          <h5>Regisztráció</h5>
-          <form className="text-center" onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="username" className="form-label">
-                Email cím:
-                <input
+        <Card style={{ width: '400px', margin: '0 auto' }}>
+          <Card.Body>
+            <p ref={errRef} className={errMsg ? 'errmsg' : 'offscreen'} aria-live="assertive">
+              {errMsg}
+            </p>
+            <h5 className="card-title text-center">Regisztráció</h5>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group className="mb-3" controlId="username">
+                <Form.Label>Email cím:</Form.Label>
+                <Form.Control
                   type="text"
                   id="username"
                   className={`d-inline-block form-control form-control-sm ${
@@ -116,19 +117,21 @@ function Register() {
                   onFocus={() => setUserFocus(true)}
                   onBlur={() => setUserFocus(false)}
                 />
-              </label>
-              <div
-                id="uidnote"
-                className={userFocus && user && !validName ? 'instructions' : 'offscreen'}
-              >
-                <FontAwesomeIcon icon={faInfoCircle} /> 4 - 24 karakter. Betűvel kezdődjön. <br />
-                Betűk, számok, alsóvonás, kötőjel elfogadott.
-              </div>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Jelszó:
-                <input
+                <div
+                  id="uidnote"
+                  className={userFocus && user && !validName ? 'instructions' : 'offscreen'}
+                >
+                  <Form.Text className="text-muted">
+                    <FontAwesomeIcon icon={faInfoCircle} /> 4 - 24 karakter. Betűvel kezdődjön.{' '}
+                    <br />
+                    Betűk, számok, alsóvonás, kötőjel elfogadott.
+                  </Form.Text>
+                </div>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="password">
+                <Form.Label>Jelszó:</Form.Label>
+
+                <Form.Control
                   type="password"
                   id="password"
                   className={`d-inline-block form-control form-control-sm ${
@@ -141,17 +144,17 @@ function Register() {
                   onFocus={() => setPwdFocus(true)}
                   onBlur={() => setPwdFocus(false)}
                 />
-              </label>
-              <div id="pwdnote" className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
-                <FontAwesomeIcon icon={faInfoCircle} /> 8 - 24 karakter. <br /> Tartalmaznia kell
-                nagybetűt, kisbetűt, <br /> számot és legalább egy speciális karaktert. <br />{' '}
-                Elfogadott spec.karakterek: ! @ # $ %
-              </div>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="confirm_pwd" className="form-label">
-                Jelszó megerősítés:
-                <input
+                <div id="pwdnote" className={pwdFocus && !validPwd ? 'instructions' : 'offscreen'}>
+                  <Form.Text className="text-muted ">
+                    <FontAwesomeIcon icon={faInfoCircle} /> 8 - 24 karakter. <br /> Tartalmaznia
+                    kell nagybetűt, kisbetűt, <br /> számot és legalább egy speciális karaktert.{' '}
+                    <br /> Elfogadott spec.karakterek: ! @ # $ %
+                  </Form.Text>
+                </div>
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="confirm_pwd">
+                <Form.Label>Jelszó megerősítés:</Form.Label>
+                <Form.Control
                   type="password"
                   id="confirm_pwd"
                   className={`d-inline-block form-control form-control-sm ${
@@ -164,30 +167,31 @@ function Register() {
                   onFocus={() => setMatchFocus(true)}
                   onBlur={() => setMatchFocus(false)}
                 />
-              </label>
-              <div
-                id="confirmnote"
-                className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}
+                <div
+                  id="confirmnote"
+                  className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}
+                >
+                  <FontAwesomeIcon icon={faInfoCircle} /> Egyeznie kell az első mezőbe írt
+                  jelszóval.
+                </div>
+              </Form.Group>
+              <Button
+                variant="outline-success"
+                type="submit"
+                disabled={!!(!validName || !validPwd || !validMatch)}
               >
-                <FontAwesomeIcon icon={faInfoCircle} /> Egyeznie kell az első mezőbe írt jelszóval.
-              </div>
-            </div>
-            <Button
-              type="submit"
-              className="btn btn-success"
-              disabled={!!(!validName || !validPwd || !validMatch)}
-            >
-              Regisztráció
-            </Button>
-          </form>
-          <p className="text-left mt-3">
-            Már van fiókod?
-            <br />
-            <span className="line">
-              <Link to="/login">Lépj be</Link>
-            </span>
-          </p>
-        </div>
+                Regisztráció
+              </Button>
+            </Form>
+            <p className="text-left mt-3">
+              Már van fiókod?
+              <br />
+              <span className="line">
+                <Link to="/login">Lépj be</Link>
+              </span>
+            </p>
+          </Card.Body>
+        </Card>
       )}
     </div>
   );
