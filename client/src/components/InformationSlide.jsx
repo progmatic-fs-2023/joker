@@ -7,9 +7,9 @@ function InformationSlide() {
     <Container fluid="md">
       <Row>
         <Col>
-          Herbalism egy külföldi eredetű szó jelentése: A növények ismeretének és gyógyító
-          tulajdonságaik felhasználásának tudománya.A gyógynövények használata több ezer évre
-          visszavezethető. herbalizmus egyedülálló módon ötvözi a kulturális hagyományokat, az
+          Herbalism egy külföldi eredetű szó, jelentése: a növények ismeretének és gyógyító
+          tulajdonságaik felhasználásának tudománya. A gyógynövények használata több ezer évre
+          visszavezethető. A herbalizmus egyedülálló módon ötvözi a kulturális hagyományokat, az
           ételeket és a jó közérzetet mindenki számára.
         </Col>
       </Row>

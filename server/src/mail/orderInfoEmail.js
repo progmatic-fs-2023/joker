@@ -12,15 +12,29 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const message = {
-  from: 'Herbalism.hu <info@herbalism.hu>',
-  to: '',
-  subject: 'Rendelés visszaigazolás',
-  text: 'Kedves XYZ! Köszönjük, hogy nálunk vásárolsz! A rendelésed tételei egyesével az alábbiak: ...',
-};
-
-function mailer(email) {
-  transporter.sendMail(email, (error, success) => {
+function orderInfoEmail(receiver, orderedHerbs) {
+  const message = {
+    from: 'Herbalism.hu <info@herbalism.hu>',
+    to: receiver,
+    subject: 'Rendelés visszaigazolás',
+    // text: `Kedves XYZ! Köszönjük, hogy nálunk vásárolsz! A rendelésed tételei egyesével a következők:`,
+    html: `<h3 style="text-align: center, color: cadetblue" >Kedves ${orderedHerbs.customer}!</h3>
+      <h5>Rendelés azonosító: ${orderedHerbs.orderId}</h5>
+      <p>Köszönjük, hogy nálunk vásárolsz! Rendelésed részletei:</p>
+      <div>
+      ${orderedHerbs.map(
+        herb =>
+          `<ol>
+        <li>Gyógynövény neve: ${herb.herbName}</li>
+        <li>Mennyiség: ${herb.quantity} gramm</li>
+        <li>Ár: ${herb.price} Ft/gramm</li>
+        <li>Érték: ${herb.price * herb.quantity} Ft</li>
+        </ol>`,
+      )}
+      </div>
+      <p>Üdvözlettel: Herbalism.hu csapata</p>`,
+  };
+  transporter.sendMail(message, (error, success) => {
     if (error) {
       console.log(error);
     } else {
@@ -31,4 +45,4 @@ function mailer(email) {
   return null;
 }
 
-mailer(message);
+export default orderInfoEmail;

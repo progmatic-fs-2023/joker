@@ -25,7 +25,7 @@ const blogsList = async (req, res) => {
     if (!userId && !author) {
       const posts = await blogServices.getAllPosts();
 
-      console.log('all posts', posts);
+      // console.log('all posts', posts);
       res.status(200).json(posts);
     } else if (!author && userId) {
       const posts = await blogServices.getAllPostsOfUser(userId);
@@ -60,7 +60,7 @@ const blogsList = async (req, res) => {
 };
 
 const newPost = async (req, res) => {
-  console.log('successful post');
+  // console.log('successful post');
   const newBlog = {
     // id: crypto.randomUUID(),
     title: req.body?.title || null,
@@ -68,7 +68,7 @@ const newPost = async (req, res) => {
     authorId: req.body?.authorId || null,
     // pictures: req.body?.pictures
   };
-  console.log('newBlog:', newBlog);
+  // console.log('newBlog:', newBlog);
   if (!newBlog.title || !newBlog.body || !newBlog.authorId) {
     return res.status(400).json({ 'Error message': 'More lines are required to fill out!' });
   }
@@ -80,7 +80,7 @@ const newPost = async (req, res) => {
 };
 
 const updatePost = (req, res) => {
-  console.log('successful put');
+  // console.log('successful put');
   const blog = data.blogs.find(item => item.id === Number(req.body.id));
   if (!blog) {
     return res.status(400).json({ message: `Blog ID ${req.body.id} not found` });
@@ -110,7 +110,7 @@ const updatePost = (req, res) => {
 };
 
 const deletePost = (req, res) => {
-  console.log('successful delete', req.body.id);
+  // console.log('successful delete', req.body.id);
   const blog = data.blogs.find(item => item.id === Number(req.body.id));
   if (!blog) {
     return res.status(400).json({ message: `Blog ID ${req.body.id} not found` });
@@ -122,7 +122,7 @@ const deletePost = (req, res) => {
 };
 
 const getPost = async (req, res) => {
-  console.log('successful get/:id', req.params.id);
+  // console.log('successful get/:id', req.params.id);
   // const post = data.blogs.find(item => item.id === Number(req.params.id));
   const post = await blogServices.findPost(req.params.id);
   if (!post) {

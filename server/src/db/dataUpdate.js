@@ -787,14 +787,19 @@ const herbUpdate = async () => {
         price: 449,
       },
     ],
+    ],
   });
   console.log(herbs);
   return null;
 };
+  return null;
+};
 
+const userUpdate = async email => {
 const userUpdate = async email => {
   const user = await prisma.user.update({
     where: {
+      email,
       email,
     },
     data: {
@@ -804,13 +809,27 @@ const userUpdate = async email => {
   console.log(user);
   return null;
 };
+      role: 'ADMIN',
+    },
+  });
+  console.log(user);
+  return null;
+};
 
+const superuserUpdate = async email => {
 const superuserUpdate = async email => {
   const user = await prisma.user.update({
     where: {
       email,
+      email,
     },
     data: {
+      role: 'SUPERADMIN',
+    },
+  });
+  console.log(user);
+  return null;
+};
       role: 'SUPERADMIN',
     },
   });
@@ -896,4 +915,5 @@ main()
     process.exit(1);
   });
 
+export default { main, superuserUpdate, blogUpdate, userUpdate };
 export default { main, superuserUpdate, blogUpdate, userUpdate };

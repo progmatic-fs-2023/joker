@@ -11,6 +11,7 @@ router.delete('/:id', ordersController.deleteOrder);
 router.post('/addToCart', ordersController.create);
 router.put('/updateCartItem', ordersController.update);
 router.post('/finalizeOrder', ordersController.finalize);
+router.patch('/update', ordersController.updateClosed);
 router.post('/removeItem', ordersController.removeItem);
 router.delete('/clearCart/:orderId', ordersController.clearCart);
 

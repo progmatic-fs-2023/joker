@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
-function EditorButtonGroup({ modifyMe, deleteMe, orderId }) {
+function EditorButtonGroup({ setModifyBtnState, deleteMe, currentOrder }) {
   return (
     <div className="text-center">
       <ButtonGroup className="mb-2">
-        <Button variant="outline-warning" onClick={() => modifyMe(orderId)}>
+        <Button variant="outline-warning" onClick={() => setModifyBtnState(true)}>
           Módosítás
         </Button>
-        <Button variant="outline-danger" onClick={() => deleteMe(orderId)}>
+        <Button variant="outline-danger" onClick={() => deleteMe(currentOrder.id)}>
           Törlés
         </Button>
       </ButtonGroup>
@@ -18,9 +18,16 @@ function EditorButtonGroup({ modifyMe, deleteMe, orderId }) {
   );
 }
 EditorButtonGroup.propTypes = {
-  orderId: PropTypes.string.isRequired,
   deleteMe: PropTypes.func.isRequired,
-  modifyMe: PropTypes.func.isRequired,
+  setModifyBtnState: PropTypes.func.isRequired,
+  currentOrder: PropTypes.shape({
+    id: PropTypes.string,
+    customerNote: PropTypes.string,
+    quantity: PropTypes.arrayOf({}),
+    status: PropTypes.string,
+    updatedAt: PropTypes.string,
+    userID: PropTypes.string,
+  }).isRequired,
 };
 
 export default EditorButtonGroup;

@@ -177,6 +177,8 @@ function UserForm() {
                   required
                 />
               </Form.Group>
+              <br />
+              <Payment />
               <Form.Group controlId="terms">
                 <Form.Check
                   type="checkbox"
@@ -186,6 +188,7 @@ function UserForm() {
                   required
                 />
               </Form.Group>
+
               <Button type="submit">Rendelés megerősítése</Button>
             </Form>
           </div>

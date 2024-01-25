@@ -5,7 +5,19 @@
   font-family: 'Quicksand', sans-serif;
 }
 
-/* body {
-    background-image: url('./assets/herbs_wallpaper.jpg');
-    margin: 0;
-} */
+body {
+  /* background-image: url('./assets/herb_wallpaper_1.jpg'); */
+  margin: 10;
+  background-color: hsla(156, 28%, 72%, 0.4) ;
+  backdrop-filter: blur(2px);
+  height: auto;
+}
+
+.navbar {
+  background-color: #065736 !important;
+  color: aquamarine;
+}
+
+.navfooter {
+  background-color: #065736 !important;
+}
