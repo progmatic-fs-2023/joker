@@ -33,6 +33,7 @@ import HerbEditor from './components/user/HerbEditor';
 import OrderEditor from './components/order/OrderEditor';
 import Missing from './components/blog/Missing';
 import ASZF from './pages/Aszf';
+import SearchPage from './pages/SearchPage';
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function App() {
               <Route path="login" element={<Login />} />
               <Route path="register" element={<Register />} />
               <Route path="unauthorized" element={<Unauthorized />} />
+              <Route path="search" element={<SearchPage />} />
               <Route element={<ProtectedLayout />}>
                 {/* protect these routes */}
                 <Route element={<RequireAuth allowedRoles={['BASIC', 'ADMIN', 'SUPERADMIN']} />}>
