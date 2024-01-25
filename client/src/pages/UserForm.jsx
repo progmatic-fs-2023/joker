@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,11 +9,14 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../hooks/useCart';
 import { API_URL } from '../constants';
 import Payment from './Payment';
+import useAuth from '../hooks/useAuth';
 
 function UserForm() {
   const { cart, orderId } = useCart();
   const navigate = useNavigate();
-
+  const { auth } = useAuth();
+  const { userId } = auth;
+  const [userInfo, setUserInfo] = useState([]);
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -25,6 +28,31 @@ function UserForm() {
     country: '',
   });
 
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const response = await fetch(`${API_URL}/users/${userId}`);
+      if (response.ok) {
+        const data = await response.json();
+        setUserInfo(data);
+      }
+    };
+    fetchUserInfo();
+  }, [userId]);
+  const UserInfo = userInfo;
+  useEffect(() => {
+    if (UserInfo != null) {
+      setForm({
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        email: userInfo.email,
+        phoneNumber: userInfo.phone,
+        address: userInfo.streetAddress,
+        zipCode: userInfo.postalCode,
+        city: userInfo.city,
+        country: userInfo.country,
+      });
+    }
+  }, [userInfo]);
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -67,6 +95,7 @@ function UserForm() {
                   type="text"
                   name="firstName"
                   placeholder="Keresztnév"
+                  value={form.firstName}
                   onChange={handleChange}
                   required
                 />
@@ -77,6 +106,7 @@ function UserForm() {
                   type="text"
                   name="lastName"
                   placeholder="Vezetéknév"
+                  value={form.lastName}
                   onChange={handleChange}
                   required
                 />
@@ -87,6 +117,7 @@ function UserForm() {
                   type="email"
                   name="email"
                   placeholder="pl.: felhasznalo@joker.com"
+                  value={form.email}
                   onChange={handleChange}
                   required
                 />
@@ -96,6 +127,7 @@ function UserForm() {
                 <Form.Control
                   type="tel"
                   name="phoneNumber"
+                  value={form.phoneNumber}
                   placeholder="06201234567"
                   onChange={handleChange}
                   required
@@ -109,21 +141,40 @@ function UserForm() {
                   type="text"
                   name="address"
                   placeholder="utca, házszám, emelet, ajtó"
+                  value={form.address}
                   onChange={handleChange}
                   required
                 />
               </Form.Group>
               <Form.Group controlId="zip-code">
                 <Form.Label>Irányítószám</Form.Label>
-                <Form.Control type="text" name="zipCode" onChange={handleChange} required />
+                <Form.Control
+                  type="text"
+                  name="zipCode"
+                  value={form.zipCode}
+                  onChange={handleChange}
+                  required
+                />
               </Form.Group>
               <Form.Group controlId="city">
                 <Form.Label>Város</Form.Label>
-                <Form.Control type="text" name="city" onChange={handleChange} required />
+                <Form.Control
+                  type="text"
+                  name="city"
+                  value={form.city}
+                  onChange={handleChange}
+                  required
+                />
               </Form.Group>
               <Form.Group controlId="country">
                 <Form.Label>Ország</Form.Label>
-                <Form.Control type="text" name="country" onChange={handleChange} required />
+                <Form.Control
+                  type="text"
+                  name="country"
+                  value={form.country}
+                  onChange={handleChange}
+                  required
+                />
               </Form.Group>
               <br />
               <Payment />
