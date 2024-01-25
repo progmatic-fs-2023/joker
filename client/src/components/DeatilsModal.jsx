@@ -1,33 +1,19 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-bootstrap/Modal';
-import BlockButton from './micro/BlockButton';
 
-function DetailsModal({ stockItem }) {
-  const [lgShow, setLgShow] = useState(false);
-
+function DetailsModal({ stockItem, show, handleClose }) {
   return (
-    <>
-      <BlockButton
-        class="btn me-3 "
-        size="sm"
-        variant="secondary"
-        btnName="Leírás"
-        onClick={() => setLgShow(true)}
-      />
-
-      <Modal
-        size="lg"
-        show={lgShow}
-        onHide={() => setLgShow(false)}
-        aria-labelledby="example-modal-sizes-title-lg"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-lg">Részletek</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{stockItem.details}</Modal.Body>
-      </Modal>
-    </>
+    <Modal
+      size="lg"
+      show={show}
+      onHide={handleClose}
+      aria-labelledby="example-modal-sizes-title-lg"
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="example-modal-sizes-title-lg">Részletek</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>{stockItem.details}</Modal.Body>
+    </Modal>
   );
 }
 
@@ -40,6 +26,8 @@ DetailsModal.propTypes = {
     price: PropTypes.number.isRequired,
     details: PropTypes.string.isRequired,
   }).isRequired,
+  show: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
 };
 
 export default DetailsModal;
