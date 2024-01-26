@@ -20,6 +20,8 @@ function CardKitchenSink({ stockItem }) {
   const [qty, setQuantity] = useState(0);
   const [outOfStockNotification, setOutOfStockNotification] = useState(false);
   const navigate = useNavigate();
+  const [lgShow, setLgShow] = useState(false);
+
   const navigateToProduct = () => {
     navigate(`/product/${stockItem.id}`, { state: { stockItem } });
   };
@@ -88,20 +90,26 @@ function CardKitchenSink({ stockItem }) {
       </div>
       <Card.Body>
         <Card.Title>{herbName}</Card.Title>
-        <Card.Text>{`${stockItem.details.substring(0, 150)}...`}</Card.Text>
+        <Card.Subtitle className="mb-2 text-muted">({species})</Card.Subtitle>
+        <Card.Text
+          class="text-underline-hover"
+          onClick={() => setLgShow(true)}
+        >{`${stockItem.details.substring(0, 150)}...`}</Card.Text>
       </Card.Body>
       <ListGroup variant="flush">
-        <ListGroup.Item>
-          <DetailsModal stockItem={stockItem} centered />
-        </ListGroup.Item>
-        <ListGroup.Item>{species}</ListGroup.Item>
+        <DetailsModal
+          stockItem={stockItem}
+          show={lgShow}
+          handleClose={() => setLgShow(false)}
+          centered
+        />
         <ListGroup.Item>
           <StarRating rating={rating} />
         </ListGroup.Item>
         <ListGroup.Item>Készlet: {stockQuantity} g</ListGroup.Item>
         <ListGroup.Item>Ár: {price} Ft/g</ListGroup.Item>
         <BlockButton
-          classNames="p-4"
+          classNames="pt-1 pb-1 ps-5 pe-5"
           size="m"
           variant="success"
           type="button"
@@ -109,7 +117,10 @@ function CardKitchenSink({ stockItem }) {
           onClick={navigateToProduct}
         />
       </ListGroup>
-      <Card.Body style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Card.Body
+        className="pt-1"
+        style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      >
         <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={qty} />
         {stockQuantity <= 0 ? (
           <BlockButton
