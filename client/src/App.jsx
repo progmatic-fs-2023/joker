@@ -46,7 +46,9 @@ function App() {
               <Route index element={<Home />} />
               <Route path="shop" element={<Shop />} />
               <Route path="product/:id" element={<Product />} />
-              <Route path="blog" element={<Blog />} />
+              {/* <Route path="blog" element={<Blog />} /> */}
+              <Route path="read" element={<Blog />} />
+              <Route path="read/:id" element={<PostPage />} />
               <Route path="userform" element={<UserForm />} />
               <Route path="successfulorder" element={<SuccessfulOrder />} />
               <Route path="contact" element={<Contact />} />

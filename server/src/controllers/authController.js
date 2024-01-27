@@ -11,6 +11,7 @@ const handleLogin = async (req, res) => {
     });
   const foundUser = await usersServices.getUserByEmail(user);
   if (!foundUser) return res.sendStatus(401);
+  if (!foundUser.verified) return res.status(401).json({ message: 'Verify your email address!' });
   const match = await bcrypt.compare(pwd, foundUser.password);
   if (match) {
     const { role, id: userId, email: userName } = foundUser;

@@ -35,6 +35,40 @@ const getHerbByID = async id => {
   }
   return null;
 };
+const updateHerbByID = async (id, updateObject) => {
+  try {
+    const result = await prisma.herb.update({
+      where: { id },
+      data: { ...updateObject },
+    });
+    console.log('updated herb', result);
+    return result;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+    console.log('Prisma disconnected');
+  }
+  return null;
+};
+
+const removeHerbByID = async id => {
+  try {
+    const result = await prisma.herb.delete({
+      where: { id },
+    });
+    console.log('deleted herb', result);
+    return result;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+    console.log('Prisma disconnected');
+  }
+  return null;
+};
 
 const updateHerbRating = async herbID => {
   try {
@@ -172,6 +206,8 @@ const editFeedback = async (feedbackId, userId, updatedData) => {
 export default {
   getAllHerbs,
   getHerbByID,
+  removeHerbByID,
+  updateHerbByID,
   createFeedback,
   updateHerbRating,
   getFeedbackByHerbID,

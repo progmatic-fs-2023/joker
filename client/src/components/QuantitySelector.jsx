@@ -36,7 +36,7 @@ function QuantitySelector({ onQuantityChange, initialQuantity }) {
 
   return (
     <div className="quantity-selector p-2 d-flex align-items-center">
-      <Button className="m-1" variant="outline-info" type="button" onClick={decreaseQuantity}>
+      <Button className="m-1" variant="outline-success" type="button" onClick={decreaseQuantity}>
         -
       </Button>
       <Form.Control
@@ -47,7 +47,7 @@ function QuantitySelector({ onQuantityChange, initialQuantity }) {
         onChange={handleInputChange}
         style={{ width: '50px' }}
       />
-      <Button className="m-1" variant="outline-info" type="button" onClick={increaseQuantity}>
+      <Button className="m-1" variant="outline-success" type="button" onClick={increaseQuantity}>
         +
       </Button>
     </div>

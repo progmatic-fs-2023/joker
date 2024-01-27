@@ -5,6 +5,8 @@ const router = Router();
 
 router.get('/', herbsController.herbsList);
 router.get('/:id', herbsController.herb);
+router.patch('/:id', herbsController.herbUpdate);
+router.delete('/:id', herbsController.deleteHerb);
 router.post('/feedback/:id', herbsController.feedback);
 router.get('/feedback/:id', herbsController.feedbackByHerb);
 router.delete('/feedback/:feedbackId', herbsController.deleteFeedback);
