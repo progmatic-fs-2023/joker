@@ -2,12 +2,13 @@ import Nav from 'react-bootstrap/Nav';
 import { FaFacebook } from 'react-icons/fa';
 import { MdOutlineAlternateEmail } from 'react-icons/md';
 import { IoDocumentText } from 'react-icons/io5';
+import { NavLink } from 'react-router-dom';
 
 function FooterNavs() {
   return (
     <Nav className="justify-content-center text-center" activeKey="/home">
       <Nav.Item>
-        <Nav.Link className="img-fluid rounded-4 hover-shadow text-white" href="/home">
+        <Nav.Link className="img-fluid rounded-4 hover-shadow text-white" as={NavLink} to="/aszf">
           <IoDocumentText size={22} className="mb-2 me-1" />
           ASZF
         </Nav.Link>
