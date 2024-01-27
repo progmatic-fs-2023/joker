@@ -2,10 +2,14 @@ import { useParams, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { format } from 'date-fns';
 import useBlog from '../../hooks/useBlog';
+import useAuth from '../../hooks/useAuth';
+import DivImage from '../micro/DivImage';
 
 function PostPage() {
   const { id } = useParams();
+  const { auth } = useAuth();
   const { posts, handleDelete } = useBlog();
+  // const { allPost, handleDelete } = useBlog();
   const post = posts.find((singlePost) => singlePost.id.toString() === id);
 
   return (
@@ -21,6 +25,7 @@ function PostPage() {
           >
             <h2>{post.title}</h2>
             <p className="postDate">Létrehozva: {format(post.createdAt, 'yyyy-MM-dd ')}</p>
+            <DivImage />
             <p className="postBody">{post.body}</p>
             <p className="postRating">Értékelés: {post.rating}</p>
             <p className="postAuthor">
@@ -30,9 +35,11 @@ function PostPage() {
               Kedvelik: {post.authorFirstName} {post.authorLastName}
             </p>
             {/* {post.pictures[0] && <img src={post.pictures[0]} alt="eso_kep" />} */}
-            <Button variant="outline-danger" onClick={() => handleDelete(post.id)}>
-              Poszt törlése
-            </Button>
+            {auth?.role === 'SUPERADMIN' && (
+              <Button variant="outline-danger" onClick={() => handleDelete(post.id)}>
+                Poszt törlése
+              </Button>
+            )}
           </div>
         )}
         {!post && (
@@ -40,7 +47,7 @@ function PostPage() {
             <h2>Nem található poszt</h2>
             <p>Well, that is disappointing. :(</p>
             <p>
-              <Link to="/">A magazin kezdőoldalá</Link>
+              <Link to="/feed">A magazin kezdőoldalára</Link>
             </p>
           </>
         )}

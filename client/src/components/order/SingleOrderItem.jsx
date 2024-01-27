@@ -12,7 +12,7 @@ function SingleOrderItem({ singleOrder, deleteMe, saveModifiedOrder }) {
 
   const updateCurrentValue = (newValues) => {
     const orderRefresh = { ...singleOrder };
-    if (Number.isNaN(newValues.value)) return null;
+    if (Number.isNaN(Number(newValues.value))) return null;
     orderRefresh.quantity[newValues.indx].quantity = Number(newValues.value);
     setCurrentOrder(orderRefresh);
     return null;

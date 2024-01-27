@@ -9,7 +9,7 @@ function Home() {
     <Container className="mt-2">
       <header className="pt-3 d-flex justify-content-around flex-wrap">
         <small className="w-50 text-center">
-          <p className="m-0 text-right fw-bolder fst-italic fs-5">
+          <p className="m-0 text-right fw-bolder fst-italic fs-5" style={{ color: 'white' }}>
             &quot;Herbalism is the tradition of studying and using herbs for their healing
             properties.
             <br />
@@ -18,11 +18,6 @@ function Home() {
           </p>
         </small>
       </header>
-      <Row className="text-center">
-        <Col>
-          <p className="justify-content-center text-center fs-1 fw-bolder">Herbalism.hu </p>
-        </Col>
-      </Row>
       <Row className="mt-4">
         <Col>
           <ImageSlider />

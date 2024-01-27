@@ -6,22 +6,36 @@
 }
 
  body {
-  /* background-image: url('./assets/herb_wallpaper_1.jpg'); */
+  background-image: url('./assets/wp2136802.jpg');
+  background-position: top;
   margin: 10;
-  background-color: hsla(156, 28%, 72%, 0.4) ;
+  background-color: hsla(153, 96%, 82%, 0.278);
   height: auto;
 }  
 
 .navbar {
-  background-color: #065736 !important;
+  background-color: #3e9e77 !important;
   color: aquamarine;
 }
 
 .navfooter {
-  background-color: #065736 !important;
+  background-color: #3e9e77 !important;
 }
 
 .text-underline-hover:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.shop {
+  background-image: url('./assets/wood.jpg');
+  background-position: top;
+}
+
+.blog-home {
+  color: whitesmoke;
+}
+
+.blog-title {
+  color: whitesmoke;
 }

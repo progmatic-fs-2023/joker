@@ -37,7 +37,7 @@ function ProductList({ stockList }) {
 
   return (
     <div className="product-list-container px-5">
-      <div className="filter-area d-flex justify-content-center  m-3">
+      <div className="filter-area d-flex justify-content-center p-5">
         <FilterArea
           handleSortChange={handleSortChange}
           categories={categories}

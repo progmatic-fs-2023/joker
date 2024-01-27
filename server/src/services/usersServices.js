@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+import crypto from 'node:crypto';
+import verifyEmail from '../mail/verifyEmail';
 
 const prisma = new PrismaClient();
 
@@ -51,9 +53,47 @@ const createNewUser = async (user, hashedPwd) => {
       data: {
         email: user,
         password: hashedPwd,
+        verifyString: crypto.randomBytes(16).toString('hex'),
       },
     });
-    console.log('new user:', result);
+    // TODO handle verifyconnection
+    // verifyConnection();
+    // if (result) {
+    //   verifyEmail(result.email, result.verifyString);
+    // }
+    verifyEmail(result.email, result.verifyString);
+    return result;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+  }
+  return null;
+};
+
+const findUserByVerifyString = async verifyString => {
+  try {
+    const result = await prisma.user.findFirst({
+      where: { verifyString },
+    });
+    return result;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+  }
+  return null;
+};
+
+const updateUserByVerifyString = async userId => {
+  try {
+    const result = await prisma.user.update({
+      where: { id: userId },
+      data: { verified: true, verifyString: '' },
+    });
+    console.log('verified user:', result);
     return result;
   } catch (err) {
     console.error(err);
@@ -154,6 +194,8 @@ export default {
   updateUserRefreshToken,
   deleteUserRefreshToken,
   findUserByRefreshToken,
+  findUserByVerifyString,
+  updateUserByVerifyString,
   createNewUser,
   updateUserData,
   deleteUserByID,

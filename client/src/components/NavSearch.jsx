@@ -96,7 +96,7 @@ function NavSearch() {
             <Nav.Link as={NavLink} to="/shop" className="text-white">
               Shop
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/blog" className="text-white me-2">
+            <Nav.Link as={NavLink} to="/read" className="text-white me-2">
               Magazin
             </Nav.Link>
             {auth?.role ? (

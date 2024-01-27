@@ -10,7 +10,7 @@ const useFetch = (url, fetchOptions, trigger = url) => {
       (async () => {
         const response = await fetch(url, fetchOptions);
         const result = await response.json();
-        // console.log('useFetch data:', result)
+        // console.log('useFetch triggered:', result)
         setData(result);
         setisPending(false);
         setError(null);
