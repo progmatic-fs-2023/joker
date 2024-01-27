@@ -74,25 +74,25 @@ function CardKitchenSink({ stockItem }) {
 
     setQuantity(0);
   };
-
   return (
-    <Card className="p-0 text-center" style={{ width: '20rem' }}>
+    <Card className="p-0 coloredCards text-center" style={{ width: '20rem' }}>
       <div
         className="card-img-top"
         style={{ height: '200px', overflow: 'hidden', textAlign: 'center' }}
       >
+        <Card.Title>{herbName}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">({species})</Card.Subtitle>
         <Image
           src={image[0]}
           alt={herbName}
           fluid
-          style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+          style={{ width: '80%', height: 'auto', objectFit: 'cover' }}
         />
       </div>
       <Card.Body>
-        <Card.Title>{herbName}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">({species})</Card.Subtitle>
         <Card.Text
-          className="text-underline-hover"
+          data-hover="Olvass tovább!"
+          className="text-underline-hover hovertext mb-0"
           onClick={() => setLgShow(true)}
         >{`${stockItem.details.substring(0, 150)}...`}</Card.Text>
       </Card.Body>
@@ -103,17 +103,17 @@ function CardKitchenSink({ stockItem }) {
           handleClose={() => setLgShow(false)}
           centered
         />
-        <ListGroup.Item>
+        <ListGroup.Item className="listWithColor">
           <StarRating rating={rating} />
         </ListGroup.Item>
-        <ListGroup.Item>Készlet: {stockQuantity} g</ListGroup.Item>
-        <ListGroup.Item>Ár: {price} Ft/g</ListGroup.Item>
+        <ListGroup.Item className="listWithColor">Készlet: {stockQuantity} g</ListGroup.Item>
+        <ListGroup.Item className="listWithColor">Ár: {price} Ft/g</ListGroup.Item>
         <BlockButton
           classNames="pt-1 pb-1 ps-5 pe-5"
           size="m"
           variant="success"
           type="button"
-          btnName="Adatlap"
+          btnName="Részletes adatlap"
           onClick={navigateToProduct}
         />
       </ListGroup>

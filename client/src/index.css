@@ -39,3 +39,29 @@
 .blog-title {
   color: whitesmoke;
 }
+
+.hovertext {
+  position: relative;
+}
+.hovertext:before {
+  content: attr(data-hover);
+  visibility: hidden;
+  opacity: 0;
+  width: 100px;
+  background-color: lightgrey;
+  color: black;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 10px;
+  padding: 2px 0;
+  transition: opacity 1s ease-in-out;
+  position: absolute;
+  z-index: 1;
+  right: -25%;
+  top: -10%;
+}
+
+.hovertext:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
