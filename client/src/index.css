@@ -39,13 +39,6 @@
 .blog-title {
   color: whitesmoke;
 }
-.coloredCards{
-  background-color: rgba(207, 178, 202, 0.512);
-}
-
-.listWithColor{
-  background-color:rgb(212, 205, 215) ;
-}
 
 .hovertext {
   position: relative;
@@ -65,7 +58,7 @@
   position: absolute;
   z-index: 1;
   right: -25%;
-  top: -45%;
+  top: -10%;
 }
 
 .hovertext:hover:before {
