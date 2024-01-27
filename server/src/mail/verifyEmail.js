@@ -12,15 +12,31 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const message = {
-  from: 'Herbalism.hu <info@herbalism.hu>',
-  to: '',
-  subject: 'Regisztráció megerősítés',
-  text: 'Kedves XYZ! A regisztrációd megerősítését az alábbi linkre kattintva tudod megtenni: ... link',
-};
+// test/verify connection configuration
+// export function testConnection() {
+//   transporter.verify(function (error, success) {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log("Server is ready to take our messages");
+//       return null
+//     }
+//   })
+//   return null
+// }
 
-function mailer(email) {
-  transporter.sendMail(email, (error, success) => {
+function verifyEmail(receiver, verifyString) {
+  const message = {
+    from: 'Herbalism.hu <info@herbalism.hu>',
+    to: receiver,
+    subject: 'Regisztráció megerősítés',
+    // text: `Kedves XYZ! Köszönjük, hogy nálunk vásárolsz! A rendelésed tételei egyesével a következők:`,
+    html: `<h3 style="text-align: center, color: cadetblue" >Kedves ${receiver}!</h3>
+    <p>Köszönjük, hogy regisztráltál webshopunkba!</p>
+    <p>A regisztrációd megerősítését a következő linkre kattintva tudod megtenni: <a href=http://localhost:3000/register/${verifyString}><strong>igen, regisztrálok!</strong></a></p>
+    <p>Üdvözlettel: Herbalism.hu csapata</p>`,
+  };
+  transporter.sendMail(message, (error, success) => {
     if (error) {
       console.log(error);
     } else {
@@ -31,4 +47,4 @@ function mailer(email) {
   return null;
 }
 
-mailer(message);
+export default verifyEmail;

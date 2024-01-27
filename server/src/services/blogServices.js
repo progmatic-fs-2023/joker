@@ -5,7 +5,6 @@ const prisma = new PrismaClient();
 const getAllPosts = async () => {
   try {
     const result = await prisma.post.findMany();
-    console.log(result);
     return result;
   } catch (err) {
     console.error(err);
@@ -79,4 +78,48 @@ const findPost = async id => {
   return null;
 };
 
-export default { getAllPosts, getAllPostsOfUser, createNewPost, findPost };
+const readPost = async id => {
+  // TODO remove this below
+  try {
+    const post = await prisma.post.findMany({
+      where: { id },
+      include: {
+        likedByUser: true,
+      },
+    });
+    return post;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+    console.log('Prisma readPost finished');
+  }
+  return null;
+};
+
+const deletePostById = async id => {
+  // TODO remove this below
+  try {
+    const post = await prisma.post.delete({
+      where: { id },
+    });
+    return post;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+    console.log('Prisma deletePost finished');
+  }
+  return null;
+};
+
+export default {
+  getAllPosts,
+  getAllPostsOfUser,
+  createNewPost,
+  findPost,
+  readPost,
+  deletePostById,
+};

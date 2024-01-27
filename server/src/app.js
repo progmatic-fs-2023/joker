@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import fileUpload from 'express-fileupload';
 import corsOptions from './config/corsOptions';
 import verifyJWT from './middlewares/verifyJWT';
 import { logger } from './middlewares/logEvents';
@@ -17,11 +18,15 @@ import usersRouter from './routes/usersRouter';
 import ordersRouter from './routes/ordersRouter';
 import blogRouter from './routes/secure/blogRouter';
 import searchRouter from './routes/searchRouter';
+import readOnlyRouter from './routes/readOnlyRouter';
+import uploadRouter from './routes/uploadRouter';
 
 const app = express();
 
 // custom middleware logger
 app.use(logger);
+// upload files from frontend
+app.use(fileUpload());
 // handle options credentials check - before CORS!, and fetch cookies credentials requirement
 app.use(credentials);
 // Cross Origin Resourse Sharing
@@ -37,17 +42,19 @@ app.use('/', express.static('public'));
 
 // public API endpoints
 app.use('/', rootRouter);
+app.use('/api', apiRouter);
 app.use('/register', registerRouter);
 app.use('/auth', authRouter);
 app.use('/refresh', refreshRouter);
 app.use('/logout', logoutRouter);
+app.use('/read', readOnlyRouter);
+app.use('/upload', uploadRouter);
 
-app.use('/api', apiRouter);
+app.use('/api/search', searchRouter);
 app.use('/api/herbs', herbsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/orders', ordersRouter);
 app.use('/api/blog', blogRouter);
-app.use('/api/search', searchRouter);
 
 // every route below will require authenticate process first
 app.use(verifyJWT);

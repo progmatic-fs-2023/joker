@@ -92,7 +92,7 @@ function CardKitchenSink({ stockItem }) {
         <Card.Title>{herbName}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">({species})</Card.Subtitle>
         <Card.Text
-          class="text-underline-hover"
+          className="text-underline-hover"
           onClick={() => setLgShow(true)}
         >{`${stockItem.details.substring(0, 150)}...`}</Card.Text>
       </Card.Body>

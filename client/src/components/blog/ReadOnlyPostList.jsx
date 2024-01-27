@@ -1,17 +1,24 @@
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Post from './Post';
+import PostIntro from '../micro/PostIntro';
+import uniqueKeyGenerator from '../../helpers/uniqueKeyGenerator';
 
-function FeedList({ posts }) {
+function ReadOnlyPostList({ posts }) {
   return (
-    <>
-      {posts.map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
-    </>
+    <div>
+      {posts &&
+        posts.map((post) => (
+          <div className="m-4" key={post.id}>
+            <Link style={{ textDecoration: 'none' }} to={`/read/${post.id}`}>
+              <PostIntro key={uniqueKeyGenerator()} postObject={post} author={post.authorID} />
+            </Link>
+          </div>
+        ))}
+    </div>
   );
 }
 
-FeedList.propTypes = {
+ReadOnlyPostList.propTypes = {
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       authorID: PropTypes.string,
@@ -27,7 +34,7 @@ FeedList.propTypes = {
   ),
 };
 
-FeedList.defaultProps = {
+ReadOnlyPostList.defaultProps = {
   posts: PropTypes.arrayOf(
     PropTypes.shape({
       authorID: PropTypes.string,
@@ -43,4 +50,4 @@ FeedList.defaultProps = {
   ),
 };
 
-export default FeedList;
+export default ReadOnlyPostList;

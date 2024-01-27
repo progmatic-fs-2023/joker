@@ -9,28 +9,22 @@ function TextArea() {
           A gyógynövényhasználat alapjai
         </Card.Header>
         <Card.Body>
-          <Card.Text as="text">
-            <p className="fs-5">
-              Herbalism egy külföldi eredetű szó, jelentése: A növények ismeretének és gyógyító
-              tulajdonságaik felhasználásának tudománya. A gyógynövények használata több ezer évre
-              visszavezethető. A herbalizmus egyedülálló módon ötvözi a kulturális hagyományokat, az
-              ételeket és a jó közérzetet mindenki számára.
-            </p>
-            <p className="fs-5">
-              A farmakológiai kutatások világméretű elterjedésével néhány gyógynövényt modern
-              gyógymóddá alakítottak át, mint például az artemisinin nevű maláriaellenes
-              gyógyszercsoportot, amelyet az Artemisia annua (Egynyári üröm) nevű, a kínai
-              orvoslásban a láz kezelésére használt gyógynövényből izoláltak.
-            </p>
-            <p className="fs-5">
-              A gyógynövények számos formában alkalmazhatók, amelyek közül a leggyakoribb a
-              gyógyteaként vagy (esetleg hígított) növényi kivonatként fogyasztott folyadék.{' '}
-            </p>
+          <Card.Text as="section">
+            A <i>herbalism</i> külföldi eredetű fogalom, jelentése: a növények ismeretének és
+            gyógyító tulajdonságaik felhasználásának tudománya. A gyógynövények használata több ezer
+            évre visszavezethető. A herbalizmus egyedülálló módon ötvözi a kulturális hagyományokat,
+            az ételeket és a jó közérzetet mindenki számára.
+            <blockquote />
+            A farmakológiai kutatások világméretű elterjedésével néhány gyógynövényt modern
+            gyógymóddá alakítottak át, mint például az artemisinin nevű maláriaellenes
+            gyógyszercsoportot, amelyet az Artemisia annua (Egynyári üröm) nevű, a kínai orvoslásban
+            a láz kezelésére használt gyógynövényből izoláltak.
+            <blockquote />A gyógynövények számos formában alkalmazhatók, amelyek közül a
+            leggyakoribb a gyógyteaként vagy (esetleg hígított) növényi kivonatként fogyasztott
+            folyadék. <blockquote />
           </Card.Text>
         </Card.Body>
-        <p className="justify-content-center text-center mt-4 mb-4">
-          <YoutubeEmbed embedId="RN11iBlUGio" />
-        </p>
+        <YoutubeEmbed embedId="RN11iBlUGio" />
         <Card.Footer className="text-center bg-dark text-white">
           <blockquote className="blockquote mb-0 fst-italic">
             <p>

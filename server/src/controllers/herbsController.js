@@ -9,6 +9,28 @@ const herbsList = async (req, res) => {
   }
 };
 
+const herbUpdate = async (req, res) => {
+  try {
+    const updateObject = { ...req.body };
+    console.log('herb body ok!', updateObject);
+    const herbID = req.params.id;
+    const response = await herbsServices.updateHerbByID(herbID, updateObject);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ error: 'Hiba a gyógynövény adatai frissítése közben.' });
+  }
+};
+
+const deleteHerb = async (req, res) => {
+  try {
+    const herbID = req.params.id;
+    const response = await herbsServices.removeHerbByID(herbID);
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ error: 'Hiba a gyógynövény törlése közben.' });
+  }
+};
+
 const herb = async (req, res) => {
   try {
     const herbID = req.params.id;
@@ -23,10 +45,6 @@ const feedback = async (req, res) => {
   const { title, body, rating } = req.body;
   const authorID = req.headers.user;
   const herbID = req.params.id;
-  console.log('id', authorID);
-  console.log('body', body);
-  console.log('title', title);
-  console.log('herbId', herbID);
   try {
     const newFeedback = await herbsServices.createFeedback(title, body, authorID, herbID, rating);
     if (newFeedback) {
@@ -77,4 +95,13 @@ const editFeedback = async (req, res) => {
   }
 };
 
-export default { herbsList, herb, feedback, feedbackByHerb, deleteFeedback, editFeedback };
+export default {
+  herbsList,
+  herb,
+  feedback,
+  feedbackByHerb,
+  deleteFeedback,
+  editFeedback,
+  herbUpdate,
+  deleteHerb,
+};

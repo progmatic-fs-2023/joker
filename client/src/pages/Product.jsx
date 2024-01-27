@@ -12,6 +12,7 @@ import useAuth from '../hooks/useAuth';
 import { API_URL } from '../constants';
 import StarRating from '../components/micro/StarRating';
 import NotificationRequestModal from '../components/NotificationRequestModal';
+// import TextParser from '../components/micro/TextParser';
 
 function Product() {
   const { id } = useParams();
@@ -128,7 +129,9 @@ function Product() {
         />
         <div className="mt-3">
           <h5>Részletek</h5>
-          <p>{details}</p>
+          {/* <p>{details.replace(`/n`, <blockquote />)}</p> */}
+          {/* <p>{details.replace(`/n`, `&#x3C;blockquote /&#x3E;`)}</p> */}
+          <p>{details.replace(`bécsi`, `${(<strong>bécsi</strong>)}`)}</p>
           <ListGroup variant="flush">
             <ListGroup.Item>Faj: {species}</ListGroup.Item>
             <ListGroup.Item>

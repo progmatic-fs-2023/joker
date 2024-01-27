@@ -15,6 +15,6 @@ router
 // .put(verifyRoles('SUPERADMIN', 'ADMIN'), blogController.updateBlog)
 // .delete(verifyRoles('SUPERADMIN'), blogController.deleteBlog);
 
-router.route('/:id').get(blogController.blogsList);
+router.route('/:id').get(blogController.blogsList).delete(blogController.deletePost);
 
 export default router;
