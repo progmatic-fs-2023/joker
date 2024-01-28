@@ -18,19 +18,22 @@ function FilterArea({ categories, handleCategoryClick, handleSortChange }) {
         onClick={() => handleCategoryClick(null)}
         size="md"
       >
-        Összes
+        Összes termék
       </Button>
-      {categories.map((category) => (
-        <Button
-          variant="outline-primary"
-          key={category}
-          type="button"
-          onClick={() => handleCategoryClick(category)}
-          size="md"
-        >
-          {category}
-        </Button>
-      ))}
+
+      <DropdownButton as={ButtonGroup} title="Szűrés" id="bg-nested-dropdown">
+        {categories.map((category) => (
+          <Dropdown.Item
+            as={Button}
+            eventKey={category}
+            value={category}
+            onClick={() => handleCategoryClick(category)}
+          >
+            {category}
+          </Dropdown.Item>
+        ))}
+      </DropdownButton>
+
       <DropdownButton as={ButtonGroup} title="Rendezés" id="bg-nested-dropdown">
         <Dropdown.Item
           as={Button}
