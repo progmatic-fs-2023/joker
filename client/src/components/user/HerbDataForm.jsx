@@ -24,6 +24,7 @@ function HerbDataForm({
     family: herb.family,
     genus: herb.genus,
     order: herb.order,
+    species: herb.species,
   });
 
   const handleInputChange = (e) => {
@@ -36,7 +37,7 @@ function HerbDataForm({
 
   return (
     herb && (
-      <>
+      <tr>
         <td>{index + 1}</td>
         <td>
           <Form.Label>
@@ -47,6 +48,19 @@ function HerbDataForm({
               type="text"
               value={currentHerb.herbName}
               placeholder={`${herb.herbName}`}
+            />
+          </Form.Label>
+        </td>
+
+        <td>
+          <Form.Label>
+            Rend
+            <Form.Control
+              name="order"
+              type="text"
+              value={currentHerb.order}
+              onChange={(e) => handleInputChange(e)}
+              placeholder={`${herb.order || 'nincs megadva'}`}
             />
           </Form.Label>
         </td>
@@ -79,13 +93,13 @@ function HerbDataForm({
 
         <td>
           <Form.Label>
-            Rend
+            Faj
             <Form.Control
-              name="order"
+              name="species"
               type="text"
-              value={currentHerb.order}
+              value={currentHerb.species}
               onChange={(e) => handleInputChange(e)}
-              placeholder={`${herb.order || 'nincs megadva'}`}
+              placeholder={`${herb.species || 'nincs megadva'}`}
             />
           </Form.Label>
         </td>
@@ -140,7 +154,7 @@ function HerbDataForm({
             cancelProcess={cancelProcess}
           />
         </td>
-      </>
+      </tr>
     )
   );
 }

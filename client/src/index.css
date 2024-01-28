@@ -40,9 +40,15 @@
   color: whitesmoke;
 }
 
+.new-herb-form input {
+  min-width: 16vw;
+  margin: auto 15px;
+}
+
 .hovertext {
   position: relative;
 }
+
 .hovertext:before {
   content: attr(data-hover);
   visibility: hidden;

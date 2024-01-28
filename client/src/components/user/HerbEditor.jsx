@@ -22,9 +22,6 @@ function HerbEditor() {
 
   return (
     <div className="herb-editor-container text-center w-75 mx-auto my-3">
-      {/* {
-        data && data.map(item => <CardKitchenSinkEditor key={uniqueKeyGenerator()} stockItem={item} />)
-      } */}
       {updatedHerbs && (
         <DarkTable
           updatedHerbs={updatedHerbs}

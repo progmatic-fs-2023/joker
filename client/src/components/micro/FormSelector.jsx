@@ -17,14 +17,21 @@ function FormSelector({ size, options, handleSelectOption }) {
 }
 
 FormSelector.propTypes = {
-  size: PropTypes.string.isRequired,
-  options: PropTypes.arrayOf({
-    email: PropTypes.string,
-    id: PropTypes.string,
-    map: PropTypes.func,
-    length: PropTypes.func,
-  }).isRequired,
+  size: PropTypes.string,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      email: PropTypes.string,
+      id: PropTypes.string,
+      map: PropTypes.func,
+      length: PropTypes.func,
+    }),
+  ),
   handleSelectOption: PropTypes.func.isRequired,
+};
+
+FormSelector.defaultProps = {
+  size: undefined,
+  options: PropTypes.arrayOf(),
 };
 
 export default FormSelector;

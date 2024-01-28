@@ -35,6 +35,23 @@ const getHerbByID = async id => {
   }
   return null;
 };
+
+const createNewHerb = async newHerb => {
+  try {
+    const result = await prisma.herb.create({
+      data: { ...newHerb },
+    });
+    return result;
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  } finally {
+    await prisma.$disconnect();
+    console.log('Prisma disconnected');
+  }
+  return null;
+};
+
 const updateHerbByID = async (id, updateObject) => {
   try {
     const result = await prisma.herb.update({
@@ -208,6 +225,7 @@ export default {
   getHerbByID,
   removeHerbByID,
   updateHerbByID,
+  createNewHerb,
   createFeedback,
   updateHerbRating,
   getFeedbackByHerbID,

@@ -34,8 +34,13 @@ function StarRating({ rating, setRating }) {
 }
 
 StarRating.propTypes = {
-  rating: PropTypes.number.isRequired,
-  setRating: PropTypes.func.isRequired,
+  rating: PropTypes.number,
+  setRating: PropTypes.func,
+};
+
+StarRating.defaultProps = {
+  rating: undefined,
+  setRating: undefined,
 };
 
 export default StarRating;

@@ -104,7 +104,6 @@ function Register() {
                 <Form.Label>Email cím:</Form.Label>
                 <Form.Control
                   type="text"
-                  id="username"
                   className={`d-inline-block form-control form-control-sm ${
                     validName ? 'is-valid' : ''
                   } ${user && !validName ? 'is-invalid' : ''}`}
@@ -133,7 +132,6 @@ function Register() {
 
                 <Form.Control
                   type="password"
-                  id="password"
                   className={`d-inline-block form-control form-control-sm ${
                     validPwd ? 'is-valid' : ''
                   } ${pwd && !validPwd ? 'is-invalid' : ''}`}
@@ -156,7 +154,6 @@ function Register() {
                 <Form.Label>Jelszó megerősítés:</Form.Label>
                 <Form.Control
                   type="password"
-                  id="confirm_pwd"
                   className={`d-inline-block form-control form-control-sm ${
                     matchPwd && !validMatch ? 'is-invalid' : ''
                   }`}

@@ -26,7 +26,7 @@ const app = express();
 // custom middleware logger
 app.use(logger);
 // upload files from frontend
-app.use(fileUpload());
+app.use(fileUpload({ createParentPath: true }));
 // handle options credentials check - before CORS!, and fetch cookies credentials requirement
 app.use(credentials);
 // Cross Origin Resourse Sharing

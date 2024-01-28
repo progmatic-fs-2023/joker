@@ -22,6 +22,7 @@ const createNewPost = async newPost => {
       data: {
         title: newPost.title,
         body: newPost.body,
+        pictures: newPost.pictures,
         authorID: newPost.authorId,
       },
     });

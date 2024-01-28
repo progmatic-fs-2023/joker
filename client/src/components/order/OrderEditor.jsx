@@ -17,7 +17,8 @@ function OrderEditor() {
   };
 
   const saveModifiedOrder = async (updatedOrder) => {
-    const newQuantity = updatedOrder.quantity.map((item) => ({
+    if (!updatedOrder?.quantity) return null;
+    const newQuantity = updatedOrder?.quantity.map((item) => ({
       herbID: item.herbID,
       newQty: item.quantity,
     }));
@@ -37,6 +38,7 @@ function OrderEditor() {
     }
     await response.json();
     fetchOrders();
+    return null;
   };
 
   const deleteMe = async (orderId) => {

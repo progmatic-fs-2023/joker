@@ -26,17 +26,19 @@ function OrderAccordion({ allOrders, deleteMe, modifyMe, modifyBtnState, saveMod
 }
 
 OrderAccordion.propTypes = {
-  allOrders: PropTypes.arrayOf({
-    image: PropTypes.string,
-    name: PropTypes.string,
-    quantity: PropTypes.number,
-    unitPrice: PropTypes.number,
-    map: PropTypes.func,
-    length: PropTypes.func,
-  }),
+  allOrders: PropTypes.arrayOf(
+    PropTypes.shape({
+      image: PropTypes.string,
+      name: PropTypes.string,
+      quantity: PropTypes.arrayOf(PropTypes.shape({})),
+      unitPrice: PropTypes.number,
+      map: PropTypes.func,
+      length: PropTypes.func,
+    }),
+  ),
   deleteMe: PropTypes.func,
   modifyMe: PropTypes.func,
-  modifyBtnState: PropTypes.bool,
+  modifyBtnState: PropTypes.func,
   saveModifiedOrder: PropTypes.func,
 };
 
@@ -44,7 +46,7 @@ OrderAccordion.defaultProps = {
   allOrders: undefined,
   deleteMe: PropTypes.func,
   modifyMe: PropTypes.func,
-  modifyBtnState: PropTypes.bool,
+  modifyBtnState: PropTypes.func,
   saveModifiedOrder: PropTypes.func,
 };
 

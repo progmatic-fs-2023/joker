@@ -1,10 +1,10 @@
-import { createContext, useState, useMemo, useEffect } from 'react';
+import { createContext, useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 import useAuth from '../hooks/useAuth';
 import useFetch from '../hooks/useFetch';
-import { API_URL } from '../constants';
+import { API_URL, AUTH_URL } from '../constants';
 import AlertInfo from '../components/micro/AlertInfo';
 
 const BlogContext = createContext({});
@@ -19,16 +19,11 @@ export function BlogProvider({ children }) {
   const [searchResults, setSearchResults] = useState([]);
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
-  const [postPictureLink, setPostPictureLink] = useState([]);
+  const [postPictureLink, setPostPictureLink] = useState('');
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   console.log('new location:', location);
-  // }, [location]);
 
   useEffect(() => {
     setPosts(allPost);
-    // console.log('allpost triggered', posts)
     if (posts) {
       const filteredResults = posts.filter(
         (post) =>
@@ -48,25 +43,43 @@ export function BlogProvider({ children }) {
     setPosts([...responseData]);
   };
 
+  const fileRef = useRef();
+
+  const sendFiles = async () => {
+    const formData = new FormData();
+    Object.keys(fileRef.current.files).forEach((key) => {
+      formData.append(fileRef.current.files.item(key).name, fileRef.current.files.item(key));
+    });
+
+    const response = await fetch(`${AUTH_URL}/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+    const result = await response.json();
+    return result;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const datetime = format(new Date(), 'MMMM dd, yyyy pp');
     const newPost = {
       title: postTitle,
-      datetime,
+      datetime, // not used yet :)
       body: postBody,
-      pictures: [postPictureLink],
+      pictures: postPictureLink[0] ? postPictureLink.split(', ') : [],
       authorId: auth.userId,
     };
     try {
+      if (fileRef.current.files?.length > 0) {
+        const fileUploadResult = await sendFiles();
+        fileUploadResult.pictures.forEach((pic) => newPost.pictures.push(pic));
+      }
       const fetchOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...newPost }),
         credentials: 'include',
       };
-      // const answer = await fetch(`${API_URL}/blog`, fetchOptions);
-      // const result = await answer.json();
       await fetch(`${API_URL}/blog`, fetchOptions);
       // clear all state and controlled inputs
       setPostTitle('');
@@ -88,7 +101,6 @@ export function BlogProvider({ children }) {
       credentials: 'include',
     };
     const response = await fetch(`${API_URL}/blog/${id}`, fetchOptions);
-    // console.log('delete raw response', response)
     if (!response.ok) {
       throw new Error(`Couldn't fetch user data, status: ${response.status}`);
     }
@@ -113,6 +125,8 @@ export function BlogProvider({ children }) {
       handleSubmit,
       handleDelete,
       location,
+      sendFiles,
+      fileRef,
     }),
     [
       posts,
@@ -130,6 +144,8 @@ export function BlogProvider({ children }) {
       handleSubmit,
       handleDelete,
       location,
+      sendFiles,
+      fileRef,
     ],
   );
 

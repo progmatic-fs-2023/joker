@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -12,7 +13,6 @@ import useAuth from '../hooks/useAuth';
 import { API_URL } from '../constants';
 import StarRating from '../components/micro/StarRating';
 import NotificationRequestModal from '../components/NotificationRequestModal';
-// import TextParser from '../components/micro/TextParser';
 
 function Product() {
   const { id } = useParams();
@@ -76,8 +76,7 @@ function Product() {
       handleShowNotificationModal();
       return;
     }
-    // Test id for testing, in real use logged in user
-    // const testUserId = "b18c15d2-97f5-42a2-bc12-1fd94a2f97e9";
+
     const loggedInUser = auth.userId;
     const response = await fetch(`${API_URL}/orders/addToCart`, {
       method: 'POST',
@@ -129,9 +128,7 @@ function Product() {
         />
         <div className="mt-3">
           <h5>Részletek</h5>
-          {/* <p>{details.replace(`/n`, <blockquote />)}</p> */}
-          {/* <p>{details.replace(`/n`, `&#x3C;blockquote /&#x3E;`)}</p> */}
-          <p>{details.replace(`bécsi`, `${(<strong>bécsi</strong>)}`)}</p>
+          <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(details) }} />
           <ListGroup variant="flush">
             <ListGroup.Item>Faj: {species}</ListGroup.Item>
             <ListGroup.Item>
