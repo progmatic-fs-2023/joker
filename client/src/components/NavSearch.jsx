@@ -99,6 +99,9 @@ function NavSearch() {
             <Nav.Link as={NavLink} to="/read" className="text-white me-2">
               Magazin
             </Nav.Link>
+            <Nav.Link as={NavLink} to="/contact" className="text-white me-2">
+              Kapcsolat
+            </Nav.Link>
             {auth?.role ? (
               <SignedIn user={auth.user} className="text-white fs-4" />
             ) : (
