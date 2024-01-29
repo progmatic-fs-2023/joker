@@ -107,9 +107,10 @@ function Cart({ handleClose }) {
             <div className="selectproduct">
               <QuantitySelector
                 onQuantityChange={(newQuantity) =>
-                  handleQuantityChange(product.herbName, newQuantity, product.image[0])
+                  handleQuantityChange(product.herbName, newQuantity)
                 }
                 initialQuantity={product.quantity}
+                maxQuantity={product.stockQuantity}
               />
               <Button
                 variant="outline-danger"

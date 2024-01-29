@@ -6,9 +6,32 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import NavItem from 'react-bootstrap/NavItem';
 import BlockButton from '../micro/BlockButton';
 import useAuth from '../../hooks/useAuth';
+import { useCart } from '../../hooks/useCart';
+import { API_URL } from '../../constants';
 
 function SignedIn() {
   const { auth, handleLogout } = useAuth();
+  const { cart, clearCart, orderId } = useCart();
+  const emptyCart = async () => {
+    if (cart.length === 0) {
+      handleLogout();
+      return;
+    }
+
+    const response = await fetch(`${API_URL}/orders/clearCart/${orderId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Nem sikerült kiüríteni a kosarat.');
+    }
+
+    clearCart();
+    handleLogout();
+  };
 
   return (
     <Navbar className="fs-4">
@@ -36,7 +59,10 @@ function SignedIn() {
                   <BlockButton
                     btnName="Kilépés"
                     variant="outline-danger"
-                    onClick={() => handleLogout()}
+                    onClick={() => {
+                      emptyCart();
+                      handleLogout();
+                    }}
                   >
                     Kilépés
                   </BlockButton>

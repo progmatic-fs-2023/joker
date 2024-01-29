@@ -13,16 +13,20 @@ import useAuth from '../hooks/useAuth';
 import { API_URL } from '../constants';
 import StarRating from '../components/micro/StarRating';
 import NotificationRequestModal from '../components/NotificationRequestModal';
+import StockAlertModal from '../components/micro/StockAlertModal';
+import LoginOrRegisterModal from '../components/micro/LoginOrRegisterModal';
 
 function Product() {
   const { id } = useParams();
   const { auth } = useAuth();
   const [stockItem, setStockItem] = useState(null);
-  const { addToCart: addToCartContext, setOrderId } = useCart();
+  const { cart, addToCart: addToCartContext, setOrderId } = useCart();
   const [qty, setQuantity] = useState(0);
   const [outOfStockNotification, setOutOfStockNotification] = useState(false);
+  const [showStockAlertModal, setShowStockAlertModal] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [feedback, setFeedback] = useState([]);
+  const [showLoginOrRegisterModal, setShowLoginOrRegisterModal] = useState(false);
 
   const fetchFeedback = async () => {
     const response = await fetch(`${API_URL}/herbs/feedback/${id}`);
@@ -56,6 +60,13 @@ function Product() {
 
   const { herbName, price, image, species, stockQuantity, details, rating } = stockItem;
 
+  const getTotalQuantityInCartForItem = (itemId) => {
+    const itemInCart = cart.find((item) => item.id === itemId);
+    return itemInCart ? itemInCart.quantity : 0;
+  };
+
+  const maxQuantityInCart = stockQuantity - getTotalQuantityInCartForItem(id);
+
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
@@ -68,9 +79,27 @@ function Product() {
     setOutOfStockNotification(false);
   };
 
+  const handleShowLoginOrRegisterModal = () => {
+    setShowLoginOrRegisterModal(true);
+  };
+
+  const handleCloseLoginOrRegisterModal = () => {
+    setShowLoginOrRegisterModal(false);
+  };
+
   const addToCart = async () => {
     if (qty <= 0) return;
+    const userRoles = ['SUPERADMIN', 'ADMIN', 'BASIC'];
+    if (!userRoles.includes(auth.role)) {
+      handleShowLoginOrRegisterModal();
+      return;
+    }
 
+    if (qty > maxQuantityInCart) {
+      setQuantity(0);
+      setShowStockAlertModal(true);
+      return;
+    }
     if (stockQuantity <= 0) {
       // Product is out of stock
       handleShowNotificationModal();
@@ -101,11 +130,6 @@ function Product() {
     setQuantity(0);
   };
 
-  // It is not neccessary function
-
-  // const addFeedback = (newFeedback) => {
-  //   setFeedback([...feedback, newFeedback]);
-  // };
   const onFeedbackUpdate = (feedbackId, updatedFeedback = null) => {
     if (updatedFeedback) {
       setFeedback((prevFeedback) =>
@@ -135,7 +159,17 @@ function Product() {
               <StarRating rating={rating} />
             </ListGroup.Item>
             <ListGroup.Item>
-              <Button variant="primary" onClick={() => setShowReview(!showReview)}>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  const userRoles = ['SUPERADMIN', 'ADMIN', 'BASIC'];
+                  if (!userRoles.includes(auth.role)) {
+                    handleShowLoginOrRegisterModal();
+                    return;
+                  }
+                  setShowReview(!showReview);
+                }}
+              >
                 Értékelés
               </Button>
             </ListGroup.Item>
@@ -146,7 +180,11 @@ function Product() {
       </Card.Body>
       <Card.Footer>
         <div className="d-flex justify-content-center align-items-center">
-          <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={qty} />
+          <QuantitySelector
+            onQuantityChange={handleQuantityChange}
+            initialQuantity={qty}
+            maxQuantity={stockQuantity}
+          />
         </div>
         {stockQuantity <= 0 ? (
           <Button variant="warning" onClick={handleShowNotificationModal}>
@@ -169,6 +207,15 @@ function Product() {
       <NotificationRequestModal
         show={outOfStockNotification}
         onClose={handleCloseNotificationModal}
+      />
+      <StockAlertModal
+        show={showStockAlertModal}
+        handleClose={() => setShowStockAlertModal(false)}
+        availableQuantity={maxQuantityInCart}
+      />
+      <LoginOrRegisterModal
+        show={showLoginOrRegisterModal}
+        onClose={handleCloseLoginOrRegisterModal}
       />
     </Card>
   );

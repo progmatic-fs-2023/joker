@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-function QuantitySelector({ onQuantityChange, initialQuantity }) {
+function QuantitySelector({ onQuantityChange, initialQuantity, maxQuantity }) {
   const [qty, setQuantity] = useState(initialQuantity || 0);
 
   useEffect(() => {
@@ -13,14 +13,21 @@ function QuantitySelector({ onQuantityChange, initialQuantity }) {
 
   const handleInputChange = (e) => {
     const inputValue = e.target.value;
-    const newQuantity = inputValue === '' ? 0 : parseInt(inputValue, 10);
+    let newQuantity = inputValue === '' ? 0 : parseInt(inputValue, 10);
+    if (newQuantity > maxQuantity) {
+      newQuantity = maxQuantity;
+    }
+
     setQuantity(newQuantity);
     onQuantityChange(newQuantity);
   };
 
   const increaseQuantity = () => {
-    setQuantity(qty + 1);
-    onQuantityChange(qty + 1);
+    if (qty < maxQuantity) {
+      const newQuantity = qty + 1;
+      setQuantity(newQuantity);
+      onQuantityChange(newQuantity);
+    }
   };
 
   const decreaseQuantity = () => {
@@ -57,6 +64,7 @@ function QuantitySelector({ onQuantityChange, initialQuantity }) {
 QuantitySelector.propTypes = {
   onQuantityChange: PropTypes.func.isRequired,
   initialQuantity: PropTypes.number,
+  maxQuantity: PropTypes.number.isRequired,
 };
 
 // Add defaultProps for initialQuantity

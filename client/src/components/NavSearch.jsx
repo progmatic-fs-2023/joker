@@ -153,7 +153,7 @@ function NavSearch() {
                   style={{ width: '100%', top: '38px', left: 0 }}
                 >
                   {suggestions.map((suggestion, index) => (
-                    <li key={suggestion.id || index} className="dropdown-item">
+                    <li key={suggestion.id || index} className="dropdown-item text-wrap">
                       {suggestion.type === 'category' ? (
                         <div
                           className="dropdown-header   no-hover"

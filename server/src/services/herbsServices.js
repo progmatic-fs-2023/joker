@@ -72,6 +72,10 @@ const updateHerbByID = async (id, updateObject) => {
 
 const removeHerbByID = async id => {
   try {
+    await prisma.feedback.deleteMany({
+      where: { herbID: id },
+    });
+
     const result = await prisma.herb.delete({
       where: { id },
     });
