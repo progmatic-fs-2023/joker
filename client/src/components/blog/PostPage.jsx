@@ -1,17 +1,17 @@
 import { useParams, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import { format } from 'date-fns';
+import DOMPurify from 'dompurify';
 import useBlog from '../../hooks/useBlog';
 import useAuth from '../../hooks/useAuth';
-import DivImage from '../micro/DivImage';
+// import FliudPic from '../micro/FliudPic';
+import ImageSliderMini from '../micro/ImageSliderMini';
 
 function PostPage() {
   const { id } = useParams();
   const { auth } = useAuth();
   const { posts, handleDelete } = useBlog();
-  // const { allPost, handleDelete } = useBlog();
-  const post = posts.find((singlePost) => singlePost.id.toString() === id);
-
+  const post = posts?.find((singlePost) => singlePost.id.toString() === id);
   return (
     <main className="post-page m-5 text-center">
       <article className="post">
@@ -19,14 +19,18 @@ function PostPage() {
           <div
             className="div-image mx-auto p-5"
             style={{
-              background: `white url(${post.pictures[0]})`,
+              background: `whitesmoke`,
               borderRadius: '14px',
             }}
           >
             <h2>{post.title}</h2>
             <p className="postDate">Létrehozva: {format(post.createdAt, 'yyyy-MM-dd ')}</p>
-            <DivImage />
-            <p className="postBody">{post.body}</p>
+            {/* {post.pictures[0] && post.pictures.map(img => <FliudPic imageSrc={img} width="20%" />)} */}
+            {post.pictures[0] && <ImageSliderMini images={post.pictures} />}
+            <div
+              className="postBody"
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.body) }}
+            />
             <p className="postRating">Értékelés: {post.rating}</p>
             <p className="postAuthor">
               Szerző: {post.authorFirstName} {post.authorLastName}

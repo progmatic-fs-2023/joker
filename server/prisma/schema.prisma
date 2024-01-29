@@ -23,7 +23,7 @@ model User {
   city             String?    @db.VarChar(64)
   postalCode       String?    @db.VarChar(32)
   streetAddress    String?    @db.VarChar(128)
-  phone            String?    @unique @db.VarChar(24)
+  phone            String?    @db.VarChar(24)
   avatar           String?    @db.VarChar(512)
   role             Role       @default(BASIC)
   cardPayments     Json?      @unique

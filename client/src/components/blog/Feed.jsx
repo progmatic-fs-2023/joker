@@ -5,7 +5,7 @@ function Feed() {
   const { posts, searchResults } = useBlog();
 
   return (
-    <main className="blog-home text-center">
+    <main className="blog-home text-center mx-auto my-2">
       {posts ? (
         <FeedList posts={searchResults} />
       ) : (

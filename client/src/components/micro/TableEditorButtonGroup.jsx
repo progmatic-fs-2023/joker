@@ -41,12 +41,13 @@ function TableEditorButtonGroup({
     </div>
   );
 }
+
 TableEditorButtonGroup.propTypes = {
-  deleteMe: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  modifyBtnState: PropTypes.bool.isRequired,
-  setModifyBtnState: PropTypes.func.isRequired,
-  cancelProcess: PropTypes.func.isRequired,
+  deleteMe: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  modifyBtnState: PropTypes.bool,
+  setModifyBtnState: PropTypes.func,
+  cancelProcess: PropTypes.func,
   currentHerb: PropTypes.shape({
     id: PropTypes.string,
     customerNote: PropTypes.string,
@@ -55,6 +56,14 @@ TableEditorButtonGroup.propTypes = {
     updatedAt: PropTypes.string,
     userID: PropTypes.string,
   }).isRequired,
+};
+
+TableEditorButtonGroup.defaultProps = {
+  deleteMe: undefined,
+  handleSubmit: undefined,
+  modifyBtnState: undefined,
+  setModifyBtnState: undefined,
+  cancelProcess: undefined,
 };
 
 export default TableEditorButtonGroup;

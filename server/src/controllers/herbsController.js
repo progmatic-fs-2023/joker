@@ -9,6 +9,26 @@ const herbsList = async (req, res) => {
   }
 };
 
+const newHerb = async (req, res) => {
+  console.log('request newHerb', req.body);
+  try {
+    const newHerbObject = { ...req.body };
+    if (
+      !newHerbObject.herbName ||
+      !newHerbObject.price ||
+      !newHerbObject.stockQuantity ||
+      !newHerbObject.details
+    ) {
+      return res.status(400).json({ 'Error message': 'Invalid form data, try again!' });
+    }
+    const result = await herbsServices.createNewHerb(newHerbObject);
+    res.status(201).json(result);
+  } catch (error) {
+    res.status(500).json({ error: 'Hiba a gyógynövény létrehozása közben.' });
+  }
+  return null;
+};
+
 const herbUpdate = async (req, res) => {
   try {
     const updateObject = { ...req.body };
@@ -98,6 +118,7 @@ const editFeedback = async (req, res) => {
 export default {
   herbsList,
   herb,
+  newHerb,
   feedback,
   feedbackByHerb,
   deleteFeedback,

@@ -47,11 +47,7 @@ function CardKitchenSink({ stockItem }) {
       return;
     }
 
-    // Test id for testing, in real use logged in user
-    // const testUserId = "b18c15d2-97f5-42a2-bc12-1fd94a2f97e9";
     const loggedInUser = auth.userId;
-    // console.log('testUserId:', loggedInUser)
-
     const response = await fetch(`${API_URL}/orders/addToCart`, {
       method: 'POST',
       headers: {
@@ -81,7 +77,9 @@ function CardKitchenSink({ stockItem }) {
         style={{ height: '200px', overflow: 'hidden', textAlign: 'center' }}
       >
         <Card.Title>{herbName}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">({species})</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">
+          <i>{species}</i>
+        </Card.Subtitle>
         <Image
           src={image[0]}
           alt={herbName}

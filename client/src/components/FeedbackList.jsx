@@ -137,14 +137,19 @@ function FeedbackList({ feedback, userId, onFeedbackUpdate }) {
 FeedbackList.propTypes = {
   feedback: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      body: PropTypes.string.isRequired,
-      rating: PropTypes.number.isRequired,
+      id: PropTypes.string,
+      title: PropTypes.string,
+      body: PropTypes.string,
+      rating: PropTypes.number,
     }),
-  ).isRequired,
-  userId: PropTypes.string.isRequired,
+  ),
+  userId: PropTypes.string,
   onFeedbackUpdate: PropTypes.func.isRequired,
+};
+
+FeedbackList.defaultProps = {
+  feedback: undefined,
+  userId: undefined,
 };
 
 export default FeedbackList;

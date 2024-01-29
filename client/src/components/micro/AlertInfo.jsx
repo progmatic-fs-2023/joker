@@ -1,12 +1,17 @@
 import Alert from 'react-bootstrap/Alert';
 import PropTypes from 'prop-types';
 
-function AlertInfo({ message, variant }) {
+function AlertInfo({ alertInfo, setAlertInfo }) {
   return (
     <>
       {/* {['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'].map((variant) => ( */}
-      <Alert key={variant} variant={variant}>
-        {message}
+      <Alert
+        key={alertInfo.variant}
+        variant={alertInfo.variant}
+        onClose={() => setAlertInfo({ ...alertInfo, show: false })}
+        dismissible
+      >
+        {alertInfo.message}
       </Alert>
       {/* ))} */}
     </>
@@ -14,8 +19,12 @@ function AlertInfo({ message, variant }) {
 }
 
 AlertInfo.propTypes = {
-  message: PropTypes.string.isRequired,
-  variant: PropTypes.string.isRequired,
+  alertInfo: PropTypes.shape({
+    show: PropTypes.bool,
+    message: PropTypes.string,
+    variant: PropTypes.string,
+  }).isRequired,
+  setAlertInfo: PropTypes.func.isRequired,
 };
 
 export default AlertInfo;

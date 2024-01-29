@@ -1,30 +1,27 @@
 import Form from 'react-bootstrap/Form';
+import PropTypes from 'prop-types';
 
-function FileInput() {
+function FileInput({ formRef, fileRef }) {
   return (
-    <>
-      {/* <Form.Group controlId="formFile" className="mb-3">
-        <Form.Label>Default file input example</Form.Label>
-        <Form.Control type="file" />
-      </Form.Group> */}
-      <Form.Group controlId="formFileMultiple" className="mb-3">
-        <Form.Label>Válaszd ki a feltöltendő képeket</Form.Label>
-        <Form.Control type="file" multiple accept="image/*" />
-      </Form.Group>
-      {/* <Form.Group controlId="formFileDisabled" className="mb-3">
-        <Form.Label>Disabled file input example</Form.Label>
-        <Form.Control type="file" disabled />
-      </Form.Group>
-      <Form.Group controlId="formFileSm" className="mb-3">
-        <Form.Label>Small file input example</Form.Label>
-        <Form.Control type="file" size="sm" />
-      </Form.Group>
-      <Form.Group controlId="formFileLg" className="mb-3">
-        <Form.Label>Large file input example</Form.Label>
-        <Form.Control type="file" size="lg" />
-      </Form.Group> */}
-    </>
+    <Form.Group controlId="myFiles" className="mb-3" ref={formRef}>
+      <Form.Label>Válaszd ki a feltöltendő képeket</Form.Label>
+      <Form.Control name="file" type="file" ref={fileRef} multiple accept="image/*" />
+    </Form.Group>
   );
 }
+
+FileInput.propTypes = {
+  formRef: PropTypes.shape({
+    current: PropTypes.shape({}),
+  }),
+  fileRef: PropTypes.shape({
+    current: PropTypes.shape({}),
+  }),
+};
+
+FileInput.defaultProps = {
+  formRef: undefined,
+  fileRef: undefined,
+};
 
 export default FileInput;

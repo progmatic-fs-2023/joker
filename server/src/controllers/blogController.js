@@ -24,6 +24,7 @@ const blogsList = async (req, res) => {
       res.status(200).json(posts);
     } else if (!author && userId) {
       const posts = await blogServices.getAllPostsOfUser(userId);
+      // TODO replace with object key+value delete
       reduced.id = posts[0].id;
       reduced.title = posts[0].title;
       reduced.body = posts[0].body;
@@ -34,6 +35,7 @@ const blogsList = async (req, res) => {
       res.status(200).json(reduced);
     } else if (!userId && author) {
       const posts = await blogServices.getAllPostsOfUser(author);
+      // TODO replace with object key+value delete
       reduced.id = posts[0].id;
       reduced.title = posts[0].title;
       reduced.body = posts[0].body;
@@ -58,7 +60,7 @@ const newPost = async (req, res) => {
     title: req.body?.title || null,
     body: req.body?.body || null,
     authorId: req.body?.authorId || null,
-    // pictures: req.body?.pictures
+    pictures: req.body?.pictures || [],
   };
   if (!newBlog.title || !newBlog.body || !newBlog.authorId) {
     return res.status(400).json({ 'Error message': 'More lines are required to fill out!' });

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
+import uniqueKeyGenerator from '../helpers/uniqueKeyGenerator';
 
 function FilterArea({ categories, handleCategoryClick, handleSortChange }) {
   const handleDropdown = (target) => {
@@ -24,6 +25,7 @@ function FilterArea({ categories, handleCategoryClick, handleSortChange }) {
       <DropdownButton as={ButtonGroup} title="Szűrés" id="bg-nested-dropdown">
         {categories.map((category) => (
           <Dropdown.Item
+            key={uniqueKeyGenerator()}
             as={Button}
             eventKey={category}
             value={category}

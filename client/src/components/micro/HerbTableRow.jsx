@@ -26,9 +26,10 @@ function HerbTableRow({ herb, index, deleteMe, handleSubmit, cancelProcess }) {
           <h6>{herb.herbName}</h6>
         </Link>
       </td>
+      <td>{herb.order}</td>
       <td>{herb.family}</td>
       <td>{herb.genus}</td>
-      <td>{herb.order}</td>
+      <td>{herb.species}</td>
       <td>{herb.price}</td>
       <td>{herb.stockQuantity}</td>
       <td>{herb.nextDelivery}</td>
@@ -48,24 +49,32 @@ function HerbTableRow({ herb, index, deleteMe, handleSubmit, cancelProcess }) {
 
 HerbTableRow.propTypes = {
   herb: PropTypes.shape({
-    herbName: PropTypes.string.isRequired,
-    species: PropTypes.string.isRequired,
-    family: PropTypes.string.isRequired,
-    genus: PropTypes.string.isRequired,
-    order: PropTypes.string.isRequired,
-    nextDelivery: PropTypes.string.isRequired,
-    image: PropTypes.arrayOf(PropTypes.string).isRequired,
-    stockQuantity: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    details: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
-    rating: PropTypes.number.isRequired,
-    sort: PropTypes.func.isRequired,
-  }).isRequired,
-  index: PropTypes.number.isRequired,
-  deleteMe: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  cancelProcess: PropTypes.func.isRequired,
+    herbName: PropTypes.string,
+    species: PropTypes.string,
+    family: PropTypes.string,
+    genus: PropTypes.string,
+    order: PropTypes.string,
+    nextDelivery: PropTypes.string,
+    image: PropTypes.arrayOf(PropTypes.string),
+    stockQuantity: PropTypes.number,
+    price: PropTypes.number,
+    details: PropTypes.string,
+    id: PropTypes.string,
+    rating: PropTypes.number,
+    sort: PropTypes.func,
+  }),
+  index: PropTypes.number,
+  deleteMe: PropTypes.func,
+  handleSubmit: PropTypes.func,
+  cancelProcess: PropTypes.func,
+};
+
+HerbTableRow.defaultProps = {
+  herb: PropTypes.shape({}),
+  index: undefined,
+  deleteMe: undefined,
+  handleSubmit: undefined,
+  cancelProcess: undefined,
 };
 
 export default HerbTableRow;
