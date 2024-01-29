@@ -228,16 +228,28 @@ const updateClosedOrder = async (orderID, herbs) => {
 
 const deleteOrderById = async orderID => {
   try {
-    const items = await prisma.herbOnOrder.findMany({
-      where: { orderID },
+    // Először lekérdezzük a rendelés státuszát
+    const order = await prisma.order.findUnique({
+      where: { id: orderID },
     });
-    const updatePromises = items.map(item =>
-      prisma.herb.update({
-        where: { id: item.herbID },
-        data: { stockQuantity: { increment: item.quantity } },
-      }),
-    );
-    await Promise.all(updatePromises);
+
+    if (!order) {
+      throw new Error('A rendelés nem található.');
+    }
+
+    if (order.status !== 'CART') {
+      const items = await prisma.herbOnOrder.findMany({
+        where: { orderID },
+      });
+      const updatePromises = items.map(item =>
+        prisma.herb.update({
+          where: { id: item.herbID },
+          data: { stockQuantity: { increment: item.quantity } },
+        }),
+      );
+      await Promise.all(updatePromises);
+    }
+
     await prisma.herbOnOrder.deleteMany({
       where: { orderID },
     });
@@ -271,11 +283,6 @@ const removeItemFromOrder = async (orderID, herbID) => {
       if (!item) {
         throw new Error('A termék nem található a rendelésben.');
       }
-
-      await prisma.herb.update({
-        where: { id: herbID },
-        data: { stockQuantity: { increment: item.quantity } },
-      });
 
       await prisma.herbOnOrder.delete({
         where: {

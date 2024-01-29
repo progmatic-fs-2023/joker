@@ -11,16 +11,27 @@ import QuantitySelector from './QuantitySelector';
 import DetailsModal from './DeatilsModal';
 import NotificationRequestModal from './NotificationRequestModal';
 import StarRating from './micro/StarRating';
+import StockAlertModal from './micro/StockAlertModal';
+import LoginOrRegisterModal from './micro/LoginOrRegisterModal';
 import { API_URL } from '../constants';
 
 function CardKitchenSink({ stockItem }) {
   const { auth } = useAuth();
-  const { addToCart: addToCartContext, setOrderId } = useCart();
+  const { cart, addToCart: addToCartContext, setOrderId } = useCart();
   const { herbName, price, image, species, id, stockQuantity, rating } = stockItem;
   const [qty, setQuantity] = useState(0);
   const [outOfStockNotification, setOutOfStockNotification] = useState(false);
+  const [showStockAlertModal, setShowStockAlertModal] = useState(false);
   const navigate = useNavigate();
   const [lgShow, setLgShow] = useState(false);
+  const [showLoginOrRegisterModal, setShowLoginOrRegisterModal] = useState(false);
+
+  const getTotalQuantityInCartForItem = (itemId) => {
+    const itemInCart = cart.find((item) => item.id === itemId);
+    return itemInCart ? itemInCart.quantity : 0;
+  };
+
+  const maxQuantityInCart = stockQuantity - getTotalQuantityInCartForItem(id);
 
   const navigateToProduct = () => {
     navigate(`/product/${stockItem.id}`, { state: { stockItem } });
@@ -38,8 +49,27 @@ function CardKitchenSink({ stockItem }) {
     setOutOfStockNotification(false);
   };
 
+  const handleShowLoginOrRegisterModal = () => {
+    setShowLoginOrRegisterModal(true);
+  };
+
+  const handleCloseLoginOrRegisterModal = () => {
+    setShowLoginOrRegisterModal(false);
+  };
+
   const addToCart = async () => {
     if (qty <= 0) return;
+    const userRoles = ['SUPERADMIN', 'ADMIN', 'BASIC'];
+    if (!userRoles.includes(auth.role)) {
+      handleShowLoginOrRegisterModal();
+      return;
+    }
+
+    if (qty > maxQuantityInCart) {
+      setQuantity(0);
+      setShowStockAlertModal(true);
+      return;
+    }
 
     if (stockQuantity <= 0) {
       // Product is out of stock
@@ -119,7 +149,11 @@ function CardKitchenSink({ stockItem }) {
         className="pt-1"
         style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
       >
-        <QuantitySelector onQuantityChange={handleQuantityChange} initialQuantity={qty} />
+        <QuantitySelector
+          onQuantityChange={handleQuantityChange}
+          initialQuantity={qty}
+          maxQuantity={stockQuantity}
+        />
         {stockQuantity <= 0 ? (
           <BlockButton
             size="m"
@@ -141,6 +175,15 @@ function CardKitchenSink({ stockItem }) {
       <NotificationRequestModal
         show={outOfStockNotification}
         onClose={handleCloseNotificationModal}
+      />
+      <StockAlertModal
+        show={showStockAlertModal}
+        handleClose={() => setShowStockAlertModal(false)}
+        availableQuantity={maxQuantityInCart}
+      />
+      <LoginOrRegisterModal
+        show={showLoginOrRegisterModal}
+        onClose={handleCloseLoginOrRegisterModal}
       />
     </Card>
   );

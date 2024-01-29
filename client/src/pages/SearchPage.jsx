@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, NavLink, useNavigate } from 'react-router-dom';
+import { useLocation, NavLink } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -17,7 +17,6 @@ function SearchPage() {
   });
   const { auth } = useAuth();
   const location = useLocation();
-  const navigate = useNavigate();
 
   const fetchSearchResults = async (query) => {
     try {
@@ -102,11 +101,7 @@ function SearchPage() {
                     <Card.Body>
                       <Card.Title>
                         <NavLink
-                          to={
-                            auth === 'SUPERADMIN'
-                              ? navigate(`/post/${post.id}`)
-                              : navigate(`/read/${post.id}`)
-                          }
+                          to={auth === 'SUPERADMIN' ? `/post/${post.id}` : `/read/${post.id}`}
                           className="text-decoration-none"
                         >
                           {post.title}
