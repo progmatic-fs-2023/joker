@@ -7,11 +7,18 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import { AUTH_URL } from '../constants';
+import AlertInfo from './micro/AlertInfo';
 
 function Register() {
   const userRef = useRef();
   const errRef = useRef();
   const navigate = useNavigate();
+
+  const [alertInfo, setAlertInfo] = useState({
+    show: false,
+    message: '',
+    variant: 'info',
+  });
 
   const [user, setUser] = useState('');
   const [validName, setValidName] = useState(false);
@@ -61,14 +68,22 @@ function Register() {
         body: JSON.stringify({ user, pwd }),
         credentials: 'include',
       };
-      const answer = await fetch(`${AUTH_URL}/register`, fetchOptions);
-      await answer.json();
-      setSuccess(true);
-      // clear all state and controlled inputs
-      setUser('');
-      setPwd('');
-      setMatchPwd('');
-      navigate('/login');
+      const response = await fetch(`${AUTH_URL}/register`, fetchOptions);
+      const result = await response.json();
+      if (!response.ok) {
+        setAlertInfo({
+          show: true,
+          message: `${result.message}`,
+          variant: 'danger',
+        });
+        // clear all state and controlled inputs
+        setUser('');
+        setPwd('');
+        setMatchPwd('');
+      } else {
+        setSuccess(true);
+        navigate('/login');
+      }
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response');
@@ -82,9 +97,10 @@ function Register() {
   };
 
   return (
-    <div className="p-2 my-5 mx-auto text-center">
+    <div className="my-5 mx-auto text-center">
+      {alertInfo.show && <AlertInfo alertInfo={alertInfo} setAlertInfo={setAlertInfo} />}
       {success ? (
-        <Card style={{ width: '400px', margin: '0 auto' }}>
+        <Card style={{ maxWidth: '500px' }}>
           <Card.Body>
             <h1>Sikeres regisztráció</h1>
             <p>

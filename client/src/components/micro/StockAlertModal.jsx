@@ -2,14 +2,16 @@ import PropTypes from 'prop-types';
 import { Modal, Button } from 'react-bootstrap';
 
 function StockAlertModal({ show, handleClose, availableQuantity }) {
+  const message =
+    availableQuantity > 0
+      ? `Csak ${availableQuantity} érhető el.`
+      : 'A kívánt mennyiség nem áll rendelkezésre.';
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Készlet Információ</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        {availableQuantity} {availableQuantity === 1 ? 'elérhető' : 'elérhető'}
-      </Modal.Body>
+      <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Bezár

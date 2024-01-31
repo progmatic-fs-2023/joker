@@ -23,7 +23,7 @@ function ImageSlider() {
       <Carousel.Item>
         <Image src={Slide2} fluid text="Second slide" />
         <Carousel.Caption>
-          <h3>Gyógynövények meghülésre</h3>
+          <h3>Gyógynövények meghűlésre</h3>
           <p>
             Gyógynövények, mint például a kamilla, eukaliptusz és bodza, hasznosak lehetnek megfázás
             tüneteinek enyhítésében. A citromfű nyugtató hatású, míg a gyömbér gyulladáscsökkentő

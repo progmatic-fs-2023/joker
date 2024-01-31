@@ -10,7 +10,7 @@ const handleLogin = async (req, res) => {
       message: 'Username and password required!',
     });
   const foundUser = await usersServices.getUserByEmail(user);
-  if (!foundUser) return res.sendStatus(401);
+  if (!foundUser) return res.status(401).json({ message: `User email  ${user} not found!` });
   if (!foundUser.verified) return res.status(401).json({ message: 'Verify your email address!' });
   const match = await bcrypt.compare(pwd, foundUser.password);
   if (match) {
@@ -45,7 +45,7 @@ const handleLogin = async (req, res) => {
     // });
     res.status(201).json({ userName, userId, role, accessToken });
   } else {
-    res.status(401).json({ error: `User ${user} wrong password!` });
+    res.status(401).json({ message: `Wrong password: ${user}` });
   }
   return null;
 };

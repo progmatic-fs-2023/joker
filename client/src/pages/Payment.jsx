@@ -9,8 +9,8 @@ function Payment() {
     return (
       <Alert variant="danger" onClose={() => setShow(false)} dismissible>
         <Alert.Heading>Mivel tudok a Webshopban fizetni?</Alert.Heading>
+        <h6>Jelenleg csak utánvétes fizetésre van lehetőség!</h6>
         <p>
-          <h1>Jelenleg csak utánvétes fizetésre van lehetőség!</h1>
           Hogyan működik az utánvétes fizetés? Utánvétes rendelés esetén a megrendelés teljes
           összegét a terméket kiszállító futárszolgálat munkatársának készpénzben, vagy
           bankkártyával kell teljesíteni. Az átvételnél nincs lehetőség vásárlási utalványok, egyéb

@@ -10,6 +10,7 @@ function AlertInfo({ alertInfo, setAlertInfo }) {
         variant={alertInfo.variant}
         onClose={() => setAlertInfo({ ...alertInfo, show: false })}
         dismissible
+        className="mx-auto my-5 w-75 text-center"
       >
         {alertInfo.message}
       </Alert>

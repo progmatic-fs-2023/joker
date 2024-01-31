@@ -141,7 +141,7 @@ function Product() {
   };
 
   return (
-    <Card className="mb-3 text-center">
+    <Card className="text-center">
       <Card.Header>{herbName}</Card.Header>
       <Card.Body>
         <Image

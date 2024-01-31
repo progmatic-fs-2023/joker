@@ -16,39 +16,54 @@ const getAllBlog = async (req, res) => {
 const blogsList = async (req, res) => {
   // TODO Bearer -> userId
   try {
-    const userId = req.body?.id;
-    const author = req.headers?.user;
-    const reduced = {};
-    if (!userId && !author) {
-      const posts = await blogServices.getAllPosts();
-      res.status(200).json(posts);
-    } else if (!author && userId) {
-      const posts = await blogServices.getAllPostsOfUser(userId);
-      // TODO replace with object key+value delete
-      reduced.id = posts[0].id;
-      reduced.title = posts[0].title;
-      reduced.body = posts[0].body;
-      reduced.datetime = posts[0].createdAt;
-      reduced.rating = posts[0].rating;
-      reduced.authorFirstName = posts[0].authorUser?.firstName;
-      reduced.authorLastName = posts[0].authorUser?.lastName;
-      res.status(200).json(reduced);
-    } else if (!userId && author) {
-      const posts = await blogServices.getAllPostsOfUser(author);
-      // TODO replace with object key+value delete
-      reduced.id = posts[0].id;
-      reduced.title = posts[0].title;
-      reduced.body = posts[0].body;
-      reduced.datetime = posts[0].createdAt;
-      reduced.rating = posts[0].rating;
-      reduced.authorFirstName = posts[0].authorUser?.firstName;
-      reduced.authorLastName = posts[0].authorUser?.lastName;
-      res.status(200).json(reduced);
-    }
+    // const userId = req.body?.id || false;
+    // const author = req.headers?.user || false;
+    // const reduced = {};
+    // console.log('try userId, author:', userId, author)
+    const posts = await blogServices.getAllPosts();
+    // if (!userId && !author) {
+    //   console.log('!userId && !author')
+    //   res.status(200).json(posts);
+    // } else if (!author && userId) {
+    //   console.log('!author && userId')
+    //   const posts = await blogServices.getAllPostsOfUser(userId);
+    //   // TODO replace with object key+value delete
+    //   reduced.id = posts[0].id;
+    //   reduced.title = posts[0].title;
+    //   reduced.body = posts[0].body;
+    //   reduced.datetime = posts[0].createdAt;
+    //   reduced.rating = posts[0].rating;
+    //   reduced.authorFirstName = posts[0].authorUser?.firstName;
+    //   reduced.authorLastName = posts[0].authorUser?.lastName;
+    //   res.status(200).json(reduced);
+    // } else if (!userId && author) {
+    //   console.log('!userId && author')
+    //   const posts = await blogServices.getAllPostsOfUser(author);
+    //   // TODO replace with object key+value delete
+    //   reduced.id = posts[0].id;
+    //   reduced.title = posts[0].title;
+    //   reduced.body = posts[0].body;
+    //   reduced.datetime = posts[0].createdAt;
+    //   reduced.rating = posts[0].rating;
+    //   reduced.authorFirstName = posts[0].authorUser?.firstName;
+    //   reduced.authorLastName = posts[0].authorUser?.lastName;
+    //   res.status(200).json(reduced);
+    // }
+    // console.log(posts)
+    // reduced.id = posts[0].id;
+    // reduced.title = posts[0].title;
+    // reduced.body = posts[0].body;
+    // reduced.datetime = posts[0].createdAt;
+    // reduced.rating = posts[0].rating;
+    // reduced.authorFirstName = posts[0].authorUser?.firstName;
+    // reduced.authorLastName = posts[0].authorUser?.lastName;
+    // res.status(200).json(reduced);
+
+    res.status(200).json(posts);
   } catch (error) {
     console.error(error);
     res.status(500).json({
-      error: 'Hiba történt az összes poszt lekérdezése közben.',
+      message: 'Hiba az összes poszt lekérdezésénél.',
       details: error.message,
     });
   }

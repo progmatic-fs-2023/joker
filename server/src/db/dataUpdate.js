@@ -798,7 +798,7 @@ const userUpdate = async ( email ) => {
       email
     },
     data: {
-      role: 'ADMIN',
+      role: 'BASIC',
       verified: true
     }
   })
@@ -882,9 +882,10 @@ const blogUpdate = async () => {
 
 const main = async () => {
   herbUpdate()
-  // userUpdate("editor@mail.com") // Password$123
+  // userUpdate("user@mail.com") // Password$123
+  // editorUpdate("editor@mail.com") // Password$123
   // superuserUpdate("superuser@mail.com") // Password$123
-  // blogUpdate()
+  blogUpdate()
 };
 
 main()

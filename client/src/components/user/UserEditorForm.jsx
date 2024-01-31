@@ -4,20 +4,14 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import { API_URL } from '../constants';
-import AlertDismissible from '../components/micro/AlertDismissible';
-import useAuth from '../hooks/useAuth';
+import AlertDismissible from '../micro/AlertDismissible';
+import useAuth from '../../hooks/useAuth';
 
-function UserPage({
-  user,
-  setAlertInfo,
-  fetchUsersList,
-  userEditable,
-  setUserEditable,
-  handleUserDelete,
-}) {
+function UserEditorForm({ user, handleUserDelete, handleSubmit }) {
   const { auth } = useAuth();
+
   const [currentUser, setCurrentUser] = useState({
+    id: user.id,
     role: user.role,
     verified: user.verified,
     firstName: user.firstName,
@@ -49,60 +43,28 @@ function UserPage({
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const fetchOptions = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ ...currentUser }),
-    };
-    const response = await fetch(`${API_URL}/users/${user.id}`, fetchOptions);
-    if (!response) {
-      setAlertInfo({
-        show: true,
-        message: 'Nem sikerült elmenteni az adatokat!',
-        variant: 'danger',
-      });
-    } else {
-      // navigate('/lounge')
-      // TODO error handling with red alert! empty the inputs
-      const modifiedUser = await response.json();
-      setCurrentUser({
-        role: modifiedUser.role,
-        verified: modifiedUser.verified,
-        firstName: modifiedUser.firstName,
-        lastName: modifiedUser.lastName,
-        phone: modifiedUser.phone,
-        streetAddress: modifiedUser.streetAddress,
-        city: modifiedUser.city,
-        country: modifiedUser.country,
-        postalCode: modifiedUser.postalCode,
-      });
-      fetchUsersList();
-      setShowAlert(true);
-      setUserEditable(true);
-    }
-  };
-
   return (
     currentUser && (
       <div
-        className="px-2 py-1"
+        id="user-editor-form"
+        className="p-2 mx-auto"
         style={{
           opacity: '90%',
-          maxWidth: '80%',
-          margin: 'auto',
+          maxWidth: '90%',
           color: 'whitesmoke',
           backgroundColor: '#212529',
           borderRadius: '8px',
         }}
       >
-        <div>
+        <div className="text-center">
           {auth && auth?.role === 'BASIC' && (
-            <Button className="mx-auto" variant="outline-danger" onClick={handleUserDelete}>
-              Felhasználó törlése
+            <Button
+              type="button"
+              className="mx-auto"
+              variant="outline-danger"
+              onClick={() => handleUserDelete(auth.userId)}
+            >
+              Fiókom törlése
             </Button>
           )}
         </div>
@@ -113,16 +75,16 @@ function UserPage({
           setShowAlert={setShowAlert}
           showAlert={showAlert}
         />
-        <Form onSubmit={handleSubmit} className="m-5">
-          {auth && auth?.role === 'SUPERADMIN' ? (
+        <Form onSubmit={(e) => handleSubmit(e, currentUser)} className="m-5">
+          {auth && auth?.role === 'SUPERADMIN' && (
             <Row className="mb-2">
               <Form.Group as={Col} controlId="roleState">
                 <Form.Label>Szerepkör</Form.Label>
                 <Form.Select
+                  disabled={auth?.role === currentUser.role}
                   ref={roleSelect}
-                  disabled={userEditable}
                   name="role"
-                  defaultValue={user.role}
+                  value={currentUser.role}
                   onChange={(e) => handleInputChange(e)}
                 >
                   <option>BASIC</option>
@@ -136,9 +98,9 @@ function UserPage({
                 id="formGridCheckbox"
               >
                 <Form.Check
+                  disabled={auth?.role === currentUser.role}
                   form-switch="true"
                   ref={verifiedCheckbox}
-                  disabled={userEditable}
                   defaultChecked={user.verified}
                   type="checkbox"
                   label={`Felhasználó ${user.verified ? 'aktív' : 'inaktív'}`}
@@ -146,7 +108,7 @@ function UserPage({
                 />
               </Form.Group>
             </Row>
-          ) : null}
+          )}
           <Row className="mb-3">
             <Form.Group as={Col} controlId="email">
               <Form.Label>Felhasználónév</Form.Label>
@@ -161,22 +123,20 @@ function UserPage({
             <Form.Group as={Col} controlId="lastName">
               <Form.Label>Vezetéknév</Form.Label>
               <Form.Control
-                disabled={userEditable}
                 name="lastName"
                 onChange={(e) => handleInputChange(e)}
                 type="lastName"
-                value={currentUser.lastName}
+                value={currentUser.lastName || ''}
                 placeholder={`${user.lastName || 'nincs megadva'}`}
               />
             </Form.Group>
             <Form.Group as={Col} controlId="firstName">
               <Form.Label>Keresztnév</Form.Label>
               <Form.Control
-                disabled={userEditable}
                 name="firstName"
                 onChange={(e) => handleInputChange(e)}
                 type="firstName"
-                value={currentUser.firstName}
+                value={currentUser.firstName || ''}
                 placeholder={`${user.firstName || 'nincs megadva'}`}
               />
             </Form.Group>
@@ -205,22 +165,20 @@ function UserPage({
           <Form.Group className="mb-3" controlId="streetAddress">
             <Form.Label>Cím</Form.Label>
             <Form.Control
-              disabled={userEditable}
               name="streetAddress"
               onChange={(e) => handleInputChange(e)}
               type="text"
-              value={currentUser.streetAddress}
+              value={currentUser.streetAddress || ''}
               placeholder={`${user.streetAddress || 'nincs megadva'}`}
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="phone">
             <Form.Label>Telefonszám (pl. 36301234567)</Form.Label>
             <Form.Control
-              disabled={userEditable}
               name="phone"
               type="text"
               onChange={(e) => handleInputChange(e)}
-              value={currentUser.phone}
+              value={currentUser.phone || ''}
               placeholder={`${user.phone || 'nincs megadva'}`}
             />
           </Form.Group>
@@ -228,11 +186,10 @@ function UserPage({
             <Form.Group as={Col} controlId="city">
               <Form.Label>Város</Form.Label>
               <Form.Control
-                disabled={userEditable}
                 name="city"
                 type="text"
                 onChange={(e) => handleInputChange(e)}
-                value={currentUser.city}
+                value={currentUser.city || ''}
                 placeholder={`${user.city || 'nincs megadva'}`}
               />
             </Form.Group>
@@ -240,9 +197,8 @@ function UserPage({
               <Form.Label>Ország</Form.Label>
               <Form.Select
                 ref={countrySelect}
-                disabled={userEditable}
                 name="country"
-                defaultValue={user.country}
+                value={currentUser.country}
                 onChange={(e) => handleInputChange(e)}
               >
                 <option>Válassz...</option>
@@ -258,16 +214,15 @@ function UserPage({
             <Form.Group as={Col} controlId="postalCode">
               <Form.Label>Irányítószám</Form.Label>
               <Form.Control
-                disabled={userEditable}
                 name="postalCode"
                 type="text"
                 onChange={(e) => handleInputChange(e)}
-                value={currentUser.postalCode}
+                value={currentUser.postalCode || ''}
                 placeholder={`${user.postalCode || 'nincs megadva'}`}
               />
             </Form.Group>
           </Row>
-          <Button variant="success" type="submit" disabled={userEditable}>
+          <Button variant="success" type="submit">
             Mentés
           </Button>
         </Form>
@@ -276,7 +231,7 @@ function UserPage({
   );
 }
 
-UserPage.propTypes = {
+UserEditorForm.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.string,
     email: PropTypes.string,
@@ -294,14 +249,11 @@ UserPage.propTypes = {
     length: PropTypes.func,
     slice: PropTypes.func,
   }),
-  setAlertInfo: PropTypes.func,
-  fetchUsersList: PropTypes.func,
-  userEditable: PropTypes.bool,
-  setUserEditable: PropTypes.func,
   handleUserDelete: PropTypes.func,
+  handleSubmit: PropTypes.func,
 };
 
-UserPage.defaultProps = {
+UserEditorForm.defaultProps = {
   user: PropTypes.shape({
     id: PropTypes.string,
     email: PropTypes.string,
@@ -319,11 +271,8 @@ UserPage.defaultProps = {
     length: PropTypes.func,
     slice: PropTypes.func,
   }),
-  setAlertInfo: undefined,
-  fetchUsersList: undefined,
-  userEditable: undefined,
-  setUserEditable: undefined,
   handleUserDelete: undefined,
+  handleSubmit: undefined,
 };
 
-export default UserPage;
+export default UserEditorForm;

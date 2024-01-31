@@ -11,9 +11,9 @@ router
   .post(blogController.newPost)
   .put(blogController.updatePost)
   .delete(blogController.deletePost);
-// .post(verifyRoles('SUPERADMIN', 'ADMIN'), blogController.createNewBlog)
-// .put(verifyRoles('SUPERADMIN', 'ADMIN'), blogController.updateBlog)
-// .delete(verifyRoles('SUPERADMIN'), blogController.deleteBlog);
+// .post(verifyRoles('SUPERADMIN', 'ADMIN'), blogController.newPost)
+// .put(verifyRoles('SUPERADMIN', 'ADMIN'), blogController.updatePost)
+// .delete(verifyRoles('SUPERADMIN'), blogController.deletePost);
 
 router.route('/:id').get(blogController.blogsList).delete(blogController.deletePost);
 

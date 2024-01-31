@@ -27,7 +27,9 @@ function SingleOrderItem({ singleOrder, deleteMe, saveModifiedOrder }) {
           currentOrder={singleOrder}
         />
       ) : (
-        <small>A rendelés törléséhez írjon az info@herbalism.hu email címre!</small>
+        <small>
+          A rendelés törléséhez illetve módosításához írjon az info@herbalism.hu email címre!
+        </small>
       )}
       <h5>Rendelésszám: {singleOrder.id}</h5>
       <p>
