@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
+import { useCart } from '../../hooks/useCart';
 import { API_URL } from '../../constants';
 import OrderAccordion from '../secure/OrderAccordion';
 
 function OrderEditor() {
   const { data } = useFetch(`${API_URL}/orders`);
   const [allOrders, setAllOrders] = useState([]);
-
+  const { clearCart } = useCart();
   const fetchOrders = async () => {
     const response = await fetch(`${API_URL}/orders`);
     if (!response.ok) {
@@ -54,6 +55,7 @@ function OrderEditor() {
     }
     await response.json();
     fetchOrders();
+    clearCart();
   };
 
   useEffect(() => {
