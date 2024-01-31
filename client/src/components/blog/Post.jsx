@@ -12,6 +12,7 @@ function Post({ post }) {
         <p className="postDate">{post.datetime}</p>
       </Link>
       <div
+        style={{ color: 'whitesmoke' }}
         className="postBody"
         dangerouslySetInnerHTML={{
           __html: DOMPurify.sanitize(`${bodyToText.substring(0, 100)}...`),

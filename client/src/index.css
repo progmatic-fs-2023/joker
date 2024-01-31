@@ -3,6 +3,7 @@
 * {
   margin: 0;
   font-family: 'Quicksand', sans-serif;
+  /* color: whitesmoke; */
 }
 
  body {
@@ -33,11 +34,11 @@
 }
 
 .blog-home {
-  color: whitesmoke;
+  color: grey;
 }
 
 .blog-title {
-  color: whitesmoke;
+  color: grey;
 }
 
 .new-herb-form input {
@@ -70,4 +71,18 @@
 .hovertext:hover:before {
   opacity: 1;
   visibility: visible;
+}
+
+@media screen and (max-width: 1024px) {
+  #user-editor-panel {
+    max-width: 97% !important;
+  }
+  /* #user-editor-form {
+    max-width: 97% !important;
+    padding: 0;
+    margin:  auto;
+  } */
+  /* .form-control {
+    width: auto;
+  } */
 }

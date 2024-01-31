@@ -14,7 +14,7 @@ function PostPage() {
   const post = posts?.find((singlePost) => singlePost.id.toString() === id);
   return (
     <main className="post-page m-5 text-center">
-      <article className="post">
+      <article className="post mx-auto" style={{ maxWidth: '90%' }}>
         {post && (
           <div
             className="div-image mx-auto p-5"

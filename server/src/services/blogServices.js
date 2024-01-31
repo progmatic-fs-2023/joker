@@ -8,12 +8,11 @@ const getAllPosts = async () => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma disconnected');
   }
-  return null;
 };
 
 const createNewPost = async newPost => {
@@ -29,12 +28,11 @@ const createNewPost = async newPost => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma disconnected');
   }
-  return null;
 };
 
 const getAllPostsOfUser = async authorID => {
@@ -50,12 +48,11 @@ const getAllPostsOfUser = async authorID => {
     return posts;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma getAllPostsOfUser finished');
   }
-  return null;
 };
 
 const findPost = async id => {
@@ -71,12 +68,11 @@ const findPost = async id => {
     return post;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma findPost finished');
   }
-  return null;
 };
 
 const readPost = async id => {
@@ -91,12 +87,11 @@ const readPost = async id => {
     return post;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma readPost finished');
   }
-  return null;
 };
 
 const deletePostById = async id => {
@@ -108,12 +103,11 @@ const deletePostById = async id => {
     return post;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma deletePost finished');
   }
-  return null;
 };
 
 export default {

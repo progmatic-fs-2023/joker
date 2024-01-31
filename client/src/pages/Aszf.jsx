@@ -1,6 +1,6 @@
 function ASZF() {
   return (
-    <div>
+    <div className="p-5" style={{ color: 'whitesmoke' }}>
       <p>ÁLTALÁNOS SZERZŐDÉSI FELTÉTELEK (ÁSZF)</p>
       <p>
         <strong>1. Felek</strong>

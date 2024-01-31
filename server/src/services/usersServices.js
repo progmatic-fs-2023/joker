@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import crypto from 'node:crypto';
-import verifyEmail from '../mail/verifyEmail';
+// import verifyEmail from '../mail/verifyEmail';
 
 const prisma = new PrismaClient();
 
@@ -10,11 +10,10 @@ const getAllUsers = async () => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const getUserByID = async id => {
@@ -25,11 +24,10 @@ const getUserByID = async id => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const getUserByEmail = async email => {
@@ -40,11 +38,10 @@ const getUserByEmail = async email => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const createNewUser = async (user, hashedPwd) => {
@@ -61,15 +58,14 @@ const createNewUser = async (user, hashedPwd) => {
     // if (result) {
     //   verifyEmail(result.email, result.verifyString);
     // }
-    verifyEmail(result.email, result.verifyString);
+    // verifyEmail(result.email, result.verifyString);
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const findUserByVerifyString = async verifyString => {
@@ -80,11 +76,10 @@ const findUserByVerifyString = async verifyString => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const updateUserByVerifyString = async userId => {
@@ -97,11 +92,10 @@ const updateUserByVerifyString = async userId => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const findUserByRefreshToken = async refreshToken => {
@@ -109,15 +103,13 @@ const findUserByRefreshToken = async refreshToken => {
     const result = await prisma.user.findFirst({
       where: { refreshToken },
     });
-    // console.log(result);
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const updateUserRefreshToken = async (id, refreshToken) => {
@@ -126,15 +118,13 @@ const updateUserRefreshToken = async (id, refreshToken) => {
       where: { id },
       data: { refreshToken },
     });
-    // console.log(result);
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const updateUserData = async (id, updateObject) => {
@@ -147,11 +137,10 @@ const updateUserData = async (id, updateObject) => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const deleteUserRefreshToken = async id => {
@@ -164,27 +153,38 @@ const deleteUserRefreshToken = async id => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const deleteUserByID = async id => {
   try {
+    const ordersFound = await prisma.order.findMany({
+      where: { userID: id },
+      include: { quantity: true },
+    });
+    const updatePromises = ordersFound.map(item =>
+      prisma.herbOnOrder.deleteMany({
+        where: { orderID: item.id },
+      }),
+    );
+    await Promise.all(updatePromises);
+    await prisma.order.deleteMany({
+      where: { userID: id },
+    });
     const result = await prisma.user.delete({
       where: { id },
     });
-    console.log('user deleted:', result);
+    console.log('deleted user:', result);
     return result;
   } catch (err) {
-    console.error(err);
-    process.exit(1);
+    console.error('deleteUserByID:', err);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 export default {

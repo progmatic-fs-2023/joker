@@ -10,10 +10,7 @@ function PostIntro({ postObject }) {
   const bodyToText = clearedBody.replace(/(<([^>]+)>)/gi, '');
   const postAge = (format(postObject.createdAt, 'yyyyMMdd') - format(Date.now(), 'yyyyMMdd')) * -1;
   return (
-    <Card
-      className="text-center mx-auto w-75"
-      style={{ backgroundColor: '#3B403B', color: 'whitesmoke' }}
-    >
+    <Card className="text-center mx-auto w-75">
       <Card.Header style={{ color: '#C899CF' }}>
         {postAge < 2 ? 'Friss cikk! Érdemes elolvasni!' : ''}
       </Card.Header>

@@ -4,7 +4,11 @@ import uniqueKeyGenerator from '../../helpers/uniqueKeyGenerator';
 
 function ImageSliderMini({ images }) {
   return (
-    <Carousel data-bs-theme="dark" className="mx-auto w-50" style={{ boxShadow: '1px 3px 5px' }}>
+    <Carousel
+      data-bs-theme="dark"
+      className="mx-auto my-3 w-50"
+      style={{ boxShadow: '1px 3px 5px' }}
+    >
       {images.map((img) => (
         <Carousel.Item key={uniqueKeyGenerator()}>
           <img className="d-block w-100" src={img} alt={img} />

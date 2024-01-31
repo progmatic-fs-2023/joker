@@ -9,12 +9,11 @@ const getAllHerbs = async () => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma disconnected');
   }
-  return null;
 };
 
 const getHerbByID = async id => {
@@ -28,12 +27,11 @@ const getHerbByID = async id => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma disconnected');
   }
-  return null;
 };
 
 const createNewHerb = async newHerb => {
@@ -44,12 +42,11 @@ const createNewHerb = async newHerb => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma disconnected');
   }
-  return null;
 };
 
 const updateHerbByID = async (id, updateObject) => {
@@ -62,12 +59,11 @@ const updateHerbByID = async (id, updateObject) => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma disconnected');
   }
-  return null;
 };
 
 const removeHerbByID = async id => {
@@ -83,12 +79,11 @@ const removeHerbByID = async id => {
     return result;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma disconnected');
   }
-  return null;
 };
 
 const updateHerbRating = async herbID => {
@@ -113,11 +108,10 @@ const updateHerbRating = async herbID => {
     return averageRating;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const createFeedback = async (title, body, authorID, herbID, rating) => {
@@ -131,17 +125,14 @@ const createFeedback = async (title, body, authorID, herbID, rating) => {
         rating,
       },
     });
-
     await updateHerbRating(herbID);
-
     return feedback;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const getFeedbackByHerbID = async herbID => {
@@ -158,15 +149,13 @@ const getFeedbackByHerbID = async herbID => {
         },
       },
     });
-
     return feedback;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const deleteFeedback = async (feedbackId, userId) => {
@@ -188,11 +177,10 @@ const deleteFeedback = async (feedbackId, userId) => {
     return deletedFeedback;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const editFeedback = async (feedbackId, userId, updatedData) => {
@@ -217,11 +205,10 @@ const editFeedback = async (feedbackId, userId, updatedData) => {
     return updatedFeedback;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 export default {

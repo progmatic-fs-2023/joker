@@ -36,7 +36,6 @@ function SignedIn() {
   return (
     <Navbar className="fs-4">
       <Container>
-        {/* <Navbar.Brand as={NavLink} to='/dashboard'>Dashboard</Navbar.Brand> */}
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="mx-1 ">
@@ -48,13 +47,33 @@ function SignedIn() {
                 <Dropdown.Item as={NavLink} to="/lounge" className="fs-5">
                   Lounge
                 </Dropdown.Item>
-                <Dropdown.Item as={NavLink} to="/orderlist" className="fs-5">
-                  Rendeléseim
-                </Dropdown.Item>
-                <Dropdown.Item as={NavLink} to="/user" className="fs-5">
-                  Adataim
-                </Dropdown.Item>
                 <Dropdown.Divider />
+                {auth.role === 'BASIC' ? (
+                  <>
+                    <Dropdown.Item as={NavLink} to="/orderlist" className="fs-5">
+                      Rendeléseim
+                    </Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/user" className="fs-5">
+                      Adataim
+                    </Dropdown.Item>
+                  </>
+                ) : null}
+                {/* {auth.role && ADMIN_ROLES.includes(auth.role) && (
+                  <>
+                    <Dropdown.Item as={NavLink} to="/usereditor" className="fs-5">
+                      Felhasználók
+                    </Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/herbeditor" className="fs-5">
+                      Gyógynövények
+                    </Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/feed" className="fs-5">
+                      Cikkek
+                    </Dropdown.Item>
+                    <Dropdown.Item as={NavLink} to="/ordereditor" className="fs-5">
+                      Megrendelések
+                    </Dropdown.Item>
+                  </>
+                )} */}
                 <Dropdown.Item>
                   <BlockButton
                     btnName="Kilépés"
@@ -70,8 +89,8 @@ function SignedIn() {
               </Dropdown.Menu>
             </Dropdown>
           </Nav>
-          <Navbar.Text className="fs-5 p-0 ms-3">Belépve: {auth.user}</Navbar.Text>
         </Navbar.Collapse>
+        <Navbar.Text className="fs-5 p-0 ms-3">Belépve: {auth.user}</Navbar.Text>
       </Container>
     </Navbar>
   );

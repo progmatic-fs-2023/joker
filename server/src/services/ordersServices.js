@@ -18,12 +18,11 @@ const getOrderById = async orderId => {
     return order;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma getOrderById finished');
   }
-  return null;
 };
 
 // for testing the endpoint only
@@ -41,12 +40,11 @@ const getAllOrders = async () => {
     return order;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma getAllOrders finished');
   }
-  return null;
 };
 
 const getAllOrdersOfUser = async userID => {
@@ -65,12 +63,11 @@ const getAllOrdersOfUser = async userID => {
     return order;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma getAllOrdersOfUser finished');
   }
-  return null;
 };
 
 const createOrder = async (userId, herbID, quantity) => {
@@ -105,12 +102,11 @@ const createOrder = async (userId, herbID, quantity) => {
     });
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma createOrder finished');
   }
-  return null;
 };
 
 const updateCartItem = async (orderID, herbID, newQuantity) => {
@@ -129,12 +125,11 @@ const updateCartItem = async (orderID, herbID, newQuantity) => {
     return order;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma updateCartItem finished');
   }
-  return null;
 };
 
 const finalizeOrder = async orderID => {
@@ -185,50 +180,65 @@ const finalizeOrder = async orderID => {
     return updatedOrder;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma finalizeOrder finished');
   }
-  return null;
 };
 
 const updateClosedOrder = async (orderID, herbs) => {
   try {
     const order = await prisma.order.findUnique({
       where: { id: orderID },
-      include: { quantity: true },
+      include: { quantity: { include: { targetHerb: true } } },
     });
-    const updatePromises = order.quantity.map(item => {
-      const filterResult = herbs.filter(filtered => filtered.herbID === item.herbID);
-      return prisma.herbOnOrder.update({
+
+    const updatePromises = order.quantity.map(async item => {
+      const herbToUpdate = herbs.find(herb => herb.herbID === item.herbID);
+      if (!herbToUpdate) return null;
+
+      const { newQty } = herbToUpdate;
+      const stockQty = item.targetHerb.stockQuantity;
+      const originalQty = item.quantity;
+
+      if (newQty > originalQty && newQty - originalQty > stockQty) {
+        throw new Error(`Insufficient stock for the herb: ${item.targetHerb.herbName}`);
+      }
+
+      // Update herbOnOrder quantity
+      await prisma.herbOnOrder.update({
         where: {
           herbID_orderID: {
-            herbID: filterResult[0].herbID,
+            herbID: herbToUpdate.herbID,
             orderID,
           },
         },
-        data: { quantity: filterResult[0].newQty },
+        data: { quantity: newQty },
+      });
+
+      // Update stock quantity
+      const stockUpdateValue = originalQty - newQty;
+      return prisma.herb.update({
+        where: { id: herbToUpdate.herbID },
+        data: { stockQuantity: { increment: stockUpdateValue } },
       });
     });
+
     await Promise.all(updatePromises);
-    const updatedOrder = await prisma.order.findFirst({
-      where: { id: orderID },
-    });
-    return updatedOrder;
+    return await prisma.order.findFirst({ where: { id: orderID } });
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    // Instead of process.exit, consider returning an error response
+    return { error: err.message };
   } finally {
     await prisma.$disconnect();
     console.log('Prisma updateClosedOrder finished');
   }
-  return null;
 };
 
 const deleteOrderById = async orderID => {
   try {
-    // Először lekérdezzük a rendelés státuszát
     const order = await prisma.order.findUnique({
       where: { id: orderID },
     });
@@ -259,12 +269,11 @@ const deleteOrderById = async orderID => {
     return deletedOrder;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma deleteOrderById finished');
   }
-  return null;
 };
 
 const removeItemFromOrder = async (orderID, herbID) => {
@@ -306,12 +315,11 @@ const removeItemFromOrder = async (orderID, herbID) => {
     return item;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma RemoveItemFromOrder finished');
   }
-  return null;
 };
 
 const clearCartAndCheckOrder = async orderID => {
@@ -340,12 +348,11 @@ const clearCartAndCheckOrder = async orderID => {
     });
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
     console.log('Prisma clearCartAndCheckOrder  finished');
   }
-  return null;
 };
 
 export default {

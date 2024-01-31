@@ -23,7 +23,7 @@ EditorButtonGroup.propTypes = {
   currentOrder: PropTypes.shape({
     id: PropTypes.string,
     customerNote: PropTypes.string,
-    quantity: PropTypes.arrayOf({}),
+    quantity: PropTypes.arrayOf(),
     status: PropTypes.string,
     updatedAt: PropTypes.string,
     userID: PropTypes.string,

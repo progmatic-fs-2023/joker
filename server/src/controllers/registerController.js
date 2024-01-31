@@ -9,14 +9,14 @@ const handleNewUser = async (req, res) => {
     });
   // check for duplicate in the DB
   const duplicate = await usersServices.getUserByEmail(user);
-  if (duplicate) return res.status(409).json({ conflict: `Username ${user} alredy exist!` }); // Conflict http status code
+  if (duplicate) return res.status(409).json({ message: `Username ${user} alredy exist!` }); // Conflict http status code
   try {
     // hash/encrypt the password
     const hashedPwd = await bcrypt.hash(pwd, 10); // 10 salt is the default in bcrypt
     // create and store the new user in DB
     const result = await usersServices.createNewUser(user, hashedPwd);
     console.log('new user created:', result);
-    res.status(201).json({ success: `New user ${user} created!` });
+    res.status(201).json({ message: `New user ${user} created!` });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -32,7 +32,7 @@ const handleUserVerify = async (req, res) => {
       const verifiedUser = await usersServices.updateUserByVerifyString(result.id);
       res
         .status(201)
-        .json({ success: `User email ${verifiedUser.email} verified! Now you can login!` });
+        .json({ message: `User email ${verifiedUser.email} verified! Now you can login!` });
     } else {
       res.status(401).json({ message: `New user verification error, try again!` });
     }

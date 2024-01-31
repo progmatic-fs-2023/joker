@@ -33,7 +33,7 @@ function verifyEmail(receiver, verifyString) {
     // text: `Kedves XYZ! Köszönjük, hogy nálunk vásárolsz! A rendelésed tételei egyesével a következők:`,
     html: `<h3 style="text-align: center, color: cadetblue" >Kedves ${receiver}!</h3>
     <p>Köszönjük, hogy regisztráltál webshopunkba!</p>
-    <p>A regisztrációd megerősítését a következő linkre kattintva tudod megtenni: <a href=http://localhost:3000/register/${verifyString}><strong>igen, regisztrálok!</strong></a></p>
+    <p>A regisztrációd megerősítését a következő linkre kattintva tudod megtenni: <a href=https://verify.herbalism.hu:4999/register/${verifyString}><strong>igen, regisztrálok!</strong></a></p>
     <p>Üdvözlettel: Herbalism.hu csapata</p>`,
   };
   transporter.sendMail(message, (error, success) => {

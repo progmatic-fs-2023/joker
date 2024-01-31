@@ -4,17 +4,17 @@ import Button from 'react-bootstrap/Button';
 function Unauthorized() {
   const navigate = useNavigate();
 
-  // const goBack = () => navigate(-1, { replace: true });
-  const goBack = () => navigate('/login');
+  const goBack = () => navigate(-1, { replace: true });
+  // const goBack = () => navigate('/login');
 
   return (
-    <div className="text-center">
-      <h1>Unauthorized!</h1>
+    <div className="text-center" style={{ color: 'whitesmoke' }}>
+      <h1>Hitelesítési hiba!</h1>
       <br />
-      <p>You do not have access to the requested page.</p>
+      <p>Jelenleg nincs jogosultságod a kért lap megtekintéséhez.</p>
       <div>
         <Button variant="primary" type="button" onClick={goBack}>
-          Go Back
+          Vissza
         </Button>
       </div>
     </div>

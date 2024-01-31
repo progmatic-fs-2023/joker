@@ -75,7 +75,7 @@ function NewHerbData({ handleSendNewHerbData, fileRef, formRef, setShowNewHerbFo
             Rend
             <Form.Control
               required
-              name="family"
+              name="order"
               type="text"
               value={newHerb.order}
               onChange={(e) => handleInputChange(e)}
@@ -87,7 +87,7 @@ function NewHerbData({ handleSendNewHerbData, fileRef, formRef, setShowNewHerbFo
             Család
             <Form.Control
               required
-              name="genus"
+              name="family"
               type="text"
               value={newHerb.family}
               onChange={(e) => handleInputChange(e)}
@@ -99,7 +99,7 @@ function NewHerbData({ handleSendNewHerbData, fileRef, formRef, setShowNewHerbFo
             Nemzetség
             <Form.Control
               required
-              name="order"
+              name="genus"
               type="text"
               value={newHerb.genus}
               onChange={(e) => handleInputChange(e)}
@@ -111,7 +111,7 @@ function NewHerbData({ handleSendNewHerbData, fileRef, formRef, setShowNewHerbFo
             Faj
             <Form.Control
               required
-              name="order"
+              name="species"
               type="text"
               value={newHerb.species}
               onChange={(e) => handleInputChange(e)}

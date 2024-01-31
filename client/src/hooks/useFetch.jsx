@@ -3,22 +3,28 @@ import { useState, useEffect } from 'react';
 const useFetch = (url, fetchOptions, trigger = url) => {
   const [data, setData] = useState(null);
   const [isPending, setisPending] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     try {
       (async () => {
         const response = await fetch(url, fetchOptions);
-        const result = await response.json();
+        // console.log('useFetch triggered:', response)
+        if (!response.ok) {
+          const errorMessage = await response.json();
+          // console.log('fetchError:', errorMessage.message)
+          setError(errorMessage);
+        } else {
+          const result = await response.json();
+          setData(result);
+          setisPending(false);
+        }
         // console.log('useFetch triggered:', result)
-        setData(result);
-        setisPending(false);
-        setError(null);
       })();
     } catch (err) {
       setisPending(false);
       setError(err.message);
-      throw new Error('Could not fetch the data', err);
+      // throw new Error('Could not fetch the data', err);
     }
   }, [trigger]);
   return { data, isPending, error };

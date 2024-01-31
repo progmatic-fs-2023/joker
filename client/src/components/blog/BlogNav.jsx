@@ -1,14 +1,14 @@
 import { Link } from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
-import useBlog from '../../hooks/useBlog';
+// import useBlog from '../../hooks/useBlog';
 // import TextInput from '../micro/TextInput';
 
 function BlogNav() {
-  const { search, setSearch } = useBlog();
+  // const { search, setSearch } = useBlog();
   return (
     <div className="text-center">
       {/* <TextInput /> */}
-      <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
+      {/* <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
         <input
           style={{ width: '35vw', borderRadius: '6px', padding: '5px' }}
           id="search"
@@ -17,7 +17,7 @@ function BlogNav() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-      </form>
+      </form> */}
       <Nav variant="tabs" defaultActiveKey="link-1">
         <Nav.Item>
           <Nav.Link as={Link} to="feed" eventKey="link-1">

@@ -38,11 +38,10 @@ const searchPostsAndFeedbacks = async query => {
     return { posts, feedbacks, herbs };
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 const getSuggestions = async query => {
@@ -101,11 +100,10 @@ const getSuggestions = async query => {
     return suggestions;
   } catch (err) {
     console.error(err);
-    process.exit(1);
+    return err;
   } finally {
     await prisma.$disconnect();
   }
-  return null;
 };
 
 export default { searchPostsAndFeedbacks, getSuggestions };

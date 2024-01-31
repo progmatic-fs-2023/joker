@@ -11,21 +11,35 @@ const BlogContext = createContext({});
 
 export function BlogProvider({ children }) {
   const { auth } = useAuth();
-  const [posts, setPosts] = useState([]);
+  const fetchOptions = {
+    method: 'GET',
+    // TODO verify the user trough middleware
+    // headers: {
+    //   'Content-Type': 'application/json',
+    //   authorization: `Bearer ${auth.accessToken}`,
+    //   user: `${auth.userId}`,
+    // },
+    // credentials: 'include',
+  };
   const location = useLocation();
-  const { data: allPost } = useFetch(`${API_URL}/blog`, { method: 'GET' }, location);
+  const { data: allPost } = useFetch(`${API_URL}/blog`, fetchOptions, location);
 
   const [search, setSearch] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
   const [postPictureLink, setPostPictureLink] = useState('');
+  const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   console.log('useFetch error', error);
+  // }, [error]);
 
   useEffect(() => {
     setPosts(allPost);
     if (posts) {
-      const filteredResults = posts.filter(
+      const filteredResults = posts?.filter(
         (post) =>
           post.body.toLowerCase().includes(search.toLowerCase()) ||
           post.title.toLowerCase().includes(search.toLowerCase()),
@@ -74,13 +88,13 @@ export function BlogProvider({ children }) {
         const fileUploadResult = await sendFiles();
         fileUploadResult.pictures.forEach((pic) => newPost.pictures.push(pic));
       }
-      const fetchOptions = {
+      const fetchSubmitOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...newPost }),
         credentials: 'include',
       };
-      await fetch(`${API_URL}/blog`, fetchOptions);
+      await fetch(`${API_URL}/blog`, fetchSubmitOptions);
       // clear all state and controlled inputs
       setPostTitle('');
       setPostBody('');
@@ -94,13 +108,13 @@ export function BlogProvider({ children }) {
   };
 
   const handleDelete = async (id) => {
-    const fetchOptions = {
+    const fetchDeleteOptions = {
       method: 'DELETE',
       // TODO verify the user trough middleware
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
     };
-    const response = await fetch(`${API_URL}/blog/${id}`, fetchOptions);
+    const response = await fetch(`${API_URL}/blog/${id}`, fetchDeleteOptions);
     if (!response.ok) {
       throw new Error(`Couldn't fetch user data, status: ${response.status}`);
     }
