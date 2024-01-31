@@ -6,17 +6,27 @@
   /* color: whitesmoke; */
 }
 
- body {
+body {
   background-image: url('./assets/wp2136802.jpg');
   background-position: top;
   margin: 10;
   background-color: hsla(153, 96%, 82%, 0.278);
   height: auto;
-}  
+}
 
 .navbar {
   background-color: #3e9e77 !important;
   color: aquamarine;
+}
+
+#content {
+  flex: 1;
+}
+
+#main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .navfooter {
