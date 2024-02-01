@@ -39,7 +39,7 @@ function SuccessfulOrder() {
   if (!orderDetails) {
     return (
       <div>
-        <h2>A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
+        <h2 className="modifiedTextColor">A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
         <p>
           Próbáld meg újra vagy vedd fel velünk a kapcsolatot az{' '}
           <a href="mailto:ugyfelszolgalat@herbalism.hu">ugyfelszolgalat@herbalism.hu</a> email
@@ -51,7 +51,7 @@ function SuccessfulOrder() {
   }
 
   return (
-    <div className="order-summarized mx-auto w-75">
+    <div className="order-summarized mx-auto w-75 modifiedTextColor">
       <h2>Rendelés azonosító: {orderDetails.id}</h2>
       <ul className="mx-auto d-flex flex-wrap justify-content-center gap-4">
         {orderDetails.quantity.map((item, index) => (

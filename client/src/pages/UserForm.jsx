@@ -88,9 +88,9 @@ function UserForm() {
         <Col md={6}>
           <div className="form-container">
             <Form className="shipping-form" onSubmit={handleSubmit}>
-              <h3>Kapcsolattartási adatok</h3>
+              <h3 className="modifiedTextColor">Kapcsolattartási adatok</h3>
               <Form.Group controlId="first-name">
-                <Form.Label>Keresztnév</Form.Label>
+                <Form.Label className="modifiedTextColor">Keresztnév</Form.Label>
                 <Form.Control
                   type="text"
                   name="firstName"
@@ -101,7 +101,7 @@ function UserForm() {
                 />
               </Form.Group>
               <Form.Group controlId="last-name">
-                <Form.Label>Vezetéknév</Form.Label>
+                <Form.Label className="modifiedTextColor">Vezetéknév</Form.Label>
                 <Form.Control
                   type="text"
                   name="lastName"
@@ -112,7 +112,7 @@ function UserForm() {
                 />
               </Form.Group>
               <Form.Group controlId="email">
-                <Form.Label>Email</Form.Label>
+                <Form.Label className="modifiedTextColor">Email</Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
@@ -123,7 +123,7 @@ function UserForm() {
                 />
               </Form.Group>
               <Form.Group controlId="phone-number">
-                <Form.Label>Telefonszám</Form.Label>
+                <Form.Label className="modifiedTextColor">Telefonszám</Form.Label>
                 <Form.Control
                   type="tel"
                   name="phoneNumber"
@@ -134,9 +134,9 @@ function UserForm() {
                 />
               </Form.Group>
 
-              <h3>Szállítási cím</h3>
+              <h3 className="modifiedTextColor">Szállítási cím</h3>
               <Form.Group controlId="address">
-                <Form.Label>Cím</Form.Label>
+                <Form.Label className="modifiedTextColor">Cím</Form.Label>
                 <Form.Control
                   type="text"
                   name="address"
@@ -147,7 +147,7 @@ function UserForm() {
                 />
               </Form.Group>
               <Form.Group controlId="zip-code">
-                <Form.Label>Irányítószám</Form.Label>
+                <Form.Label className="modifiedTextColor">Irányítószám</Form.Label>
                 <Form.Control
                   type="text"
                   name="zipCode"
@@ -157,7 +157,7 @@ function UserForm() {
                 />
               </Form.Group>
               <Form.Group controlId="city">
-                <Form.Label>Város</Form.Label>
+                <Form.Label className="modifiedTextColor">Város</Form.Label>
                 <Form.Control
                   type="text"
                   name="city"
@@ -167,7 +167,7 @@ function UserForm() {
                 />
               </Form.Group>
               <Form.Group controlId="country">
-                <Form.Label>Ország</Form.Label>
+                <Form.Label className="modifiedTextColor">Ország</Form.Label>
                 <Form.Control
                   type="text"
                   name="country"
@@ -180,6 +180,7 @@ function UserForm() {
               <Payment />
               <Form.Group controlId="terms">
                 <Form.Check
+                  className="modifiedTextColor"
                   type="checkbox"
                   label="Elfogadom az általános szerződési feltételeket."
                   name="terms"
@@ -195,7 +196,7 @@ function UserForm() {
         <Col md={6}>
           {cart.length > 0 && (
             <>
-              <h3>Rendelt termékek</h3>
+              <h3 className="modifiedTextColor">Rendelt termékek</h3>
               <ListGroup>
                 {cart.map((item) => (
                   <ListGroup.Item key={item.id}>

@@ -83,6 +83,10 @@ body {
   visibility: visible;
 }
 
+.modifiedTextColor{
+  color: rgb(245, 245, 245);
+}
+
 @media screen and (max-width: 1024px) {
   #user-editor-panel {
     max-width: 97% !important;
