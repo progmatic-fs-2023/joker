@@ -39,7 +39,7 @@ function SuccessfulOrder() {
   if (!orderDetails) {
     return (
       <div>
-        <h2 className='modifiedTextColor'>A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
+        <h2 className="modifiedTextColor">A rendelés véglegesítése sikertelen! 🤷‍♂️</h2>
         <p>
           Próbáld meg újra vagy vedd fel velünk a kapcsolatot az{' '}
           <a href="mailto:ugyfelszolgalat@herbalism.hu">ugyfelszolgalat@herbalism.hu</a> email
