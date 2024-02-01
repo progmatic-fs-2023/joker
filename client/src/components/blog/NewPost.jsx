@@ -24,8 +24,8 @@ function NewPost() {
 
   return (
     <main className="create-blog">
-      <h3 className="text-center my-3">Új bejegyzés</h3>
-      <div className="mx-auto w-50 text-center">
+      <h3 className="text-center my-3 modifiedTextColor">Új bejegyzés</h3>
+      <div className="mx-auto w-50 text-center modifiedTextColor">
         <FileInput formRef={formRef} fileRef={fileRef} handleFileUploadBtn={handleFileUploadBtn} />
         <Form.Control
           placeholder="a bejegyzés címe"
