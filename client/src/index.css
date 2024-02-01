@@ -21,6 +21,7 @@
 
 .navfooter {
   background-color: #3e9e77 !important;
+  margin-top: 1em;
 }
 
 .text-underline-hover:hover {
@@ -29,8 +30,11 @@
 }
 
 .shop {
-  background-image: url('./assets/wood.jpg');
+  background-image: url('./assets/wood.jpg') ;
   background-position: top;
+  background-size: auto;
+  background-position-y: center;
+  background-position-x: 100vh;
 }
 
 .blog-home {
@@ -85,4 +89,16 @@
   /* .form-control {
     width: auto;
   } */
+}
+#content {
+  flex: 1;
+}
+
+#main-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.modifiedTextColor{
+  color: rgb(245, 245, 245);
 }

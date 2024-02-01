@@ -52,8 +52,8 @@ function SuccessfulOrder() {
 
   return (
     <div className="order-summarized mx-auto w-75">
-      <h2>Rendelés azonosító: {orderDetails.id}</h2>
-      <ul className="mx-auto d-flex flex-wrap justify-content-center gap-4">
+      <h2 className="modifiedTextColor">Rendelés azonosító: {orderDetails.id}</h2>
+      <ul className="mx-auto d-flex flex-wrap justify-content-center modifiedTextColor gap-4">
         {orderDetails.quantity.map((item, index) => (
           <OrderedItem
             key={uniqueKeyGenerator(index)}
@@ -67,7 +67,7 @@ function SuccessfulOrder() {
           />
         ))}
       </ul>
-      <h3>Összesen fizetendő: {totalPrice} Ft</h3>
+      <h3 className="modifiedTextColor">Összesen fizetendő: {totalPrice} Ft</h3>
     </div>
   );
 }
