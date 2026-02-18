@@ -38,6 +38,11 @@ function CardKitchenSink({ stockItem }) {
 
   const addToCart = async () => {
     if (qty <= 0) return;
+    const userRoles = ["SUPERADMIN", "ADMIN", "BASIC"]
+    if(!userRoles.includes(auth.role)){
+      navigate('/login')
+      return null;
+    }
 
     if (stockQuantity <= 0) {
       // Product is out of stock

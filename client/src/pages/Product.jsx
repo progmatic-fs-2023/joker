@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
@@ -16,6 +16,7 @@ import NotificationRequestModal from '../components/NotificationRequestModal';
 function Product() {
   const { id } = useParams();
   const { auth } = useAuth();
+  const navigate = useNavigate();
   const [stockItem, setStockItem] = useState(null);
   const { addToCart: addToCartContext, setOrderId } = useCart();
   const [qty, setQuantity] = useState(0);
@@ -69,6 +70,12 @@ function Product() {
 
   const addToCart = async () => {
     if (qty <= 0) return;
+
+    const userRoles = ["SUPERADMIN", "ADMIN", "BASIC"]
+    if(!userRoles.includes(auth.role)){
+      navigate('/login')
+      return null;
+    }
 
     if (stockQuantity <= 0) {
       // Product is out of stock
